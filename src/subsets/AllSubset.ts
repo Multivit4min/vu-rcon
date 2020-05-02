@@ -1,8 +1,8 @@
-import { Subset } from "./Subset"
+import { PlayerSubsetAbstract } from "./PlayerSubsetAbstract"
 
-export class AllSubset extends Subset {
+export class AllSubset extends PlayerSubsetAbstract {
 
-  readonly subset = Subset.Type.ALL
+  readonly subset = PlayerSubsetAbstract.Type.ALL
 
   serializeable() {
     return [this.subset]

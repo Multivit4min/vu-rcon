@@ -1,5 +1,5 @@
 import { Player } from "../nodes/Player"
-import { Subset } from "../subsets/Subset"
+import { PlayerSubsetAbstract } from "../subsets/PlayerSubsetAbstract"
 import { Weapon } from "../weapons/Weapon"
 
 export interface OnRoundOver {
@@ -62,20 +62,20 @@ export type PlayerOnChat = PlayerOnChatTeam|PlayerOnChatSquad|PlayerOnChatPlayer
 export interface PlayerOnChatBase {
   player: Player|"Server"
   msg: string
-  subset: Subset.Type
+  subset: PlayerSubsetAbstract.Type
 }
 export interface PlayerOnChatTeam extends PlayerOnChatBase {
-  subset: Subset.Type.TEAM
+  subset: PlayerSubsetAbstract.Type.TEAM
   team: number
 }
 export interface PlayerOnChatSquad extends PlayerOnChatBase {
-  subset: Subset.Type.SQUAD
+  subset: PlayerSubsetAbstract.Type.SQUAD
   team: number
   squad: number
 }
 export interface PlayerOnChatPlayer extends PlayerOnChatBase {
-  subset: Subset.Type.PLAYER
+  subset: PlayerSubsetAbstract.Type.PLAYER
 }
 export interface PlayerOnChatAll extends PlayerOnChatBase {
-  subset: Subset.Type.ALL
+  subset: PlayerSubsetAbstract.Type.ALL
 }

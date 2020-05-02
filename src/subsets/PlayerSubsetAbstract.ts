@@ -1,7 +1,7 @@
-export abstract class Subset {
+export abstract class PlayerSubsetAbstract {
   abstract serializeable(): string[]
 }
-export namespace Subset {
+export namespace PlayerSubsetAbstract {
   
   /**
    * all - sends to all players

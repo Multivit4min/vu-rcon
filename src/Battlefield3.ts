@@ -1,11 +1,14 @@
 import { Rcon } from "./Rcon"
 import { Word } from "./protocol/Word"
 import { Player } from "./nodes/Player"
-import { Subset } from "./subsets/Subset"
+import { PlayerSubsetAbstract } from "./subsets/PlayerSubsetAbstract"
 import { AllSubset } from "./subsets/AllSubset"
 import { Weapon } from "./weapons/Weapon"
 import * as Event from "./types/Event"
 import { EventEmitter } from "events"
+import { Timeout } from "./subsets/Timeout"
+import { IdType } from "./subsets/IdType"
+import { Ban } from "./util/Ban"
 
 export interface Battlefield3 {
   on(event: "chat", handler: (data: Event.PlayerOnChat) => void): this
@@ -41,7 +44,7 @@ export class Battlefield3 extends EventEmitter {
     const { password, ...rest } = options
     const bf3 = new Battlefield3(rest)
     await bf3.login(options.password)
-    await bf3.listPlayers()
+    await bf3.getPlayers()
     await bf3.eventsEnabled(true)
     return bf3
   }
@@ -60,8 +63,20 @@ export class Battlefield3 extends EventEmitter {
       case "server.onMaxPlayerCountChange": return this.onMaxPlayerCountChange(words)
       case "server.onLevelLoaded": return this.onLevelLoaded(words)
       case "server.onRoundOver": return this.onRoundOver(words)
+      case "server.onRoundOverPlayers": return this.onRoundOverPlayers(words)
+      case "server.onRoundOverTeamScores": return this.onRoundOverTeamScores(words)
       default: console.log("unhandled event", event, words.map(w => w.toString()))
     }
+  }
+
+  private onRoundOverTeamScores(words: Word[]) {
+    //@todo
+    console.log("onRoundOverTeamScores", words.map(w => w.toString()))
+  }
+
+  private onRoundOverPlayers(words: Word[]) {
+    //@todo
+    console.log("onRoundOverPlayers", words.map(w => w.toString()))
   }
 
   private onRoundOver(words: Word[]) {
@@ -152,11 +167,11 @@ export class Battlefield3 extends EventEmitter {
     const event: Partial<Event.PlayerOnChat> = {
       player,
       msg: words[1].toString(),
-      subset: words[2].toString() as Subset.Type
+      subset: words[2].toString() as PlayerSubsetAbstract.Type
     }
-    if (event.subset === Subset.Type.TEAM) {
+    if (event.subset === PlayerSubsetAbstract.Type.TEAM) {
       event.team = words[3].toNumber()
-    } else if (event.subset === Subset.Type.SQUAD) {
+    } else if (event.subset === PlayerSubsetAbstract.Type.SQUAD) {
       event.team = words[3].toNumber()
       event.squad = words[4].toNumber()
     }
@@ -202,8 +217,9 @@ export class Battlefield3 extends EventEmitter {
 
   /**
    * return list of all players on the server, but with zeroed out GUIDs
+   * @todo fix remove when only specific subset is selected
    */
-  listPlayers(subset: string = "all"): Promise<Player[]> {
+  getPlayers(subset: string = "all"): Promise<Player[]> {
     return this.rcon
       .createCommand<Battlefield3.ListPlayer>("admin.listPlayers", subset)
       .format(this.parseClientList())
@@ -283,7 +299,7 @@ export class Battlefield3 extends EventEmitter {
    * @param msg message to send
    * @param subset subset to send message to
    */
-  say(msg: string, subset: Subset = new AllSubset()) {
+  say(msg: string, subset: PlayerSubsetAbstract = new AllSubset()) {
     return this.rcon.createCommand("admin.say", msg, ...subset.serializeable()).send()
   }
 
@@ -320,7 +336,7 @@ export class Battlefield3 extends EventEmitter {
    * Retrieves a single player by its name
    */
   getPlayerByName(name: string) {
-    return this.listPlayers().then(players => players.find(p => p.name === name))
+    return this.getPlayers().then(players => players.find(p => p.name === name))
   }
 
   /**
@@ -328,7 +344,7 @@ export class Battlefield3 extends EventEmitter {
    */
   async getPlayersByName(names: string[]|Record<string, string>) {
     const ns = Array.isArray(names) ? names = Object.fromEntries(names.map(n => [n, n])) : names
-    let players = await this.listPlayers()
+    let players = await this.getPlayers()
     players = players.filter(p => Object.values(ns).includes(p.name))
     return Object.fromEntries(Object.keys(ns).map(n => [n, players.find(p => p.name === ns[n])]))
   }
@@ -342,9 +358,135 @@ export class Battlefield3 extends EventEmitter {
    * @param duration duration in seconds to display the message
    * @param subset subset to send message to
    */
-  yell(msg: string, duration?: number, subset?: Subset) {
+  yell(msg: string, duration?: number, subset?: PlayerSubsetAbstract) {
     const data = subset ? subset.serializeable() : []
     return this.rcon.createCommand("admin.yell", msg, duration, ...data).send()
+  }
+
+  /**
+   * Load list of VIP players from file
+   */
+  loadReserveredSlotList() {
+    return this.rcon.createCommand("reservedSlotsList.load").send()
+  }
+
+  /**
+   * Save list of VIP players from file
+   */
+  saveReserveredSlotList() {
+    return this.rcon.createCommand("reservedSlotsList.save").send()
+  }
+
+  /**
+   * Add player to VIP list
+   * @param name player to add
+   * @param save save the list
+   */
+  addReserverSlotList(name: string, save: boolean = true) {
+    return this.rcon.createCommand("reservedSlotsList.add", name).send()
+      .then(() => save ? this.saveReserveredSlotList() : [] as string[])
+  }
+
+  /**
+   * Remove a player from the VIP list
+   * @param name player to remove
+   * @param id
+   */
+  removeReservedSlotsList(name: string, save: boolean = true) {
+    return this.rcon.createCommand("reservedSlotsList.remove",  IdType.Type.NAME, name).send()
+      .then(() => save ? this.saveReserveredSlotList() : [] as string[])
+  }
+
+  /**
+   * clears VIP list
+   */
+  clearReservedSlotList(save: boolean = true) {
+    return this.rcon.createCommand("reservedSlotsList.clear").send()
+      .then(() => save ? this.saveReserveredSlotList() : [] as string[])
+  }
+
+  /**
+   * enable or disable aggressive join
+   * @param enable wether it should be enabled or not
+   */
+  aggressiveJoin(enable: boolean) {
+    return this.rcon.createCommand("reservedSlotsList.aggressiveJoin", enable).send()
+  }
+
+  /**
+   * return a section of the list of VIP players’ name
+   */
+  getReservedSlotList(offset?: number) {
+    return this.rcon.createCommand("reservedSlotsList.list", offset).send()
+  }
+
+  /**
+   * load list of banned players/IPs/GUIDs from file
+   */
+  loadBanList() {
+    return this.rcon.createCommand("banList.load").send()
+  }
+
+  /**
+   * save list of banned players/IPs/GUIDs to file
+   */
+  saveBanList() {
+    return this.rcon.createCommand("banList.save").send()
+  }
+
+  /**
+   * adding a new name/IP/GUID ban will replace any previous ban for that name/IP/GUID
+   * @param type define wether its a guid, ip or name
+   * @param id
+   * @param timeout 
+   * @param reason displayed ban reason
+   * @param save save the list
+   */
+  addBan(type: IdType, timeout: Timeout, reason?: string, save: boolean = true) {
+    return this.rcon.createCommand("banList.add", ...type.serializeable(), ...timeout.serializeable(), reason).send()
+    .then(() => save ? this.saveBanList() : [] as string[])
+  }
+
+  /**
+   * creates a new name/IP/GUID ban will replace any previous ban for that name/IP/GUID
+   */
+  createBan() {
+    return new Ban(this)
+  }
+
+  /**
+   * Remove name/ip/guid from banlist
+   * @param type id type to remove
+   * @param save save the list
+   */
+  removeBan(type: IdType, save: boolean = true) {
+    return this.rcon.createCommand("banList.remove", ...type.serializeable()).send()
+    .then(() => save ? this.saveBanList() : [] as string[])
+  }
+
+  /**
+   * clears ban list
+   */
+  clearBanList(save: boolean = true) {
+    return this.rcon.createCommand("banList.clear").send()
+      .then(() => save ? this.saveBanList() : [] as string[])
+  }
+
+  /**
+   * creates a new timeout instance
+   * @param type duration
+   */
+  static createTimeout(type: Timeout.Type) {
+    return new Timeout(type)
+  }
+
+  /**
+   * creates a new idtype instance
+   * @param type type to create
+   * @param id
+   */
+  static createIdType(type: IdType.Type, id: string) {
+    return new IdType(type, id)
   }
 
   private parseClientList() {

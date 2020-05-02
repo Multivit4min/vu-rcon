@@ -1,8 +1,8 @@
-import { Subset } from "./Subset"
+import { PlayerSubsetAbstract } from "./PlayerSubsetAbstract"
 
-export class TeamSubset extends Subset {
+export class TeamSubset extends PlayerSubsetAbstract {
 
-  readonly subset = Subset.Type.TEAM
+  readonly subset = PlayerSubsetAbstract.Type.TEAM
   readonly team: any
 
   constructor(team: any) {

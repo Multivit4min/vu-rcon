@@ -1,6 +1,6 @@
 ## Battlefield 3 RCON Interface
 
-Create an instance
+Example
 
 ```typescript
 import { Battlefield3 } from "./src/Battlefield"
@@ -17,8 +17,12 @@ Battlefield3.connect({
   bf3.on("kill", ({ killed, weapon }) => killed.say(`You just got killed with ${weapon.name}`))
 
   //get a list of players and yell the name to them
-  const players = await bf3.listPlayers()
+  const players = await bf3.getPlayers()
   players.forEach(player => player.yell(`Hello ${player.name}`))
+
+  //ban someone
+  const player = bf3.getPlayerByName("foobar")
+  await player.banGuid().reason("foo").permanent().send()
 
 })
 ```

@@ -7,6 +7,10 @@ export class Player extends Abstract<Player.Info> {
     return this.props.name
   }
 
+  get guid() {
+    return this.props.guid
+  }
+
   reload() {
     throw new Error("not implemented")
   }
@@ -51,6 +55,30 @@ export class Player extends Abstract<Player.Info> {
    */
   kill() {
     return this.parent.killPlayer(this.name)
+  }
+
+  /**
+   * adds the player guid to the vip list
+   * @param save save the list after
+   */
+  addReservedSlot(save?: boolean) {
+    return this.parent.addReserverSlotList(this.name, save)
+  }
+
+  /**
+   * remove the players name from the VIP list
+   * @param save save the list after
+   */
+  removeReservedSlot(save?: boolean) {
+    this.parent.removeReservedSlotsList(this.name, save)
+  }
+
+  banGuid() {
+    return this.parent.createBan().guid(this.guid)
+  }
+
+  banName() {
+    return this.parent.createBan().name(this.name)
   }
 
   /**

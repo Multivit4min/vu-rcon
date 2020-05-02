@@ -1,9 +1,9 @@
-import { Subset } from "./Subset"
+import { PlayerSubsetAbstract } from "./PlayerSubsetAbstract"
 import { Player } from "../nodes/Player"
 
-export class PlayerSubset extends Subset {
+export class PlayerSubset extends PlayerSubsetAbstract {
 
-  readonly subset = Subset.Type.PLAYER
+  readonly subset = PlayerSubsetAbstract.Type.PLAYER
   readonly player: Player
 
   constructor(player: Player) {
