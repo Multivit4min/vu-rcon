@@ -1,0 +1,23 @@
+{
+  "name": "bf3-rcon",
+  "version": "1.0.0",
+  "description": "Battlefield 3 Rcon api",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "jest --runInBand",
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "author": "David Kartnaller <david.kartnaller@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^24.9.1",
+    "@types/node": "^13.13.4",
+    "typescript": "^3.8.3",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.3.0"
+  },
+  "dependencies": {
+    "battlecon": "^0.2.0"
+  }
+}
