@@ -5,6 +5,7 @@ import { PlayerSubsetAbstract } from "./subsets/PlayerSubsetAbstract"
 import { AllSubset } from "./subsets/AllSubset"
 import { Weapon } from "./weapons/Weapon"
 import * as Event from "./types/Event"
+import { createHash } from "crypto"
 import { EventEmitter } from "events"
 import { Timeout } from "./subsets/Timeout"
 import { IdType } from "./subsets/IdType"
@@ -199,13 +200,23 @@ export class Battlefield3 extends EventEmitter {
       .send()
   }
 
+  private getSalt() {
+    return this.rcon.createCommand<Buffer>("login.hashed")
+      .format(w => Buffer.from(w[0].toString(), "hex"))
+      .send()
+  }
+
   /**
-   * If you are connecting to the admin interface over the internet,
-   * then use login.hashed instead to avoid having evildoers sniff the admin password
+   * Securely logs you in with a hashed password
    * @param password password to login with
    */
-  login(password: string) {
-    return this.rcon.createCommand("login.plainText", password).send()
+  async login(password: string) {
+    const hash = createHash("md5")
+      .update(await this.getSalt())
+      .update(password)
+      .digest("hex")
+      .toUpperCase()
+    return this.rcon.createCommand("login.hashed", hash).send()
   }
 
   /**
