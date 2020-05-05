@@ -7,4 +7,8 @@ export class AllSubset extends PlayerSubsetAbstract {
   serializeable() {
     return [this.subset]
   }
+
+  includesPlayer() {
+    return true
+  }
 }

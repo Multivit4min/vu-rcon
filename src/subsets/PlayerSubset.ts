@@ -11,6 +11,10 @@ export class PlayerSubset extends PlayerSubsetAbstract {
     this.player = player
   }
 
+  includesPlayer(player: Player) {
+    return this.player === player
+  }
+
   serializeable() {
     return [this.subset, this.player.name]
   }

@@ -233,15 +233,14 @@ export class Battlefield3 extends EventEmitter {
 
   /**
    * return list of all players on the server, but with zeroed out GUIDs
-   * @todo fix remove when only specific subset is selected
    */
-  getPlayers(subset: string = "all"): Promise<Player[]> {
+  getPlayers(subset: PlayerSubsetAbstract = new AllSubset()): Promise<Player[]> {
     return this.rcon
-      .createCommand<Battlefield3.ListPlayer>("admin.listPlayers", subset)
+      .createCommand<Battlefield3.ListPlayer>("admin.listPlayers", ...subset.serializeable())
       .format(this.parseClientList())
       .send()
       .then(list => {
-        let toRemove = [...this.players]
+        let toRemove = [...this.players.filter(p => subset.includesPlayer(p))]
         list.forEach(entry => {
           let player = this.players.find(p => p.name === entry.name)
           if (!player) {
@@ -266,24 +265,24 @@ export class Battlefield3 extends EventEmitter {
   serverInfo() {
     return this.rcon.createCommand<Battlefield3.ServerInfo>("serverinfo")
       .format(words => ({
-        name: words[0].toString(),
-        slots: words[1].toNumber(),
-        totalSlots: words[2].toNumber(),
-        mode: words[3].toString(),
-        map: words[4].toString(),
-        roundsPlayed: words[5].toNumber(),
-        roundsTotal: words[6].toNumber(),
-        scores: [ words[7].toNumber(), words[8].toNumber() ],
-        //@todo
-        onlineState: [ words[9].toString(), words[10].toString(), words[11].toString() ],
-        ranked: words[12].toBoolean(),
-        punkBuster: words[13].toBoolean(),
-        password: words[14].toBoolean(),
-        uptime: words[15].toNumber(),
-        roundTime: words[16].toNumber(),
-        address: words[17].toString(),
-        punkBusterVersion: words[18].toString(),
-        joinQueueEnabled: words[19].toBoolean()
+        name: words.shift()!.toString(),
+        slots: words.shift()!.toNumber(),
+        totalSlots: words.shift()!.toNumber(),
+        mode: words.shift()!.toString(),
+        map: words.shift()!.toString(),
+        roundsPlayed: words.shift()!.toNumber(),
+        roundsTotal: words.shift()!.toNumber(),
+        scores: new Array(words.shift()!.toNumber()).fill(0).map(() => words.shift()!.toNumber()),
+        targetScore: words.shift()!.toNumber(),
+        onlineState: words.shift()!.toString(),
+        ranked: words.shift()!.toBoolean(),
+        punkBuster: words.shift()!.toBoolean(),
+        password: words.shift()!.toBoolean(),
+        uptime: words.shift()!.toNumber(),
+        roundTime: words.shift()!.toNumber(),
+        address: words.shift()!.toString(),
+        punkBusterVersion: words.shift()!.toString(),
+        joinQueueEnabled: words.shift()!.toBoolean()
       }))
       .send()
   }
@@ -614,13 +613,13 @@ export class Battlefield3 extends EventEmitter {
   }
 
   getVariable(name: keyof Battlefield3.Variables) {
-    return this.rcon.createCommand<string>(`vars.${(name.startsWith("_")) ? name.substr(1) : name}`)
+    return this.rcon.createCommand<string>(`vars.${name}`)
       .format(w => w[0].toString())
       .send()
   }
 
   setVariable(name: keyof Battlefield3.Variables, value: boolean|number|string) {
-    return this.rcon.createCommand(`vars.${(name.startsWith("_")) ? name.substr(1) : name}`, value)
+    return this.rcon.createCommand(`vars.${name}`, value)
       .send()
   }
 
@@ -713,8 +712,9 @@ export namespace Battlefield3 {
     map: string
     roundsPlayed: number
     roundsTotal: number
-    scores: [number, number]
-    onlineState: [string, string, string],
+    scores: number[]
+    targetScore: number,
+    onlineState: string,
     ranked: boolean
     punkBuster: boolean
     password: boolean
@@ -725,6 +725,17 @@ export namespace Battlefield3 {
     joinQueueEnabled: boolean
   }
 
+  export enum Squad {
+    NONE = 0,
+    ALPHA = 1,    BRAVO = 2,     CHARLIE = 3,  DELTA = 4,
+    ECHO = 5,     FOXTROT = 6,   GOLF = 7,     HOTEL = 8,
+    INDIA = 9,    JULIET = 10,   KILO = 11,    LIMA = 12,
+    MIKE = 13,    NOVEMBER = 14, OSCAR = 15,   PAPA = 16, 
+    QUEBEC = 17,  ROMEO = 18,    SIERRA = 19,  TANGO = 20,
+    UNIFORM = 21, VICTOR = 22,   WHISKEY = 23, XRAY = 24,
+    YANKEE = 25,  ZULU = 26,     HAGGARD = 27, SWEETWATER = 28,
+    PRESTON = 29, REDFORD = 30,  FAITH = 31,   CELESTE = 32
+  }
   
 
   export interface Variables {
@@ -755,13 +766,13 @@ export namespace Battlefield3 {
     /* Set if crosshair for all weapons is enabled */
     crossHair: boolean
     /* Set if spotted targets are visible in the 3d-world */
-    _3dSpotting: boolean
+    "3dSpotting": boolean
     /* Set if spotted targets are visible on the minimap */
     miniMapSpotting: boolean
     /* Set if nametags should be displayed */
     nametag: boolean
     /* Set if players should be allowed to switch to third-person vehicle cameras */
-    _3pCam: boolean
+    "3pCam": boolean
     /* Set if players health regeneration is active */
     regenerateHealth: boolean
     /* Set number of teamkills allowed during one round, before the game kicks the player in question Set to 0 to disable kill counting */
@@ -801,8 +812,7 @@ export namespace Battlefield3 {
     /* Set if players can only spawn on their squad leader */
     onlySquadLeaderSpawn: boolean
     /* Set which group of weapons/unlock should be available to players on an unranked server */
-    //@todo specification
-    unlockMode: string
+    unlockMode: string|"stats"
     /* Set if server should be exclusive to Premium players */
     premiumStatus: boolean
   }

@@ -1,5 +1,10 @@
+import { Player } from "../nodes/Player"
+
 export abstract class PlayerSubsetAbstract {
-  abstract serializeable(): string[]
+  /** gets sendable data for this subset */
+  abstract serializeable(): (string|number)[]
+  /** checks if a player is included in this subset */
+  abstract includesPlayer(player: Player): boolean
 }
 export namespace PlayerSubsetAbstract {
   

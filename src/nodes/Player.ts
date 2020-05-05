@@ -11,6 +11,34 @@ export class Player extends Abstract<Player.Info> {
     return this.props.guid
   }
 
+  get team() {
+    return this.props.teamId
+  }
+
+  get squad() {
+    return this.props.squadId
+  }
+
+  get kills() {
+    return this.props.kills
+  }
+
+  get deaths() {
+    return this.props.deaths
+  }
+
+  get ping() {
+    return this.props.ping
+  }
+
+  get score() {
+    return this.props.score
+  }
+
+  get rank() {
+    return this.props.rank
+  }
+
   reload() {
     throw new Error("not implemented")
   }

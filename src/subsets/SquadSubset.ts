@@ -1,10 +1,12 @@
 import { PlayerSubsetAbstract } from "./PlayerSubsetAbstract"
+import { Player } from "../nodes/Player"
+import { Battlefield3 } from "Battlefield3"
 
 export class SquadSubset extends PlayerSubsetAbstract {
 
   readonly subset = PlayerSubsetAbstract.Type.TEAM
-  readonly team: any
-  readonly squad: any
+  readonly team: number
+  readonly squad: Battlefield3.Squad
 
   constructor(team: any, squad: any) {
     super()
@@ -12,7 +14,11 @@ export class SquadSubset extends PlayerSubsetAbstract {
     this.squad = squad
   }
 
+  includesPlayer(player: Player) {
+    return player.team === this.team && player.squad === this.squad
+  }
+
   serializeable() {
-    return [this.subset, this.team.id, this.squad.id]
+    return [this.subset, this.team, this.squad]
   }
 }

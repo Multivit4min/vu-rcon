@@ -1,6 +1,7 @@
 import { Player } from "../nodes/Player"
 import { PlayerSubsetAbstract } from "../subsets/PlayerSubsetAbstract"
 import { Weapon } from "../weapons/Weapon"
+import { Battlefield3 } from "Battlefield3"
 
 export interface OnRoundOver {
   winner: number
@@ -20,13 +21,13 @@ export interface MaxPlayerCountChange {
 export interface OnTeamChange {
   player: Player,
   team: number
-  squad: number
+  squad: Battlefield3.Squad
 }
 
 export interface OnSquadChange {
   player: Player,
   team: number
-  squad: number
+  squad: Battlefield3.Squad
 }
 
 export interface OnAuthenticated {
