@@ -12,6 +12,7 @@ import { IdType } from "./subsets/IdType"
 import { Ban } from "./util/Ban"
 
 export interface Battlefield3 {
+  on(event: "close", handler: () => void): this
   on(event: "chat", handler: (data: Event.PlayerOnChat) => void): this
   on(event: "spawn", handler: (data: Event.PlayerOnSpawn) => void): this
   on(event: "kill", handler: (data: Event.PlayerOnKill) => void): this
@@ -29,25 +30,60 @@ export interface Battlefield3 {
 export class Battlefield3 extends EventEmitter {
 
   private options: Battlefield3.Options
-  private rcon: Rcon
+  private rcon!: Rcon
   private players: Player[] = []
 
   constructor(options: Battlefield3.Options) {
     super()
     this.options = options
+    this.connect()
+    this.rcon.on("close", this.emit.bind(this, "close"))
+  }
+
+  static async connect(options: Battlefield3.Options) {
+    const bf3 = new Battlefield3(options)
+    return bf3.initialize()
+  }
+
+  async connect() {
     this.rcon = new Rcon({
       ...this.options,
       eventHandler: this.eventHandler.bind(this)
     })
+    return this.initialize()
   }
 
-  static async connect(options: Battlefield3.ConnectOptions) {
-    const { password, ...rest } = options
-    const bf3 = new Battlefield3(rest)
-    await bf3.login(options.password)
-    await bf3.getPlayers()
-    await bf3.eventsEnabled(true)
-    return bf3
+  /**
+   * initializes the connection
+   */
+  private async initialize() {
+    await this.login(this.options.password)
+    await this.getPlayers()
+    await this.eventsEnabled(true)
+    return this
+  }
+
+  /**
+   * sleeps a certain time
+   * @param time 
+   */
+  static sleep(time: number) {
+    return new Promise(fulfill => {
+      setTimeout(fulfill, time)
+    })
+  }
+
+  /** reconnects to the battlefield server */
+  async reconnect(maxAttempts: number = 1, timeout: 1000) {
+    let attempts = 0
+    while (attempts++ < maxAttempts || maxAttempts <= 0) {
+      await Battlefield3.sleep(timeout)
+      try {
+        await this.rcon.connect()
+      } catch(e) {
+        console.log(`reconnect attempt #${attempts} failed`, e)
+      }
+    }
   }
 
   private eventHandler(event: string, words: Word[]): any {
@@ -684,12 +720,8 @@ export class Battlefield3 extends EventEmitter {
 
 export namespace Battlefield3 {
   export interface Options {
-    protocol?: "ipv4"|"ipv6"
     host: string
     port: number
-  }
-
-  export interface ConnectOptions extends Options {
     password: string
   }
 

@@ -3,21 +3,33 @@ import { Sequence } from "./protocol/Sequence"
 import { Packet } from "./protocol/Packet"
 import { Request } from "./Request"
 import { Word } from "./protocol/Word"
+import { EventEmitter } from "events"
 
-export class Rcon {
+export class Rcon extends EventEmitter {
 
-  private socket: net.Socket
+  private socket!: net.Socket
+  private options: Rcon.ConnectionOptions
   private sequence?: Sequence
   private pending: Rcon.Pending = []
-  private eventHandler: Rcon.eventHandler
 
   constructor(options: Rcon.ConnectionOptions) {
-    this.socket = net.connect({
-      host: options.host,
-      port: options.port
-    })
-    this.eventHandler = options.eventHandler
+    super()
+    this.options = options
+    this.connect()
     this.socket.on("data", this.onData.bind(this))
+    this.socket.on("close", this.emit.bind(this, "close"))
+  }
+
+  /**
+   * connects to the socket
+   * @param host hostname to connect to
+   * @param port port to connect to
+   */
+  connect() {
+    this.socket = net.connect({
+      host: this.options.host,
+      port: this.options.port
+    })
   }
 
   private onData(buffer: Buffer) {
@@ -29,7 +41,7 @@ export class Rcon {
   }
 
   private handleEvent(packet: Packet) {
-    this.eventHandler(packet.words[0].toString(), packet.words.slice(1))
+    this.options.eventHandler(packet.words[0].toString(), packet.words.slice(1))
   }
 
   createCommand<T = string[]>(cmd: string, ...args: Rcon.Argument[]) {
@@ -84,7 +96,6 @@ export class Rcon {
 
 export namespace Rcon {
   export interface ConnectionOptions {
-    type?: "udp4"|"udp6"
     host: string
     port: number
     eventHandler: eventHandler
