@@ -1,7 +1,6 @@
 import { Battlefield3 } from "../Battlefield3"
 import { Timeout } from "../subsets/Timeout"
 import { IdType } from "../subsets/IdType"
-import { Rcon } from "../Rcon"
 
 export class Ban {
 

@@ -1,5 +1,5 @@
-import { Rcon } from "./Rcon"
-import { Word } from "./protocol/Word"
+import { Rcon } from "./transport/Rcon"
+import { Word } from "./transport/protocol/Word"
 import { Player } from "./nodes/Player"
 import { PlayerSubsetAbstract } from "./subsets/PlayerSubsetAbstract"
 import { AllSubset } from "./subsets/AllSubset"
@@ -73,8 +73,12 @@ export class Battlefield3 extends EventEmitter {
     })
   }
 
-  /** reconnects to the battlefield server */
-  async reconnect(maxAttempts: number = 1, timeout: 1000) {
+  /**
+   * attempts to reconnects to the battlefield server
+   * @param maxAttempts number of tries <= 0 tries to connect forever 
+   * @param timeout timeout in ms between connection attempts
+   */
+  async reconnect(maxAttempts: number = -1, timeout: number = 1000) {
     let attempts = 0
     while (attempts++ < maxAttempts || maxAttempts <= 0) {
       await Battlefield3.sleep(timeout)
