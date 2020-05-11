@@ -41,7 +41,7 @@ export class Battlefield3 extends EventEmitter {
     })
   }
 
-  static async connect(options: Battlefield3.Options & { password: string }) {
+  static async connect(options: Battlefield3.ConnectOptions) {
     const { password, ...rest } = options
     const bf3 = new Battlefield3(rest)
     await bf3.login(options.password)
@@ -687,6 +687,10 @@ export namespace Battlefield3 {
     protocol?: "ipv4"|"ipv6"
     host: string
     port: number
+  }
+
+  export interface ConnectOptions extends Options {
+    password: string
   }
 
   export enum ParseListReplaceOption {
