@@ -1,6 +1,3 @@
-import { Player } from "../nodes/Player"
-import { PlayerSubsetAbstract } from "../subsets/PlayerSubsetAbstract"
-import { Weapon } from "../weapons/Weapon"
 import { Battlefield3 } from "Battlefield3"
 
 export interface OnRoundOver {
@@ -19,13 +16,13 @@ export interface MaxPlayerCountChange {
 }
 
 export interface OnTeamChange {
-  player: Player,
+  player: string,
   team: number
   squad: Battlefield3.Squad
 }
 
 export interface OnSquadChange {
-  player: Player,
+  player: string,
   team: number
   squad: Battlefield3.Squad
 }
@@ -34,7 +31,7 @@ export interface OnAuthenticated {
   name: string
 }
 
-export interface OnLeave extends Player.Info {
+export interface OnLeave extends Battlefield3.Player {
 }
 
 export interface OnJoining {
@@ -48,35 +45,37 @@ export interface PunkBuster {
 }
 
 export interface PlayerOnKill {
-  killer?: Player
-  killed: Player
-  weapon: Weapon
+  killer?: string
+  killed: string
+  weapon: string
   headshot: boolean
 }
 
 export interface PlayerOnSpawn {
-  player: Player
+  player: string
   team: number
 }
 
 export type PlayerOnChat = PlayerOnChatTeam|PlayerOnChatSquad|PlayerOnChatPlayer|PlayerOnChatAll
 export interface PlayerOnChatBase {
-  player: Player|"Server"
+  player: string
   msg: string
-  subset: PlayerSubsetAbstract.Type
+  subset: Battlefield3.Subset
 }
 export interface PlayerOnChatTeam extends PlayerOnChatBase {
-  subset: PlayerSubsetAbstract.Type.TEAM
+  subset: "team"
   team: number
 }
 export interface PlayerOnChatSquad extends PlayerOnChatBase {
-  subset: PlayerSubsetAbstract.Type.SQUAD
+  subset: "squad"
   team: number
   squad: number
 }
 export interface PlayerOnChatPlayer extends PlayerOnChatBase {
-  subset: PlayerSubsetAbstract.Type.PLAYER
+  subset: "player"
+
 }
 export interface PlayerOnChatAll extends PlayerOnChatBase {
-  subset: PlayerSubsetAbstract.Type.ALL
+  subset: "all"
+
 }

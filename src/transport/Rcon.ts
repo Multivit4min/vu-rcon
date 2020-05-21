@@ -15,9 +15,6 @@ export class Rcon extends EventEmitter {
   constructor(options: Rcon.ConnectionOptions) {
     super()
     this.options = options
-    this.connect()
-    this.socket.on("data", this.onData.bind(this))
-    this.socket.on("close", this.emit.bind(this, "close"))
   }
 
   /**
@@ -26,10 +23,15 @@ export class Rcon extends EventEmitter {
    * @param port port to connect to
    */
   connect() {
+    if (this.socket && !this.socket.destroyed)
+      throw new Error("already connected to rcon")
+    if (this.socket) this.socket.removeAllListeners()
     this.socket = net.connect({
       host: this.options.host,
-      port: this.options.port
+      port: this.options.port,
     })
+    this.socket.on("data", this.onData.bind(this))
+    this.socket.on("close", this.emit.bind(this, "close"))
   }
 
   private onData(buffer: Buffer) {
@@ -56,6 +58,10 @@ export class Rcon extends EventEmitter {
     this.socket.write(buffer, err => {
       if (err) throw err
     })
+  }
+
+  stop() {
+    return this.socket.destroy()
   }
 
   private getNextSequence(opts: Sequence.NextSequenceOptions) {

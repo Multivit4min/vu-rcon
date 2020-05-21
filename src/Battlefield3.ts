@@ -1,15 +1,8 @@
 import { Rcon } from "./transport/Rcon"
 import { Word } from "./transport/protocol/Word"
-import { Player } from "./nodes/Player"
-import { PlayerSubsetAbstract } from "./subsets/PlayerSubsetAbstract"
-import { AllSubset } from "./subsets/AllSubset"
-import { Weapon } from "./weapons/Weapon"
 import * as Event from "./types/Event"
 import { createHash } from "crypto"
 import { EventEmitter } from "events"
-import { Timeout } from "./subsets/Timeout"
-import { IdType } from "./subsets/IdType"
-import { Ban } from "./util/Ban"
 
 export interface Battlefield3 {
   on(event: "close", handler: () => void): this
@@ -30,26 +23,26 @@ export interface Battlefield3 {
 export class Battlefield3 extends EventEmitter {
 
   private options: Battlefield3.Options
-  private rcon!: Rcon
-  private players: Player[] = []
+  private rcon: Rcon
 
   constructor(options: Battlefield3.Options) {
     super()
     this.options = options
-    this.connect()
-    this.rcon.on("close", this.emit.bind(this, "close"))
-  }
-
-  static async connect(options: Battlefield3.Options) {
-    const bf3 = new Battlefield3(options)
-    return bf3.initialize()
-  }
-
-  async connect() {
     this.rcon = new Rcon({
       ...this.options,
       eventHandler: this.eventHandler.bind(this)
     })
+    if (this.options.autoconnect !== false) this.rcon.connect()
+    this.rcon.on("close", this.emit.bind(this, "close"))
+  }
+
+  static async connect(options: Omit<Battlefield3.Options, "autoconnect">) {
+    const bf3 = new Battlefield3({ ...options, autoconnect: false })
+    return bf3.connect()
+  }
+
+  async connect() {
+    this.rcon.connect()
     return this.initialize()
   }
 
@@ -58,7 +51,6 @@ export class Battlefield3 extends EventEmitter {
    */
   private async initialize() {
     await this.login(this.options.password)
-    await this.getPlayers()
     await this.eventsEnabled(true)
     return this
   }
@@ -176,15 +168,10 @@ export class Battlefield3 extends EventEmitter {
   }
 
   private async playerOnKill(words: Word[]) {
-    const { killer, killed } = await this.getPlayersByName({
-      killer: words[0].toString(),
-      killed: words[1].toString()
-    })
-    if (!killed) throw new Error(`could not find killer ${words[1].toString()} in event player.onKill`)
     this.emit("kill", {
-      killer,
-      killed,
-      weapon: Weapon.from(words[2].toString()),
+      killer: words[0].toString(),
+      killed: words[1].toString(),
+      weapon: words[2].toString(),
       headshot: words[3].toBoolean()
     } as Event.PlayerOnKill)
   }
@@ -196,23 +183,14 @@ export class Battlefield3 extends EventEmitter {
   }
 
   private async playerOnChat(words: Word[]) {
-    let player: Player|"Server"
-    let name = words[0].toString()
-    if (name === "Server") {
-      player = "Server"
-    } else {
-      const p = await this.getPlayerByName(name)
-      if (!p) throw new Error(`could not find player with name ${name} in event player.onChat`)
-      player = p
-    }
     const event: Partial<Event.PlayerOnChat> = {
-      player,
+      player: words[0].toString(),
       msg: words[1].toString(),
-      subset: words[2].toString() as PlayerSubsetAbstract.Type
+      subset: words[2].toString() as Battlefield3.Subset
     }
-    if (event.subset === PlayerSubsetAbstract.Type.TEAM) {
+    if (event.subset === "team") {
       event.team = words[3].toNumber()
-    } else if (event.subset === PlayerSubsetAbstract.Type.SQUAD) {
+    } else if (event.subset === "squad") {
       event.team = words[3].toNumber()
       event.squad = words[4].toNumber()
     }
@@ -274,32 +252,18 @@ export class Battlefield3 extends EventEmitter {
   /**
    * return list of all players on the server, but with zeroed out GUIDs
    */
-  getPlayers(subset: PlayerSubsetAbstract = new AllSubset()): Promise<Player[]> {
+  getPlayers(subset: Battlefield3.PlayerSubset = ["all"]) {
     return this.rcon
-      .createCommand<Battlefield3.ListPlayer>("admin.listPlayers", ...subset.serializeable())
+      .createCommand<Battlefield3.PlayerList>("admin.listPlayers", ...subset)
       .format(this.parseClientList())
       .send()
-      .then(list => {
-        let toRemove = [...this.players.filter(p => subset.includesPlayer(p))]
-        list.forEach(entry => {
-          let player = this.players.find(p => p.name === entry.name)
-          if (!player) {
-            player = new Player(this, entry)
-            this.players.push(player)
-          }
-          player.updateProps(entry)
-          toRemove = toRemove.filter(p => p !== player)
-        })
-        toRemove.forEach(p => this.players.splice(this.players.indexOf(p), 1))
-        return this.players
-      })
   }
 
   /**
    * Disconnect from server
    */
   quit() {
-    return this.rcon.createCommand("quit").send()
+    return this.rcon.stop()
   }
 
   serverInfo() {
@@ -354,8 +318,8 @@ export class Battlefield3 extends EventEmitter {
    * @param msg message to send
    * @param subset subset to send message to
    */
-  say(msg: string, subset: PlayerSubsetAbstract = new AllSubset()) {
-    return this.rcon.createCommand("admin.say", msg, ...subset.serializeable()).send()
+  say(msg: string, subset: string[]) {
+    return this.rcon.createCommand("admin.say", msg, ...subset).send()
   }
 
   /**
@@ -413,9 +377,8 @@ export class Battlefield3 extends EventEmitter {
    * @param duration duration in seconds to display the message
    * @param subset subset to send message to
    */
-  yell(msg: string, duration?: number, subset?: PlayerSubsetAbstract) {
-    const data = subset ? subset.serializeable() : []
-    return this.rcon.createCommand("admin.yell", msg, duration, ...data).send()
+  yell(msg: string, duration?: number, subset: string[] = []) {
+    return this.rcon.createCommand("admin.yell", msg, duration, ...subset).send()
   }
 
   /**
@@ -448,7 +411,7 @@ export class Battlefield3 extends EventEmitter {
    * @param id
    */
   removeReservedSlotsList(name: string, save: boolean = true) {
-    return this.rcon.createCommand("reservedSlotsList.remove",  IdType.Type.NAME, name).send()
+    return this.rcon.createCommand("reservedSlotsList.remove",  "name", name).send()
       .then(() => save ? this.saveReserveredSlotList() : [] as string[])
   }
 
@@ -497,16 +460,9 @@ export class Battlefield3 extends EventEmitter {
    * @param reason displayed ban reason
    * @param save save the list
    */
-  addBan(type: IdType, timeout: Timeout, reason?: string, save: boolean = true) {
-    return this.rcon.createCommand("banList.add", ...type.serializeable(), ...timeout.serializeable(), reason).send()
+  addBan(type: Battlefield3.IdType, timeout: Battlefield3.Timeout, reason?: string, save: boolean = true) {
+    return this.rcon.createCommand("banList.add", ...type, ...timeout, reason).send()
     .then(() => save ? this.saveBanList() : [] as string[])
-  }
-
-  /**
-   * creates a new name/IP/GUID ban will replace any previous ban for that name/IP/GUID
-   */
-  createBan() {
-    return new Ban(this)
   }
 
   /**
@@ -514,8 +470,8 @@ export class Battlefield3 extends EventEmitter {
    * @param type id type to remove
    * @param save save the list
    */
-  removeBan(type: IdType, save: boolean = true) {
-    return this.rcon.createCommand("banList.remove", ...type.serializeable()).send()
+  removeBan(type: string[], save: boolean = true) {
+    return this.rcon.createCommand("banList.remove", ...type).send()
     .then(() => save ? this.saveBanList() : [] as string[])
   }
 
@@ -663,25 +619,8 @@ export class Battlefield3 extends EventEmitter {
       .send()
   }
 
-  /**
-   * creates a new timeout instance
-   * @param type duration
-   */
-  static createTimeout(type: Timeout.Type) {
-    return new Timeout(type)
-  }
-
-  /**
-   * creates a new idtype instance
-   * @param type type to create
-   * @param id
-   */
-  static createIdType(type: IdType.Type, id: string) {
-    return new IdType(type, id)
-  }
-
   private parseClientList() {
-    return this.parseList<Player.Info>((word, name) => {
+    return this.parseList<Battlefield3.Player>((word, name) => {
       switch (name) {
         case "name": return word.toString()
         case "teamId": return word.toNumber()
@@ -727,13 +666,12 @@ export namespace Battlefield3 {
     host: string
     port: number
     password: string
+    autoconnect?: boolean
   }
 
   export enum ParseListReplaceOption {
     OMIT
   }
-
-  export type ListPlayer = Player.Info[]
 
   export type MapList = MapEntry[]
 
@@ -775,6 +713,24 @@ export namespace Battlefield3 {
     UNIFORM = 21, VICTOR = 22,   WHISKEY = 23, XRAY = 24,
     YANKEE = 25,  ZULU = 26,     HAGGARD = 27, SWEETWATER = 28,
     PRESTON = 29, REDFORD = 30,  FAITH = 31,   CELESTE = 32
+  }
+  
+  export type Subset = "all"|"team"|"squad"|"player"
+  export type PlayerSubset = [Subset, (string|number)?]
+
+  export type Timeout = ["perm"|"rounds"|"seconds", number]
+  export type IdType = ["name"|"ip"|"guid", string]
+  export type PlayerList = Player[]
+  export interface Player {
+    name: string
+    guid: string
+    teamId: number
+    squadId: number
+    kills: number
+    deaths: number
+    score: number
+    rank: number
+    ping: number
   }
   
 
