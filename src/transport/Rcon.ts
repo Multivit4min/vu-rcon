@@ -23,15 +23,25 @@ export class Rcon extends EventEmitter {
    * @param port port to connect to
    */
   connect() {
-    if (this.socket && !this.socket.destroyed)
-      throw new Error("already connected to rcon")
-    if (this.socket) this.socket.removeAllListeners()
-    this.socket = net.connect({
-      host: this.options.host,
-      port: this.options.port,
+    return new Promise((fulfill, reject) => {
+      if (this.socket && !this.socket.destroyed)
+        return reject(new Error("already connected to rcon"))
+      if (this.socket) this.socket.removeAllListeners()
+      this.socket = net.connect({
+        host: this.options.host,
+        port: this.options.port,
+      })
+      const handler = (err?: Error) => {
+        this.socket.removeListener("error", handler)
+        this.socket.removeListener("connect", handler)
+        if (err instanceof Error) return reject(err)
+        this.socket.on("close", this.emit.bind(this, "close"))
+        this.socket.on("data", this.onData.bind(this))
+        fulfill()
+      }
+      this.socket.on("error", handler)
+      this.socket.on("connect", handler)
     })
-    this.socket.on("data", this.onData.bind(this))
-    this.socket.on("close", this.emit.bind(this, "close"))
   }
 
   private onData(buffer: Buffer) {

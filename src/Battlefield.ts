@@ -53,7 +53,7 @@ export class Battlefield extends EventEmitter {
 
   /** connects and initializes the query */
   async connect() {
-    this.rcon.connect()
+    await this.rcon.connect()
     return this.initialize()
   }
 
@@ -85,10 +85,12 @@ export class Battlefield extends EventEmitter {
       await Battlefield.sleep(timeout)
       try {
         await this.rcon.connect()
+        return this
       } catch(e) {
         console.log(`reconnect attempt #${attempts} failed`, e)
       }
     }
+    throw new Error(`could not reconnect after ${maxAttempts} tries`)
   }
 
   private eventHandler(event: string, words: Word[]): any {
