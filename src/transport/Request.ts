@@ -1,6 +1,6 @@
-import { Packet } from "./transport/protocol/Packet"
-import { Rcon } from "./transport/Rcon"
-import { Word } from "./transport/protocol/Word"
+import { Packet } from "./protocol/Packet"
+import { Rcon } from "./Rcon"
+import { Word } from "./protocol/Word"
 
 export class Request<T = string[]> {
 

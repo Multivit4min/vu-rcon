@@ -1,7 +1,7 @@
 import net from "net"
 import { Sequence } from "./protocol/Sequence"
 import { Packet } from "./protocol/Packet"
-import { Request } from "../Request"
+import { Request } from "./Request"
 import { Word } from "./protocol/Word"
 import { EventEmitter } from "events"
 

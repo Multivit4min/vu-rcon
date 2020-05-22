@@ -1,4 +1,4 @@
-import { Sequence } from "../src/protocol/Sequence"
+import { Sequence } from "../src/transport/protocol/Sequence"
 
 describe("Sequence", () => {
 

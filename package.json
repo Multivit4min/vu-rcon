@@ -1,7 +1,7 @@
 {
-  "name": "bf3-rcon",
+  "name": "vu-rcon",
   "version": "1.0.0",
-  "description": "Battlefield 3 Rcon api",
+  "description": "rcon api for venice unleashed",
   "main": "lib/index.js",
   "scripts": {
     "test": "jest --runInBand",

@@ -1,4 +1,4 @@
-import { Battlefield3 } from "Battlefield3"
+import { Battlefield } from "Battlefield"
 
 export interface OnRoundOver {
   winner: number
@@ -18,20 +18,20 @@ export interface MaxPlayerCountChange {
 export interface OnTeamChange {
   player: string,
   team: number
-  squad: Battlefield3.Squad
+  squad: Battlefield.Squad
 }
 
 export interface OnSquadChange {
   player: string,
   team: number
-  squad: Battlefield3.Squad
+  squad: Battlefield.Squad
 }
 
 export interface OnAuthenticated {
   name: string
 }
 
-export interface OnLeave extends Battlefield3.Player {
+export interface OnLeave extends Battlefield.Player {
 }
 
 export interface OnJoining {
@@ -60,7 +60,7 @@ export type PlayerOnChat = PlayerOnChatTeam|PlayerOnChatSquad|PlayerOnChatPlayer
 export interface PlayerOnChatBase {
   player: string
   msg: string
-  subset: Battlefield3.Subset
+  subset: Battlefield.Subset
 }
 export interface PlayerOnChatTeam extends PlayerOnChatBase {
   subset: "team"

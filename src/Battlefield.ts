@@ -3,8 +3,9 @@ import { Word } from "./transport/protocol/Word"
 import * as Event from "./types/Event"
 import { createHash } from "crypto"
 import { EventEmitter } from "events"
+import { Variable } from "./Variable"
 
-export interface Battlefield3 {
+export interface Battlefield {
   on(event: "close", handler: () => void): this
   on(event: "chat", handler: (data: Event.PlayerOnChat) => void): this
   on(event: "spawn", handler: (data: Event.PlayerOnSpawn) => void): this
@@ -20,35 +21,43 @@ export interface Battlefield3 {
   on(event: "roundOver", handler: (data: Event.OnRoundOver) => void): this
 }
 
-export class Battlefield3 extends EventEmitter {
+export class Battlefield extends EventEmitter {
 
-  private options: Battlefield3.Options
+  private options: Battlefield.Options
   private rcon: Rcon
 
-  constructor(options: Battlefield3.Options) {
+  readonly vu: Variable<Battlefield.VuVariable>
+  readonly var: Variable<Battlefield.Variables>
+
+  constructor(options: Battlefield.Options) {
     super()
     this.options = options
     this.rcon = new Rcon({
       ...this.options,
       eventHandler: this.eventHandler.bind(this)
     })
+    this.var = new Variable(this.rcon, "var")
+    this.vu = new Variable(this.rcon, "vu")
     if (this.options.autoconnect !== false) this.rcon.connect()
     this.rcon.on("close", this.emit.bind(this, "close"))
   }
 
-  static async connect(options: Omit<Battlefield3.Options, "autoconnect">) {
-    const bf3 = new Battlefield3({ ...options, autoconnect: false })
+  /**
+   * creates a new Battlefield instance
+   * @param options 
+   */
+  static async connect(options: Omit<Battlefield.Options, "autoconnect">) {
+    const bf3 = new Battlefield({ ...options, autoconnect: false })
     return bf3.connect()
   }
 
+  /** connects and initializes the query */
   async connect() {
     this.rcon.connect()
     return this.initialize()
   }
 
-  /**
-   * initializes the connection
-   */
+  /** initializes the connection */
   private async initialize() {
     await this.login(this.options.password)
     await this.eventsEnabled(true)
@@ -73,7 +82,7 @@ export class Battlefield3 extends EventEmitter {
   async reconnect(maxAttempts: number = -1, timeout: number = 1000) {
     let attempts = 0
     while (attempts++ < maxAttempts || maxAttempts <= 0) {
-      await Battlefield3.sleep(timeout)
+      await Battlefield.sleep(timeout)
       try {
         await this.rcon.connect()
       } catch(e) {
@@ -186,7 +195,7 @@ export class Battlefield3 extends EventEmitter {
     const event: Partial<Event.PlayerOnChat> = {
       player: words[0].toString(),
       msg: words[1].toString(),
-      subset: words[2].toString() as Battlefield3.Subset
+      subset: words[2].toString() as Battlefield.Subset
     }
     if (event.subset === "team") {
       event.team = words[3].toNumber()
@@ -197,6 +206,7 @@ export class Battlefield3 extends EventEmitter {
     this.emit("chat", event)
   }
 
+  /** sends the help command to the server */
   help() {
     return this.rcon.createCommand("admin.help")
   }
@@ -209,9 +219,7 @@ export class Battlefield3 extends EventEmitter {
     return this.rcon.createCommand("admin.eventsEnabled", set).send()
   }
 
-  /**
-   * Game server type and build ID uniquely identify the server, and the protocol it is running.
-   */
+  /** Game server type and build ID uniquely identify the server, and the protocol it is running. */
   version() {
     return this.rcon.createCommand<{ game: string, version: number}>("version")
       .format(w => ({ game: w[0].toString(), version: w[1].toNumber() }))
@@ -242,32 +250,27 @@ export class Battlefield3 extends EventEmitter {
     return this.rcon.createCommand("login.hashed", this.getPasswordHash(password, await this.getSalt())).send()
   }
 
-  /**
-   * Logout from game server
-   */
+  /** Logout from game server */
   logout() {
     return this.rcon.createCommand("logout").send()
   }
 
-  /**
-   * return list of all players on the server, but with zeroed out GUIDs
-   */
-  getPlayers(subset: Battlefield3.PlayerSubset = ["all"]) {
+  /** return list of all players on the server, but with zeroed out GUIDs */
+  getPlayers(subset: Battlefield.PlayerSubset = ["all"]) {
     return this.rcon
-      .createCommand<Battlefield3.PlayerList>("admin.listPlayers", ...subset)
+      .createCommand<Battlefield.PlayerList>("admin.listPlayers", ...subset)
       .format(this.parseClientList())
       .send()
   }
 
-  /**
-   * Disconnect from server
-   */
+  /** Disconnect from server */
   quit() {
     return this.rcon.stop()
   }
 
+  /** retrieves basic serverinformations */
   serverInfo() {
-    return this.rcon.createCommand<Battlefield3.ServerInfo>("serverinfo")
+    return this.rcon.createCommand<Battlefield.ServerInfo>("serverinfo")
       .format(words => ({
         name: words.shift()!.toString(),
         slots: words.shift()!.toNumber(),
@@ -291,16 +294,12 @@ export class Battlefield3 extends EventEmitter {
       .send()
   }
 
-  /**
-   * Query whether the PunkBuster server module is active
-   */
+  /** Query whether the PunkBuster server module is active */
   punkBusterActive() {
     return this.rcon.createCommand<boolean>("punkBuster.isActive").format(([w]) => w.toBoolean()).send()
   }
 
-  /**
-   * Attempt to activate PunkBuster server module if it currently is inactive
-   */
+  /** Attempt to activate PunkBuster server module if it currently is inactive */
   punkBusterActivate() {
     return this.rcon.createCommand("punkBuster.active").send()
   }
@@ -351,16 +350,12 @@ export class Battlefield3 extends EventEmitter {
     return this.rcon.createCommand("admin.killPlayer", name).send()
   }
 
-  /**
-   * Retrieves a single player by its name
-   */
+  /** Retrieves a single player by its name */
   getPlayerByName(name: string) {
     return this.getPlayers().then(players => players.find(p => p.name === name))
   }
 
-  /**
-   * retrieves multiple players by their name
-   */
+  /** retrieves multiple players by their name */
   async getPlayersByName(names: string[]|Record<string, string>) {
     const ns = Array.isArray(names) ? names = Object.fromEntries(names.map(n => [n, n])) : names
     let players = await this.getPlayers()
@@ -381,16 +376,12 @@ export class Battlefield3 extends EventEmitter {
     return this.rcon.createCommand("admin.yell", msg, duration, ...subset).send()
   }
 
-  /**
-   * Load list of VIP players from file
-   */
+  /** Load list of VIP players from file */
   loadReserveredSlotList() {
     return this.rcon.createCommand("reservedSlotsList.load").send()
   }
 
-  /**
-   * Save list of VIP players from file
-   */
+  /** Save list of VIP players from file */
   saveReserveredSlotList() {
     return this.rcon.createCommand("reservedSlotsList.save").send()
   }
@@ -415,9 +406,7 @@ export class Battlefield3 extends EventEmitter {
       .then(() => save ? this.saveReserveredSlotList() : [] as string[])
   }
 
-  /**
-   * clears VIP list
-   */
+  /** clears VIP list */
   clearReservedSlotList(save: boolean = true) {
     return this.rcon.createCommand("reservedSlotsList.clear").send()
       .then(() => save ? this.saveReserveredSlotList() : [] as string[])
@@ -460,7 +449,7 @@ export class Battlefield3 extends EventEmitter {
    * @param reason displayed ban reason
    * @param save save the list
    */
-  addBan(type: Battlefield3.IdType, timeout: Battlefield3.Timeout, reason?: string, save: boolean = true) {
+  addBan(type: Battlefield.IdType, timeout: Battlefield.Timeout, reason?: string, save: boolean = true) {
     return this.rcon.createCommand("banList.add", ...type, ...timeout, reason).send()
     .then(() => save ? this.saveBanList() : [] as string[])
   }
@@ -536,7 +525,7 @@ export class Battlefield3 extends EventEmitter {
    * @param offset 
    */
   getMaps(offset?: number) {
-    return this.rcon.createCommand<Battlefield3.MapList>("mapList.list", offset)
+    return this.rcon.createCommand<Battlefield.MapList>("mapList.list", offset)
       .format(w => {
         return w.slice(2).reduce((acc, _, i, arr) => {
           if (i % 3 !== 0) return acc
@@ -546,7 +535,7 @@ export class Battlefield3 extends EventEmitter {
             rounds: arr[i+2].toNumber(),
             index: (offset||0) + i / 3 + 1
           }]
-        }, [] as Battlefield3.MapList)
+        }, [] as Battlefield.MapList)
       })
       .send()
   }
@@ -576,6 +565,30 @@ export class Battlefield3 extends EventEmitter {
     return this.rcon.createCommand("mapList.runNextRound").send()
   }
 
+  /** lists all currently loaded mods */
+  getMods() {
+    return this.rcon.createCommand("modList.List").send()
+  }
+
+  /** 
+   * reloads all currently loaded mods.
+   * keep in mind that this can cause significant server and client lag
+   * and also crashes as not all mods support reloading
+   */
+  reloadExtensions() {
+    return this.rcon.createCommand("modList.ReloadExtensions").send()
+  }
+
+  /**
+   * accepts a single boolean argument (true or false) which toggles debug mode for any loaded extensions
+   * when set to true, any scripts will be built with debug symbols enabled, 
+   * which will make it so errors printed on the server and the clients will
+   * contain more useful information about their source.
+   */
+  debugExtensions(toggle: boolean) {
+    return this.rcon.createCommand("modList.Debug", toggle).send()
+  }
+
   /**
    * dnd the current round, declaring <winner> as the winning team
    */
@@ -592,35 +605,8 @@ export class Battlefield3 extends EventEmitter {
       .send()
   }
 
-  /**
-   * updates a set of variables
-   * @param vars 
-   */
-  setVariables(vars: Battlefield3.Variables) {
-    return Promise.all(
-      //@ts-ignore
-      Object.keys(vars).map(k => this.setVariable(k, vars[k]))
-    )
-  }
-
-  /** gets a set of variables */
-  getVariables(vars: (keyof Battlefield3.Variables)[]): Promise<Record<keyof Battlefield3.Variables, string>> {
-    return Promise.all(vars.map(v => [v, this.getVariable(v)])).then(res => Object.fromEntries(res))
-  }
-
-  getVariable(name: keyof Battlefield3.Variables) {
-    return this.rcon.createCommand<string>(`vars.${name}`)
-      .format(w => w[0].toString())
-      .send()
-  }
-
-  setVariable(name: keyof Battlefield3.Variables, value: boolean|number|string) {
-    return this.rcon.createCommand(`vars.${name}`, value)
-      .send()
-  }
-
   private parseClientList() {
-    return this.parseList<Battlefield3.Player>((word, name) => {
+    return this.parseList<Battlefield.Player>((word, name) => {
       switch (name) {
         case "name": return word.toString()
         case "teamId": return word.toNumber()
@@ -638,7 +624,7 @@ export class Battlefield3 extends EventEmitter {
 
   private parseList<T extends {}>(
     cb: (word: Word, name: keyof T) => any,
-    replace: Record<string, string|Battlefield3.ParseListReplaceOption> = {}
+    replace: Record<string, string|Battlefield.ParseListReplaceOption> = {}
   ): (words: Word[]) => T[] {
     return (words: Word[]) => {
       const entries = words[0].toNumber()
@@ -649,7 +635,7 @@ export class Battlefield3 extends EventEmitter {
         const index = i % entries
         if (index === 0) acc.push({} as T)
         const name = names[index]
-        if (name === Battlefield3.ParseListReplaceOption.OMIT) return acc
+        if (name === Battlefield.ParseListReplaceOption.OMIT) return acc
         //@ts-ignore
         if (index === 0) acc[acc.length-1][name] = curr.toNumber()
         //@ts-ignore
@@ -661,7 +647,7 @@ export class Battlefield3 extends EventEmitter {
 
 }
 
-export namespace Battlefield3 {
+export namespace Battlefield {
   export interface Options {
     host: string
     port: number
@@ -732,9 +718,21 @@ export namespace Battlefield3 {
     rank: number
     ping: number
   }
-  
 
-  export interface Variables {
+  export interface VuVariable extends Variable.List {
+    DestructionEnabled: boolean
+    SuppressionMultiplier: number
+    DesertingAllowed: boolean
+    VehicleDisablingEnabled: boolean
+    HighPerformanceReplication: boolean
+    SetTeamTicketCount: [number, number]
+    FrequencyMode: string
+    SpectatorCount: number
+    FadeOutAll: void
+    FadeInAll: void
+  }
+
+  export interface Variables extends Variable.List {
     /* This command can only be used during startup. It can only be used to switch the server from ranked to unranked mode; the server can never switch back to ranked mode again. */
     ranked: boolean
     /* Set server name */
