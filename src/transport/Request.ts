@@ -6,21 +6,32 @@ export class Request<T = string[]> {
 
   static RESPONSE_OK = "OK"
 
-  private request: Packet
-  private rcon: Rcon
+  readonly packet: Packet
+  private sendable: Request.Send
   private response?: Packet
+  priorized: boolean = false
   private fulfill: any
   private reject: any
   private responseParams: Request.ResponseParameter[] = []
   private formater: Request.ResponseFormater<T> = words => <any>words.map(w => w.toString())
 
   constructor(options: Request.Options) {
-    this.request = options.packet
-    this.rcon = options.rcon
+    this.packet = options.packet
+    this.sendable = options.send
   }
 
   get sequenceNumber() {
-    return this.request.getSequence().sequence
+    return this.packet.getSequence().sequence
+  }
+
+  /**
+   * marks the request as a priority request
+   * this will make the query send this packet first
+   * and withhold all other queued packets till this has finnished
+   */
+  priorize() {
+    this.priorized = true
+    return this
   }
 
   format(cb: Request.ResponseFormater<T>) {
@@ -61,7 +72,7 @@ export class Request<T = string[]> {
     return new Promise<T>((fulfill, reject) => {
       this.fulfill = fulfill
       this.reject = reject
-      this.rcon.write(this.request.getBuffer())
+      this.sendable(this)
     })
   }
 }
@@ -69,8 +80,10 @@ export class Request<T = string[]> {
 export namespace Request {
   export interface Options {
     packet: Packet
-    rcon: Rcon
+    send: Send
   }
+
+  export type Send = (req: Request<any>) => void
 
   export type ResponseFormater<T> = (words: Word[]) => T
   export type ResponseParameter = Parameter | Subset

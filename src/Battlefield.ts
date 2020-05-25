@@ -84,7 +84,7 @@ export class Battlefield extends EventEmitter {
     while (attempts++ < maxAttempts || maxAttempts <= 0) {
       await Battlefield.sleep(timeout)
       try {
-        await this.rcon.connect()
+        await this.connect()
         return this
       } catch(e) {
         console.log(`reconnect attempt #${attempts} failed`, e)
@@ -231,6 +231,7 @@ export class Battlefield extends EventEmitter {
   /** get the battlefield server salt */
   private getSalt() {
     return this.rcon.createCommand<Buffer>("login.hashed")
+      .priorize()
       .format(w => Buffer.from(w[0].toString(), "hex"))
       .send()
   }
@@ -249,7 +250,10 @@ export class Battlefield extends EventEmitter {
    * @param password password to login with
    */
   async login(password: string) {
-    return this.rcon.createCommand("login.hashed", this.getPasswordHash(password, await this.getSalt())).send()
+    return this.rcon
+      .createCommand("login.hashed", this.getPasswordHash(password, await this.getSalt()))
+      .priorize()
+      .send()
   }
 
   /** Logout from game server */
