@@ -45,14 +45,14 @@ export class Battlefield extends EventEmitter {
   /**
    * tests an rcon connection and disconnects after
    */
-  static async testConnection(options: Omit<Battlefield.Options, "autoconnect">) {
+  static async testConnection(options: Omit<Battlefield.Options, "autoconnect">):Promise<true|Error> {
     let bf3: Battlefield
     try {
       bf3 = await Battlefield.connect(options)
       bf3.quit()
       return true
     } catch (e) {
-      return false
+      return e
     }
   }
 
