@@ -43,6 +43,20 @@ export class Battlefield extends EventEmitter {
   }
 
   /**
+   * tests an rcon connection and disconnects after
+   */
+  static async testConnection(options: Omit<Battlefield.Options, "autoconnect">) {
+    let bf3: Battlefield
+    try {
+      bf3 = await Battlefield.connect(options)
+      bf3.quit()
+      return true
+    } catch (e) {
+      return false
+    }
+  }
+
+  /**
    * creates a new Battlefield instance
    * @param options 
    */
@@ -54,7 +68,12 @@ export class Battlefield extends EventEmitter {
   /** connects and initializes the query */
   async connect() {
     await this.rcon.connect()
-    return this.initialize()
+    try {
+      return this.initialize()
+    } catch (e) {
+      this.rcon.stop()
+      throw e
+    }
   }
 
   /** initializes the connection */
