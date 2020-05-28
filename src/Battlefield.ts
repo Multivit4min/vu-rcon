@@ -682,7 +682,7 @@ export class Battlefield extends EventEmitter {
         case "kills": return word.toNumber()
         case "deaths": return word.toNumber()
         case "score": return word.toNumber()
-        case "rank": return word.toNumber()
+        case "rank": return word.toString()
         case "ping": return word.toNumber()
         default: return word.toString()
       }
@@ -786,7 +786,7 @@ export namespace Battlefield {
     kills: number
     deaths: number
     score: number
-    rank: number
+    rank: string
     ping: number
     playerGuid: string
     spectator: boolean
