@@ -314,9 +314,42 @@ export class Battlefield extends EventEmitter {
         roundTime: words.shift()!.toNumber(),
         address: words.shift()!.toString(),
         punkBusterVersion: words.shift()!.toString(),
-        joinQueueEnabled: words.shift()!.toBoolean()
+        joinQueueEnabled: words.shift()!.toBoolean(),
+        region: words.shift()!.toString(),
+        closesPingSite: words.shift()!.toString(),
+        country: words.shift()!.toString(),
+        matchmaking: words.shift()!.toBoolean()
       }))
       .send()
+  }
+
+  /** gets the amount of players a server can have */
+  effectiveMaxPlayers() {
+    return this.rcon.createCommand<number>("admin.effectiveMaxPlayers").format(([w]) => w.toNumber()).send()
+  }
+
+  /**
+   * gets the idle duration of a specific client in seconds
+   * @param name name of the player to retrieve idle duration for
+   */
+  idleDuration(name: string) {
+    return this.rcon.createCommand<number>("player.idleDuration", name).format(([w]) => w.toNumber()).send()
+  }
+
+  /**
+   * checks wether a client is dead or alive
+   * @param name name of the player to check
+   */
+  isAlive(name: string) {
+    return this.rcon.createCommand<boolean>("player.isAlive", name).format(([w]) => w.toBoolean()).send()
+  }
+
+  /**
+   * returns the players ping
+   * @param name name of the player to check
+   */
+  ping(name: string) {
+    return this.rcon.createCommand<boolean>("player.ping", name).format(([w]) => w.toBoolean()).send()
   }
 
   /** Query whether the PunkBuster server module is active */
@@ -590,6 +623,13 @@ export class Battlefield extends EventEmitter {
     return this.rcon.createCommand("mapList.runNextRound").send()
   }
 
+  /**
+   * restarts the current round, without going through the end of round sequence
+   */
+  restartRound() {
+    return this.rcon.createCommand("mapList.restartRound").send()
+  }
+
   /** lists all currently loaded mods */
   getMods() {
     return this.rcon.createCommand("modList.List").send()
@@ -636,6 +676,8 @@ export class Battlefield extends EventEmitter {
         case "name": return word.toString()
         case "teamId": return word.toNumber()
         case "guid": return word.toString()
+        case "playerGuid": return word.toString()
+        case "spectator": return word.toBoolean()
         case "squadId": return word.toNumber()
         case "kills": return word.toNumber()
         case "deaths": return word.toNumber()
@@ -712,6 +754,10 @@ export namespace Battlefield {
     address: string
     punkBusterVersion: string
     joinQueueEnabled: boolean
+    region: string
+    closesPingSite: string
+    country: string
+    matchmaking: boolean
   }
 
   export enum Squad {
@@ -742,6 +788,8 @@ export namespace Battlefield {
     score: number
     rank: number
     ping: number
+    playerGuid: string
+    spectator: boolean
   }
 
   export interface VuVariable extends Variable.List {
@@ -834,5 +882,7 @@ export namespace Battlefield {
     unlockMode: string|"stats"
     /* Set if server should be exclusive to Premium players */
     premiumStatus: boolean
+    /** set what weapons preset to use when playing the gun master game mode */
+    gunMasterWeaponsPreset: number
   }
 }
