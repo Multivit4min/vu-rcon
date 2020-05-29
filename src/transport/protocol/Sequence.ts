@@ -1,68 +1,96 @@
 export class Sequence {
 
   static MAX_SEQUENCE_NUMBER = 0x3FFFFFFF
-  private buffer: Buffer
   readonly sequence: number
   readonly origin: Sequence.Origin
   readonly type: Sequence.Type
 
-  constructor(buffer: Buffer|number) {
-    if (typeof buffer === "number") {
-      this.buffer = Buffer.alloc(4)
-      this.buffer.writeUInt32LE(buffer, 0)
-    } else {
-      this.buffer = buffer
-    }
-    this.origin = Sequence.getOrigin(this.buffer)
-    this.type = Sequence.getType(this.buffer)
-    this.sequence = Sequence.getSequenceNumber(this.buffer)
+  constructor(props: Sequence.SequenceOptions) {
+    this.origin = props.origin
+    this.type = props.type
+    this.sequence = props.sequence
   }
 
   /** retrieves the next sequence number */
   nextSequence(opts: Sequence.NextSequenceOptions) {
     let seq = this.sequence + 1
-    if (seq > Sequence.MAX_SEQUENCE_NUMBER) seq = 0
-    return Sequence.from({
-      sequence: (seq <= Sequence.MAX_SEQUENCE_NUMBER) ? seq : 0,
+    return new Sequence({
+      sequence: seq > Sequence.MAX_SEQUENCE_NUMBER ? 0 : seq,
       ...opts
     })
   }
 
   /** returns a copy of the word as buffer */
-  getBuffer() {
-    const buffer = Buffer.alloc(this.buffer.byteLength)
-    this.buffer.copy(buffer)
+  toBuffer() {
+    let sequence = this.sequence
+    const buffer = Buffer.alloc(4)
+    buffer.writeUInt32LE(sequence, 0)
+    Sequence.setOrigin(buffer, this.origin)
+    Sequence.setType(buffer, this.type)
     return buffer
   }
 
-  /** builds a new sequence buffer */
-  static from(opts: Sequence.SequenceOptions) {
-    let sequence = opts.sequence
-    if (opts.origin === Sequence.Origin.CLIENT) {
-      const s = sequence | 0x8000000
-      sequence = s < 0 ? s * -1 : s
+  /** parses a sequence from a buffer */
+  static from(buffer: Buffer) {
+    const uint = buffer.readUInt32LE(0)
+    return new Sequence({
+      origin: Sequence.getOrigin(uint),
+      type: Sequence.getType(uint),
+      sequence: Sequence.getSequenceNumber(uint)
+    })
+  }
+
+  static setOrigin(sequence: Buffer, origin: Sequence.Origin) {
+    let seq = sequence.readInt32LE(0)
+    if (origin) {
+      seq |= Sequence.Mask.ORIGIN
+    } else {
+      seq &= ~Sequence.Mask.ORIGIN
     }
-    if (opts.type === Sequence.Type.RESPONSE) sequence = sequence | 0x40000000
-    return new Sequence(sequence)
+    sequence.writeInt32LE(seq, 0)
   }
 
-  static getOrigin(buf: Buffer) {
-    return (!(buf.readUInt32LE(0) & 0x80000000)) ? Sequence.Origin.SERVER : Sequence.Origin.CLIENT
+  static setType(sequence: Buffer, type: Sequence.Type) {
+    let seq = sequence.readInt32LE(0)
+    if (type) {
+      seq |= Sequence.Mask.TYPE
+    } else {
+      seq &= ~Sequence.Mask.TYPE
+    }
+    sequence.writeInt32LE(seq, 0)
   }
 
-  static getType(buf: Buffer) {
-    return (!(buf.readUInt32LE(0) & 0x40000000)) ? Sequence.Type.REQUEST : Sequence.Type.RESPONSE
+  static getOrigin(uint: number) {
+    if ((uint & Sequence.Mask.ORIGIN) === Sequence.Mask.ORIGIN) {
+      return Sequence.Origin.CLIENT
+    } else {
+      return Sequence.Origin.SERVER
+    }
   }
 
-  static getSequenceNumber(buf: Buffer) {
-    return buf.readUInt32LE(0) & 0x3FFFFFFF
+  static getType(uint: number) {
+    if ((uint & Sequence.Mask.TYPE) === Sequence.Mask.TYPE) {
+      return Sequence.Type.RESPONSE
+    } else {
+      return Sequence.Type.REQUEST
+    }
+  }
+
+  static getSequenceNumber(uint: number) {
+    return uint & ~(Sequence.Mask.ORIGIN | Sequence.Mask.TYPE)
   }
 }
 
 export namespace Sequence {
+
+  export enum Mask {
+    ORIGIN = 0x80000000,
+    TYPE = 0x40000000
+  }
+
   export enum Origin {
-    SERVER = 0,
-    CLIENT = 1
+    SERVER = 1,
+    CLIENT = 0
   }
 
   export enum Type {

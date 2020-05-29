@@ -1,5 +1,4 @@
 import { Packet } from "./protocol/Packet"
-import { Rcon } from "./Rcon"
 import { Word } from "./protocol/Word"
 
 export class Request<T = string[]> {
@@ -21,7 +20,7 @@ export class Request<T = string[]> {
   }
 
   get sequenceNumber() {
-    return this.packet.getSequence().sequence
+    return this.packet.sequence.sequence
   }
 
   /**

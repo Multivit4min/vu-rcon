@@ -5,24 +5,17 @@ export class Word {
   static CONTENT_OFFSET = 4
   static TERMINATOR_LEN = 1
 
-  private buffer: Buffer
+  readonly word: string
   readonly size: number
-  readonly content: Buffer
-  readonly totalSize: number
   
-  constructor(word: Buffer) {
-    this.buffer = word
-    this.size = word.readUInt32LE(Word.SIZE_OFFSET)
-    this.totalSize = this.size + Word.SIZE_LEN + Word.TERMINATOR_LEN
-    if (this.totalSize > word.byteLength)
-      throw new Error(`expected word to be atleast ${this.totalSize} bytes but got ${word.byteLength}`)
-    this.content = word.slice(Word.CONTENT_OFFSET, Word.CONTENT_OFFSET + this.size)
-    this.buffer = word.slice(0, this.totalSize)
+  constructor(word: string, size?: number) {
+    this.word = word
+    this.size = typeof size === "number" ? size : Word.getSize(word)
   }
 
   /** retrieves the response as string */
   toString() {
-    return this.content.toString("utf8")
+    return this.word
   }
 
   /** retrieves the response as number */
@@ -30,23 +23,34 @@ export class Word {
     return parseFloat(this.toString())
   }
 
+  /** retrieves the response as boolean */
   toBoolean() {
     return this.toString() === "true"
   }
 
   /** returns a copy of the word as buffer */
-  getBuffer() {
-    const buffer = Buffer.alloc(this.buffer.byteLength)
-    this.buffer.copy(buffer)
-    return buffer
+  toBuffer() {
+    const content = Buffer.from(this.word, "utf8")
+    const size = Buffer.alloc(4)
+    size.writeUInt32LE(content.byteLength)
+    return Buffer.concat([size, content, Buffer.alloc(1)])
+  }
+
+  /** gets the total size of the for this word */
+  static getSize(word: string) {
+    return Word.SIZE_LEN + Buffer.from(word).byteLength + Word.TERMINATOR_LEN
   }
 
   /** creates a new word based on the command */
-  static from(command: string) {
-    const buffer = Buffer.alloc(command.length + Word.SIZE_LEN + Word.TERMINATOR_LEN)
-    buffer.writeUInt32LE(command.length, Word.SIZE_OFFSET)
-    buffer.write(command, Word.CONTENT_OFFSET, "utf8")
-    return new Word(buffer)
+  static from(buffer: Buffer) {
+    const size = buffer.readUInt32LE(Word.SIZE_OFFSET)
+    const totalSize = size + Word.SIZE_LEN + Word.TERMINATOR_LEN
+    if (totalSize > buffer.byteLength)
+      throw new Error(`expected word to be atleast ${totalSize} bytes but got ${buffer.byteLength}`)
+    return new Word(buffer.slice(
+      Word.CONTENT_OFFSET,
+      totalSize - Word.TERMINATOR_LEN
+    ).toString("utf8"), totalSize)
   }
 
 

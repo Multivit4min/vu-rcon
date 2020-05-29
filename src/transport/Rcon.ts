@@ -58,8 +58,14 @@ export class Rcon extends EventEmitter {
   }
 
   private onData(buffer: Buffer) {
-    const packet = new Packet(buffer)
-    const request = this.pending.find(p => p.sequenceNumber === packet.getSequence().sequence)
+    Packet
+      .getPacketBuffers(buffer)
+      .forEach(buffer => this.handlePacket(buffer))
+  }
+
+  private handlePacket(buffer: Buffer) {
+    const packet = Packet.from(buffer)
+    const request = this.pending.find(p => p.sequenceNumber === packet.sequence.sequence)
     if (!request) return this.handleEvent(packet)
     this.pending.splice(this.pending.indexOf(request), 1)
     if (this.pending.length === 0 && this.waitForPriorized) {
@@ -91,7 +97,7 @@ export class Rcon extends EventEmitter {
     } else {
       if (req.priorized) this.waitForPriorized = true
       this.pending.push(req)
-      this.write(req.packet.getBuffer())
+      this.write(req.packet.toBuffer())
     }
   }
 
@@ -113,8 +119,11 @@ export class Rcon extends EventEmitter {
   }
 
   write(buffer: Buffer) {
-    this.socket.write(buffer, err => {
-      if (err) throw err
+    return new Promise((fulfill, reject) => {
+      this.socket.write(buffer, err => {
+        if (err) return reject(err)
+        fulfill()
+      })
     })
   }
 
@@ -124,15 +133,15 @@ export class Rcon extends EventEmitter {
 
   private getNextSequence(opts: Sequence.NextSequenceOptions) {
     if (this.sequence) {
-      this.sequence = Sequence.from({ sequence: this.sequence.sequence + 1, ...opts })
+      this.sequence = this.sequence.nextSequence(opts)
     } else {
-      this.sequence = Sequence.from({ sequence: 0, ...opts })
+      this.sequence = new Sequence({ sequence: 0, ...opts })
     }
     return this.sequence
   }
 
   private wrapInPacket(words: string[]) {
-    return Packet.from({
+    return new Packet({
       words,
       sequence: this.getNextSequence({
         origin: Sequence.Origin.CLIENT,
