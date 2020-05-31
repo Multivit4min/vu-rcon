@@ -31,7 +31,8 @@ export interface OnAuthenticated {
   name: string
 }
 
-export interface OnLeave extends Battlefield.Player {
+export interface OnLeave {
+  player: Battlefield.Player
 }
 
 export interface OnJoining {
