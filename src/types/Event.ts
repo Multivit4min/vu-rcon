@@ -1,4 +1,4 @@
-import { Battlefield } from "Battlefield"
+import { Battlefield } from "../Battlefield"
 
 export interface OnRoundOver {
   winner: number
