@@ -606,21 +606,24 @@ export class Battlefield extends EventEmitter {
    * @param rounds 
    * @param index 
    */
-  addMap(map: string, mode: string, rounds: number = 2, index?: number) {
+  addMap(map: string, mode: string, rounds: number = 2, index?: number, save: boolean = true) {
     return this.rcon.createCommand("mapList.add", map, mode, rounds, index).send()
+      .then(() => save ? this.saveMaps() : [] as string[])
   }
 
   /**
    * Removes the map at offset <index> from the maplist
    * @param index 
    */
-  delMap(index: number) {
+  delMap(index: number, save: boolean = true) {
     return this.rcon.createCommand("mapList.remove", index).send()
+    .then(() => save ? this.saveMaps() : [] as string[])
   }
 
   /** clears the map list */
-  clearMaps() {
+  clearMaps(save: boolean = true) {
     return this.rcon.createCommand("mapList.clear").send()
+      .then(() => save ? this.saveMaps() : [] as string[])
   }
 
   /**
