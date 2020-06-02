@@ -13,6 +13,7 @@ export class Rcon extends EventEmitter {
   private pending: Rcon.Pending = []
   private queued: Rcon.Queued = []
   private waitForPriorized: boolean = false
+  private buffer = Buffer.alloc(0)
 
   constructor(options: Rcon.ConnectionOptions) {
     super()
@@ -58,9 +59,9 @@ export class Rcon extends EventEmitter {
   }
 
   private onData(buffer: Buffer) {
-    Packet
-      .getPacketBuffers(buffer)
-      .forEach(buffer => this.handlePacket(buffer))
+    const { buffers, remainder } = Packet.getPacketBuffers(Buffer.concat([this.buffer, buffer]))
+    this.buffer = remainder
+    buffers.forEach(buffer => this.handlePacket(buffer))
   }
 
   private handlePacket(buffer: Buffer) {

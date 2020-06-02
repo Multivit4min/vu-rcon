@@ -37,8 +37,10 @@ export class Packet {
   static from(buffer: Buffer) {
     const sequence = buffer.slice(Packet.SEQUENCE_OFFSET, Packet.SEQUENCE_LEN)
     const size = buffer.readUInt32LE(Packet.SIZE_OFFSET)
-    if (size !== buffer.byteLength)
+    if (size !== buffer.byteLength) {
+      console.log(buffer)
       throw new Error(`expected packet of ${size} bytes but got ${buffer.byteLength} bytes`)
+    }
     const wordCount = buffer.readUInt32LE(Packet.WORDCOUNT_OFFSET)
     const words: Word[] = []
     let i = 0
@@ -53,13 +55,22 @@ export class Packet {
 
   /** retrieves an array of buffers */
   static getPacketBuffers(buffer: Buffer) {
+    let remainder: Buffer = Buffer.alloc(0)
     const buffers: Buffer[] = []
-    while (buffer.byteLength > 0) {
-      const size = Packet.getSizeDirty(buffer)
-      buffers.push(buffer.slice(0, size))
-      buffer = buffer.slice(size)
+    while (buffer.byteLength > 0) {        
+      if (
+        buffer.byteLength >= (Packet.SIZE_OFFSET + Packet.SIZE_LEN) &&
+        buffer.byteLength >= Packet.getSizeDirty(buffer)
+      ) {
+        const size = Packet.getSizeDirty(buffer)
+        buffers.push(buffer.slice(0, size))
+        buffer = buffer.slice(size)
+      } else {
+        remainder = buffer.slice(0)
+        buffer = Buffer.alloc(0)
+      }
     }
-    return buffers
+    return { buffers, remainder }
   }
 
   /** returns an estimated byte size for the packet */
