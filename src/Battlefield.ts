@@ -503,7 +503,7 @@ export class Battlefield extends EventEmitter {
    * @param id
    */
   delReservedSlot(name: string, save: boolean = true) {
-    return this.rcon.createCommand("reservedSlotsList.remove",  "name", name).send()
+    return this.rcon.createCommand("reservedSlotsList.remove", name).send()
       .then(() => save ? this.saveReservedSlots() : [] as string[])
   }
 
