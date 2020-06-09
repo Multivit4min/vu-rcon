@@ -7,6 +7,7 @@ import { Variable } from "./Variable"
 
 export interface Battlefield {
   on(event: "close", handler: (err: Error|undefined) => void): this
+  on(event: "ready", handler: () => void): this
   on(event: "chat", handler: (data: Event.PlayerOnChat) => void): this
   on(event: "spawn", handler: (data: Event.PlayerOnSpawn) => void): this
   on(event: "kill", handler: (data: Event.PlayerOnKill) => void): this
@@ -85,6 +86,7 @@ export class Battlefield extends EventEmitter {
     await this.fetchVersion()
     await this.login(this.options.password)
     await this.enableEvents(true)
+    this.emit("ready")
     return this
   }
 
