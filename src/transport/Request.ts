@@ -71,8 +71,8 @@ export class Request<T = string[]> {
   }
 
   send() {
-    this.stack = (new Error()).stack!
     return new Promise<T>((fulfill, reject) => {
+      this.stack = (new Error()).stack!
       this.fulfill = fulfill
       this.reject = reject
       this.sendable(this)
