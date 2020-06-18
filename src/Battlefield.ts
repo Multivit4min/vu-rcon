@@ -28,7 +28,10 @@ export class Battlefield extends EventEmitter {
   private rcon: Rcon
   private rconError?: Error
   private pbAddressCache: Record<string, string> = {}
-  version: { game: Battlefield.Version, version: number } = { game: Battlefield.Version.UNKNOWN, version: 0 }
+  version: { game: Battlefield.Version, version: number } = {
+    game: Battlefield.Version.UNKNOWN,
+    version: 0
+  }
 
   readonly vu: Variable<Battlefield.VuVariable>
   readonly var: Variable<Battlefield.Variables>
@@ -40,7 +43,7 @@ export class Battlefield extends EventEmitter {
       ...this.options,
       eventHandler: this.eventHandler.bind(this)
     })
-    this.var = new Variable(this.rcon, "var")
+    this.var = new Variable(this.rcon, "vars")
     this.vu = new Variable(this.rcon, "vu")
     if (this.options.autoconnect !== false) this.rcon.connect()
     this.rcon.on("error", err => this.rconError = err)

@@ -13,6 +13,7 @@ export class Request<T = string[]> {
   private reject: any
   private responseParams: Request.ResponseParameter[] = []
   private formater: Request.ResponseFormater<T> = words => <any>words.map(w => w.toString())
+  private stack: string = new Error().stack!
 
   constructor(options: Request.Options) {
     this.packet = options.packet
@@ -59,7 +60,9 @@ export class Request<T = string[]> {
   setResponse(packet: Packet) {
     this.response = packet
     if (this.isOk()) return this.fulfill(this.getResponseContent())
-    return this.reject(new Error(this.getResponse()))
+    const error = new Error(this.getResponse())
+    error.stack = this.stack
+    return this.reject(error)
   }
 
   expect(parameter: Request.ResponseParameter) {
@@ -68,6 +71,7 @@ export class Request<T = string[]> {
   }
 
   send() {
+    this.stack = new Error().stack!
     return new Promise<T>((fulfill, reject) => {
       this.fulfill = fulfill
       this.reject = reject
