@@ -63,7 +63,7 @@ export class Request<T = string[]> {
     const error = new Error(`${this.getResponse()}: ${this.packet.words.join(" ")}`)
     if (this.stack && error.stack) {
       const [_, ...stack] = this.stack.split("\n")
-      error.stack = `${this.stack.split("\n")[0]}\n${stack.join("\n")}`
+      error.stack = `${error.stack.split("\n")[0]}\n${stack.join("\n")}`
     }
     return this.reject(error)
   }
