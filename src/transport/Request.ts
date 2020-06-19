@@ -60,7 +60,7 @@ export class Request<T = string[]> {
   setResponse(packet: Packet) {
     this.response = packet
     if (this.isOk()) return this.fulfill(this.getResponseContent())
-    const error = new Error(this.getResponse())
+    const error = new Error(`${this.getResponse()}: ${this.packet.words.join(" ")}`)
     if (this.stack && error.stack) {
       const [_, ...stack] = this.stack.split("\n")
       error.stack = `${this.stack.split("\n")[0]}\n${stack.join("\n")}`
