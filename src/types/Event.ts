@@ -1,4 +1,6 @@
 import { Battlefield } from "../Battlefield"
+import { Word } from "../transport/protocol/Word"
+import { Request } from "../transport/Request"
 
 export interface OnRoundOver {
   winner: number
@@ -40,6 +42,15 @@ export interface OnJoining {
   guid: string
 }
 
+export interface OnUnhandled {
+  event: string
+  words: Word[]
+}
+
+export interface OnRequestCreate {
+  request: Request<any>
+}
+
 export interface PunkBuster {
   event: string
   messages: string[]
@@ -74,9 +85,8 @@ export interface PlayerOnChatSquad extends PlayerOnChatBase {
 }
 export interface PlayerOnChatPlayer extends PlayerOnChatBase {
   subset: "player"
-
 }
+
 export interface PlayerOnChatAll extends PlayerOnChatBase {
   subset: "all"
-
 }

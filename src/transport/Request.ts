@@ -14,6 +14,7 @@ export class Request<T = string[]> {
   private responseParams: Request.ResponseParameter[] = []
   private formater: Request.ResponseFormater<T> = words => <any>words.map(w => w.toString())
   private stack = (new Error()).stack
+  private callbacks: ((data: T) => void)[] = []
 
   constructor(options: Request.Options) {
     this.packet = options.packet
@@ -44,6 +45,11 @@ export class Request<T = string[]> {
     return this.response.words[0].toString()
   }
 
+  onResolved(cb: (data: T) => void) {
+    if (this.response) return cb(this.getResponseContent())
+    this.callbacks.push(cb)
+  }
+
   getContentWords() {
     if (!this.response) throw new Error("no response has been received yet")
     return this.response.words.slice(1, this.response.words.length)
@@ -59,7 +65,12 @@ export class Request<T = string[]> {
 
   setResponse(packet: Packet) {
     this.response = packet
-    if (this.isOk()) return this.fulfill(this.getResponseContent())
+    if (this.isOk()) {
+      const res = this.getResponseContent()
+      this.fulfill(res)
+      this.callbacks.forEach(cb => cb(res))
+      return 
+    }
     const error = new Error(`${this.getResponse()}: ${this.packet.words.join(" ")}`)
     if (this.stack && error.stack) {
       const [_, ...stack] = this.stack.split("\n")
