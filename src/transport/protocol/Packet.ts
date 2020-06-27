@@ -37,10 +37,8 @@ export class Packet {
   static from(buffer: Buffer) {
     const sequence = buffer.slice(Packet.SEQUENCE_OFFSET, Packet.SEQUENCE_LEN)
     const size = buffer.readUInt32LE(Packet.SIZE_OFFSET)
-    if (size !== buffer.byteLength) {
-      console.log(buffer)
+    if (size !== buffer.byteLength)
       throw new Error(`expected packet of ${size} bytes but got ${buffer.byteLength} bytes`)
-    }
     const wordCount = buffer.readUInt32LE(Packet.WORDCOUNT_OFFSET)
     const words: Word[] = []
     let i = 0
