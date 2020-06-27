@@ -20,6 +20,8 @@ export interface Battlefield {
   on(event: "maxPlayerCountChange", handler: (data: Event.MaxPlayerCountChange) => void): this
   on(event: "levelLoaded", handler: (data: Event.MaxPlayerCountChange) => void): this
   on(event: "roundOver", handler: (data: Event.OnRoundOver) => void): this
+  on(event: "event", handler: (data: Event.OnUnhandled) => void): this
+  on(event: "request", handler: (data: Event.OnRequestCreate) => void): this
 }
 
 export class Battlefield extends EventEmitter {
@@ -28,7 +30,10 @@ export class Battlefield extends EventEmitter {
   private rcon: Rcon
   private rconError?: Error
   private pbAddressCache: Record<string, string> = {}
-  version: { game: Battlefield.Version, version: number } = { game: Battlefield.Version.UNKNOWN, version: 0 }
+  version: { game: Battlefield.Version, version: number } = {
+    game: Battlefield.Version.UNKNOWN,
+    version: 0
+  }
 
   readonly vu: Variable<Battlefield.VuVariable>
   readonly var: Variable<Battlefield.Variables>
@@ -40,7 +45,7 @@ export class Battlefield extends EventEmitter {
       ...this.options,
       eventHandler: this.eventHandler.bind(this)
     })
-    this.var = new Variable(this.rcon, "var")
+    this.var = new Variable(this.rcon, "vars")
     this.vu = new Variable(this.rcon, "vu")
     if (this.options.autoconnect !== false) this.rcon.connect()
     this.rcon.on("error", err => this.rconError = err)
@@ -135,7 +140,8 @@ export class Battlefield extends EventEmitter {
       case "server.onRoundOver": return this.onRoundOver(words)
       case "server.onRoundOverPlayers": return this.onRoundOverPlayers(words)
       case "server.onRoundOverTeamScores": return this.onRoundOverTeamScores(words)
-      default: console.log("unhandled event", event, words.map(w => w.toString()))
+      default:
+        this.emit("event", { event, words })
     }
   }
 
@@ -250,9 +256,15 @@ export class Battlefield extends EventEmitter {
     this.emit("chat", event)
   }
 
+  private createCommand<T>(cmd: string, ...args: Rcon.Argument[]) {
+    const request = this.rcon.createCommand<T>(cmd, ...args)
+    this.emit("request", { request })
+    return request
+  }
+
   /** sends the help command to the server */
   help() {
-    return this.rcon.createCommand("admin.help").send()
+    return this.createCommand("admin.help").send()
   }
 
   /**
@@ -260,12 +272,12 @@ export class Battlefield extends EventEmitter {
    * @param set enable or disable events
    */
   enableEvents(set: boolean) {
-    return this.rcon.createCommand("admin.eventsEnabled", set).send()
+    return this.createCommand("admin.eventsEnabled", set).send()
   }
 
   /** Game server type and build ID uniquely identify the server, and the protocol it is running. */
   private fetchVersion() {
-    return this.rcon.createCommand<{ game: string, version: number}>("version")
+    return this.createCommand<{ game: string, version: number}>("version")
       .format(w => ({ game: w[0].toString(), version: w[1].toNumber() })).send()
       .then(({ version, game }) => {
         this.version = (() => {
@@ -282,7 +294,7 @@ export class Battlefield extends EventEmitter {
 
   /** get the battlefield server salt */
   private getSalt() {
-    return this.rcon.createCommand<Buffer>("login.hashed")
+    return this.createCommand<Buffer>("login.hashed")
       .priorize()
       .format(w => Buffer.from(w[0].toString(), "hex"))
       .send()
@@ -310,7 +322,7 @@ export class Battlefield extends EventEmitter {
 
   /** Logout from game server */
   logout() {
-    return this.rcon.createCommand("logout").send()
+    return this.createCommand("logout").send()
   }
 
   /** return list of all players on the server, but with zeroed out GUIDs */
@@ -334,7 +346,7 @@ export class Battlefield extends EventEmitter {
 
   /** retrieves basic serverinformations */
   serverInfo() {
-    return this.rcon.createCommand<Battlefield.ServerInfo>("serverinfo")
+    return this.createCommand<Battlefield.ServerInfo>("serverinfo")
       .format(words => ({
         name: words.shift()!.toString(),
         slots: words.shift()!.toNumber(),
@@ -370,7 +382,7 @@ export class Battlefield extends EventEmitter {
 
   /** gets the amount of players a server can have */
   effectiveMaxPlayers() {
-    return this.rcon.createCommand<number>("admin.effectiveMaxPlayers").format(([w]) => w.toNumber()).send()
+    return this.createCommand<number>("admin.effectiveMaxPlayers").format(([w]) => w.toNumber()).send()
   }
 
   /**
@@ -378,7 +390,7 @@ export class Battlefield extends EventEmitter {
    * @param name name of the player to retrieve idle duration for
    */
   idleDuration(name: string) {
-    return this.rcon.createCommand<number>("player.idleDuration", name).format(([w]) => w.toNumber()).send()
+    return this.createCommand<number>("player.idleDuration", name).format(([w]) => w.toNumber()).send()
   }
 
   /**
@@ -386,7 +398,7 @@ export class Battlefield extends EventEmitter {
    * @param name name of the player to check
    */
   playerAlive(name: string) {
-    return this.rcon.createCommand<boolean>("player.isAlive", name).format(([w]) => w.toBoolean()).send()
+    return this.createCommand<boolean>("player.isAlive", name).format(([w]) => w.toBoolean()).send()
   }
 
   /**
@@ -395,7 +407,7 @@ export class Battlefield extends EventEmitter {
    * @param reason kick reason
    */
   playerKick(name: string, reason?: string) {
-    return this.rcon.createCommand("admin.kickPlayer", name, reason).send()
+    return this.createCommand("admin.kickPlayer", name, reason).send()
   }
 
   /**
@@ -407,7 +419,7 @@ export class Battlefield extends EventEmitter {
    * @param forceKill kill the player to move?
    */
   playerMove(name: string, teamId: number, squadId: number, forceKill: boolean) {
-    return this.rcon.createCommand("admin.kickPlayer", name, teamId, squadId, forceKill).send()
+    return this.createCommand("admin.kickPlayer", name, teamId, squadId, forceKill).send()
   }
 
   /**
@@ -415,7 +427,7 @@ export class Battlefield extends EventEmitter {
    * @param name 
    */
   playerKill(name: string) {
-    return this.rcon.createCommand("admin.killPlayer", name).send()
+    return this.createCommand("admin.killPlayer", name).send()
   }
 
   /**
@@ -423,17 +435,17 @@ export class Battlefield extends EventEmitter {
    * @param name name of the player to check
    */
   playerPing(name: string) {
-    return this.rcon.createCommand<boolean>("player.ping", name).format(([w]) => w.toBoolean()).send()
+    return this.createCommand<boolean>("player.ping", name).format(([w]) => w.toBoolean()).send()
   }
 
   /** Query whether the PunkBuster server module is active */
   punkBusterActive() {
-    return this.rcon.createCommand<boolean>("punkBuster.isActive").format(([w]) => w.toBoolean()).send()
+    return this.createCommand<boolean>("punkBuster.isActive").format(([w]) => w.toBoolean()).send()
   }
 
   /** Attempt to activate PunkBuster server module if it currently is inactive */
   punkBusterActivate() {
-    return this.rcon.createCommand("punkBuster.active").send()
+    return this.createCommand("punkBuster.active").send()
   }
 
   /**
@@ -441,7 +453,7 @@ export class Battlefield extends EventEmitter {
    * @param cmd command to send
    */
   punkBusterSendCommand(cmd: string) {
-    return this.rcon.createCommand("punkBuster.pb_sv_command", cmd).send()
+    return this.createCommand("punkBuster.pb_sv_command", cmd).send()
   }
 
   /**
@@ -450,7 +462,7 @@ export class Battlefield extends EventEmitter {
    * @param subset subset to send message to
    */
   say(msg: string, subset: string[]) {
-    return this.rcon.createCommand("admin.say", msg, ...subset).send()
+    return this.createCommand("admin.say", msg, ...subset).send()
   }
 
   /** Retrieves a single player by its name */
@@ -476,17 +488,17 @@ export class Battlefield extends EventEmitter {
    * @param subset subset to send message to
    */
   yell(msg: string, duration?: number, subset: string[] = []) {
-    return this.rcon.createCommand("admin.yell", msg, duration, ...subset).send()
+    return this.createCommand("admin.yell", msg, duration, ...subset).send()
   }
 
   /** Load list of VIP players from file */
   loadReservedSlots() {
-    return this.rcon.createCommand("reservedSlotsList.load").send()
+    return this.createCommand("reservedSlotsList.load").send()
   }
 
   /** Save list of VIP players from file */
   saveReservedSlots() {
-    return this.rcon.createCommand("reservedSlotsList.save").send()
+    return this.createCommand("reservedSlotsList.save").send()
   }
 
   /**
@@ -495,7 +507,7 @@ export class Battlefield extends EventEmitter {
    * @param save save the list
    */
   addReservedSlot(name: string, save: boolean = true) {
-    return this.rcon.createCommand("reservedSlotsList.add", name).send()
+    return this.createCommand("reservedSlotsList.add", name).send()
       .then(() => save ? this.saveReservedSlots() : [] as string[])
   }
 
@@ -505,19 +517,19 @@ export class Battlefield extends EventEmitter {
    * @param id
    */
   delReservedSlot(name: string, save: boolean = true) {
-    return this.rcon.createCommand("reservedSlotsList.remove", name).send()
+    return this.createCommand("reservedSlotsList.remove", name).send()
       .then(() => save ? this.saveReservedSlots() : [] as string[])
   }
 
   /** clears VIP list */
   clearReservedSlots(save: boolean = true) {
-    return this.rcon.createCommand("reservedSlotsList.clear").send()
+    return this.createCommand("reservedSlotsList.clear").send()
       .then(() => save ? this.saveReservedSlots() : [] as string[])
   }
 
   /** return a section of the list of VIP players’ name */
   getReservedSlots(offset?: number) {
-    return this.rcon.createCommand("reservedSlotsList.list", offset).send()
+    return this.createCommand("reservedSlotsList.list", offset).send()
   }
 
   /**
@@ -525,22 +537,22 @@ export class Battlefield extends EventEmitter {
    * @param enable wether it should be enabled or not
    */
   aggressiveJoin(enable: boolean) {
-    return this.rcon.createCommand("reservedSlotsList.aggressiveJoin", enable).send()
+    return this.createCommand("reservedSlotsList.aggressiveJoin", enable).send()
   }
 
   /** load list of banned players/IPs/GUIDs from file */
   loadBans() {
-    return this.rcon.createCommand("banList.load").send()
+    return this.createCommand("banList.load").send()
   }
 
   /** save list of banned players/IPs/GUIDs to file */
   saveBans() {
-    return this.rcon.createCommand("banList.save").send()
+    return this.createCommand("banList.save").send()
   }
 
   /** retrieve the banlist */
   getBans() {
-    return this.rcon.createCommand<Battlefield.BanList>("banList.list")
+    return this.createCommand<Battlefield.BanList>("banList.list")
       .format(words => {
         return words.reduce((acc, curr, index) => {
           const current = () => acc[acc.length - 1]
@@ -569,7 +581,7 @@ export class Battlefield extends EventEmitter {
    * @param save save the list
    */
   addBan(type: Battlefield.IdType, timeout: Battlefield.Timeout, reason?: string, save: boolean = true) {
-    return this.rcon.createCommand("banList.add", ...type, ...timeout, reason).send()
+    return this.createCommand("banList.add", ...type, ...timeout, reason).send()
     .then(() => save ? this.saveBans() : [] as string[])
   }
 
@@ -579,24 +591,24 @@ export class Battlefield extends EventEmitter {
    * @param save save the list
    */
   delBan(type: string[], save: boolean = true) {
-    return this.rcon.createCommand("banList.remove", ...type).send()
+    return this.createCommand("banList.remove", ...type).send()
     .then(() => save ? this.saveBans() : [] as string[])
   }
 
   /** clears ban list */
   clearBanList(save: boolean = true) {
-    return this.rcon.createCommand("banList.clear").send()
+    return this.createCommand("banList.clear").send()
       .then(() => save ? this.saveBans() : [] as string[])
   }
 
   /** clears the map list and loads it from disk again */
   loadMaps() {
-    return this.rcon.createCommand("mapList.load").send()
+    return this.createCommand("mapList.load").send()
   }
 
   /** saves the maplist to disk */
   saveMaps() {
-    return this.rcon.createCommand("mapList.save").send()
+    return this.createCommand("mapList.save").send()
   }
 
   /**
@@ -609,7 +621,7 @@ export class Battlefield extends EventEmitter {
    * @param index 
    */
   addMap(map: string, mode: string, rounds: number = 2, index?: number, save: boolean = true) {
-    return this.rcon.createCommand("mapList.add", map, mode, rounds, index).send()
+    return this.createCommand("mapList.add", map, mode, rounds, index).send()
       .then(() => save ? this.saveMaps() : [] as string[])
   }
 
@@ -618,13 +630,13 @@ export class Battlefield extends EventEmitter {
    * @param index 
    */
   delMap(index: number, save: boolean = true) {
-    return this.rcon.createCommand("mapList.remove", index).send()
+    return this.createCommand("mapList.remove", index).send()
     .then(() => save ? this.saveMaps() : [] as string[])
   }
 
   /** clears the map list */
   clearMaps(save: boolean = true) {
-    return this.rcon.createCommand("mapList.clear").send()
+    return this.createCommand("mapList.clear").send()
       .then(() => save ? this.saveMaps() : [] as string[])
   }
 
@@ -639,7 +651,7 @@ export class Battlefield extends EventEmitter {
    * @param offset 
    */
   getMaps(offset?: number) {
-    return this.rcon.createCommand<Battlefield.MapList>("mapList.list", offset)
+    return this.createCommand<Battlefield.MapList>("mapList.list", offset)
       .format(w => {
         return w.slice(2).reduce((acc, _, i, arr) => {
           if (i % 3 !== 0) return acc
@@ -660,29 +672,29 @@ export class Battlefield extends EventEmitter {
    * @param index 
    */
   setNextMapIndex(index: number) {
-    return this.rcon.createCommand("mapList.setNextMapIndex", index).send()
+    return this.createCommand("mapList.setNextMapIndex", index).send()
   }
 
   /** returns the index of the map that is currently being played, and the index of the next map to run. */
   getMapIndices() {
-    return this.rcon.createCommand<{ index: number, next: number }>("mapList.getMapIndices")
+    return this.createCommand<{ index: number, next: number }>("mapList.getMapIndices")
       .format(w => ({ index: w[0].toNumber(), next: w[1].toNumber() }))
       .send()
   }
 
   /** switches immediately to the next round, without going through the end-of-round sequence. */
   nextRound() {
-    return this.rcon.createCommand("mapList.runNextRound").send()
+    return this.createCommand("mapList.runNextRound").send()
   }
 
   /** restarts the current round, without going through the end of round sequence */
   restartRound() {
-    return this.rcon.createCommand("mapList.restartRound").send()
+    return this.createCommand("mapList.restartRound").send()
   }
 
   /** lists all currently loaded mods */
   getMods() {
-    return this.rcon.createCommand("modList.List").send()
+    return this.createCommand("modList.List").send()
   }
 
   /** 
@@ -691,7 +703,7 @@ export class Battlefield extends EventEmitter {
    * and also crashes as not all mods support reloading
    */
   reloadExtensions() {
-    return this.rcon.createCommand("modList.ReloadExtensions").send()
+    return this.createCommand("modList.ReloadExtensions").send()
   }
 
   /**
@@ -701,21 +713,21 @@ export class Battlefield extends EventEmitter {
    * contain more useful information about their source.
    */
   debugExtensions(toggle: boolean) {
-    return this.rcon.createCommand("modList.Debug", toggle).send()
+    return this.createCommand("modList.Debug", toggle).send()
   }
 
   /**
    * dnd the current round, declaring <winner> as the winning team
    */
   endRound(winner: number) {
-    return this.rcon.createCommand("mapList.endRound", winner).send()
+    return this.createCommand("mapList.endRound", winner).send()
   }
 
   /**
    * returns the (1-based) current round number, and total number of rounds before switching map.
    */
   getRounds() {
-    return this.rcon.createCommand<{ current: number, total: number }>("mapList.getRounds")
+    return this.createCommand<{ current: number, total: number }>("mapList.getRounds")
       .format(w => ({ current: w[0].toNumber(), total: w[1].toNumber() }))
       .send()
   }
