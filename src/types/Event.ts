@@ -6,6 +6,15 @@ export interface OnRoundOver {
   winner: number
 }
 
+export interface OnRoundOverPlayers {
+  players: Battlefield.PlayerList
+}
+
+export interface OnRoundOverTeamScores {
+  scores: number[]
+  targetScore: number
+}
+
 export interface OnLevelLoaded {
   map: string
   mode: string
