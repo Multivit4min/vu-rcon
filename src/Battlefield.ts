@@ -28,7 +28,7 @@ export interface Battlefield {
 
 export class Battlefield extends EventEmitter {
 
-  private options: Battlefield.Options
+  readonly options: Battlefield.Options
   private rcon: Rcon
   private rconError?: Error
   private pbAddressCache: Record<string, string> = {}
