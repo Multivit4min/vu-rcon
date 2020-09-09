@@ -20,13 +20,15 @@ export interface Battlefield {
   on(event: "maxPlayerCountChange", handler: (data: Event.MaxPlayerCountChange) => void): this
   on(event: "levelLoaded", handler: (data: Event.MaxPlayerCountChange) => void): this
   on(event: "roundOver", handler: (data: Event.OnRoundOver) => void): this
+  on(event: "roundOverPlayers", handler: (data: Event.OnRoundOver) => void): this
+  on(event: "roundOverTeamScores", handler: (data: Event.OnRoundOverTeamScores) => void): this
   on(event: "event", handler: (data: Event.OnUnhandled) => void): this
   on(event: "request", handler: (data: Event.OnRequestCreate) => void): this
 }
 
 export class Battlefield extends EventEmitter {
 
-  private options: Battlefield.Options
+  readonly options: Battlefield.Options
   private rcon: Rcon
   private rconError?: Error
   private pbAddressCache: Record<string, string> = {}
@@ -146,13 +148,11 @@ export class Battlefield extends EventEmitter {
   }
 
   private onRoundOverTeamScores(words: Word[]) {
-    //@todo
-    console.log("onRoundOverTeamScores", words.map(w => w.toString()))
+    this.emit("roundOverTeamScores", this.getScores(words))
   }
 
   private onRoundOverPlayers(words: Word[]) {
-    //@todo
-    console.log("onRoundOverPlayers", words.map(w => w.toString()))
+    this.emit("roundOverPlayers", { players: this.parseClientList()(words) })
   }
 
   private onRoundOver(words: Word[]) {
@@ -355,14 +355,7 @@ export class Battlefield extends EventEmitter {
         map: words.shift()!.toString(),
         roundsPlayed: words.shift()!.toNumber(),
         roundsTotal: words.shift()!.toNumber(),
-        scores: (() => {
-          if (isNaN(words[0].toNumber())) return []
-          return new Array(words.shift()!.toNumber()).fill(0).map(() => words.shift()!.toNumber())
-        })(),
-        targetScore: (() => {
-          if (isNaN(words[0].toNumber())) return 0
-          return words.shift()!.toNumber()
-        })(),
+        ...this.getScores(words),
         onlineState: words.shift()!.toString(),
         ranked: words.shift()!.toBoolean(),
         punkBuster: words.shift()!.toBoolean(),
@@ -730,6 +723,19 @@ export class Battlefield extends EventEmitter {
     return this.createCommand<{ current: number, total: number }>("mapList.getRounds")
       .format(w => ({ current: w[0].toNumber(), total: w[1].toNumber() }))
       .send()
+  }
+
+  private getScores(words: Word[]) {
+    return {
+      scores: (() => {
+        if (isNaN(words[0].toNumber())) return []
+        return new Array(words.shift()!.toNumber()).fill(0).map(() => words.shift()!.toNumber())
+      })(),
+      targetScore: (() => {
+        if (isNaN(words[0].toNumber())) return 0
+        return words.shift()!.toNumber()
+      })()
+    }
   }
 
   private parseClientList() {
