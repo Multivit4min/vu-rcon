@@ -685,10 +685,57 @@ export class Battlefield extends EventEmitter {
     return this.createCommand("mapList.restartRound").send()
   }
 
-  /** lists all currently loaded mods */
+  /**
+   * Lists the mods to load on the next server restart.
+   * This basically lists all mods present in the ModList.txt file
+   * and may not be the same as the list of mods that are currently running.
+   */
   getMods() {
-    return this.createCommand("modList.List").send()
+    return this.createCommand<string[]>("modList.List").send()
   }
+
+  /** lists the mods that are available to be added to the mod list */
+  getAvailableMods() {
+    return this.createCommand<string[]>("modList.Available").send()
+  }
+
+  /**
+   * Removes a mod from the list of mods to load on the next server restart
+   * and saves the changes to the ModList.txt file.
+   * This will not unload any currently running mods.
+   * @param name name of the mod to remove
+   */
+  delMod(name: string) {
+    return this.createCommand("modList.Remove", name).send()
+  }
+
+  /**
+   * Adds a mod to the list of mods to load on the next server restart
+   * and saves the changes to the ModList.txt file.
+   * This will not load the mod immediately.
+   * @param name name of the mod to add
+   */
+  addMod(name: string) {
+    return this.createCommand("modList.Add", name).send()
+  }
+
+
+  /**
+   * Clears the list of mods to loads on the next server restart
+   * and saves the changes to the ModList.txt file.
+   * This will not unload any currently running mods.
+   */
+  clearMods() {
+    return this.createCommand("modList.Clear").send()
+  }
+
+  /**
+   * Lists all currently loaded / running mods.
+   */
+  runningMods() {
+    return this.createCommand<string[]>("modList.ListRunning").send()
+  }
+
 
   /** 
    * reloads all currently loaded mods.
