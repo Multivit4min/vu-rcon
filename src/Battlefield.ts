@@ -732,7 +732,7 @@ export class Battlefield extends EventEmitter {
   /**
    * Lists all currently loaded / running mods.
    */
-  runningMods() {
+  getRunningMods() {
     return this.createCommand<string[]>("modList.ListRunning").send()
   }
 
