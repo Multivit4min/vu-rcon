@@ -28,7 +28,7 @@ export interface Battlefield {
 
 export class Battlefield extends EventEmitter {
 
-  private options: Battlefield.Options
+  readonly options: Battlefield.Options
   private rcon: Rcon
   private rconError?: Error
   private pbAddressCache: Record<string, string> = {}
@@ -652,7 +652,7 @@ export class Battlefield extends EventEmitter {
             map: arr[i].toString(),
             mode: arr[i+1].toString(),
             rounds: arr[i+2].toNumber(),
-            index: (offset||0) + i / 3 + 1
+            index: (offset||0) + i / 3
           }]
         }, [] as Battlefield.MapList)
       })
