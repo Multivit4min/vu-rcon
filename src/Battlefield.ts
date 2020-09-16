@@ -850,7 +850,7 @@ export namespace Battlefield {
   export type Subset = "all"|"team"|"squad"|"player"
   export type PlayerSubset = [Subset, (string|number)?]
 
-  export type Timeout = ["perm"|"rounds"|"seconds", number]
+  export type Timeout = ["perm"|"rounds"|"seconds", number?]
   export type IdType = ["name"|"ip"|"guid", string]
   export type PlayerList = Player[]
   export interface Player {
