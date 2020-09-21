@@ -412,7 +412,7 @@ export class Battlefield extends EventEmitter {
    * @param forceKill kill the player to move?
    */
   playerMove(name: string, teamId: number, squadId: number, forceKill: boolean) {
-    return this.createCommand("admin.kickPlayer", name, teamId, squadId, forceKill).send()
+    return this.createCommand("admin.movePlayer", name, teamId, squadId, forceKill).send()
   }
 
   /**
