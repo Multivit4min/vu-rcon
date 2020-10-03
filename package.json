@@ -11,10 +11,10 @@
   "author": "David Kartnaller <david.kartnaller@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@types/jest": "^24.9.1",
-    "@types/node": "^13.13.4",
-    "typescript": "^3.8.3",
-    "jest": "^24.9.0",
-    "ts-jest": "^24.3.0"
+    "@types/jest": "^26.0.14",
+    "@types/node": "^14.11.2",
+    "typescript": "^4.0.3",
+    "jest": "^26.4.2",
+    "ts-jest": "^26.4.1"
   }
 }
