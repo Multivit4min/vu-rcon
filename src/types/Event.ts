@@ -2,6 +2,14 @@ import { Battlefield } from "../Battlefield"
 import { Word } from "../transport/protocol/Word"
 import { Request } from "../transport/Request"
 
+export interface ReceiveData {
+  words: Word[]
+}
+
+export interface SendData {
+  words: Word[]
+}
+
 export interface OnRoundOver {
   winner: number
 }

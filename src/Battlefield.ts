@@ -8,6 +8,8 @@ import { Variable } from "./Variable"
 export interface Battlefield {
   on(event: "close", handler: (err: Error|undefined) => void): this
   on(event: "ready", handler: () => void): this
+  on(event: "receiveData", handler: (data: Event.ReceiveData) => void): this
+  on(event: "sendData", handler: (data: Event.SendData) => void): this
   on(event: "chat", handler: (data: Event.PlayerOnChat) => void): this
   on(event: "spawn", handler: (data: Event.PlayerOnSpawn) => void): this
   on(event: "kill", handler: (data: Event.PlayerOnKill) => void): this
@@ -52,6 +54,8 @@ export class Battlefield extends EventEmitter {
     if (this.options.autoconnect !== false) this.rcon.connect()
     this.rcon.on("error", err => this.rconError = err)
     this.rcon.on("close", () => this.emit("close", this.rconError))
+    this.rcon.on("receiveData", this.emit.bind(this, "receiveData"))
+    this.rcon.on("sendData", this.emit.bind(this, "sendData"))
   }
 
   /**
@@ -256,7 +260,7 @@ export class Battlefield extends EventEmitter {
     this.emit("chat", event)
   }
 
-  private createCommand<T>(cmd: string, ...args: Rcon.Argument[]) {
+  createCommand<T>(cmd: string, ...args: Rcon.Argument[]) {
     const request = this.rcon.createCommand<T>(cmd, ...args)
     this.emit("request", { request })
     return request

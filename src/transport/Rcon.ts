@@ -73,6 +73,7 @@ export class Rcon extends EventEmitter {
       this.waitForPriorized = false
       this.continueWithQueue()
     }
+    this.emit("receiveData", { words: packet.words })
     request.setResponse(packet)
   }
 
@@ -98,6 +99,7 @@ export class Rcon extends EventEmitter {
     } else {
       if (req.priorized) this.waitForPriorized = true
       this.pending.push(req)
+      this.emit("sendData", { words: req.packet.words })
       this.write(req.packet.toBuffer())
     }
   }
