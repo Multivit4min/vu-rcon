@@ -47,6 +47,7 @@ export class Battlefield extends EventEmitter {
     super()
     this.options = options
     this.rcon = new Rcon({
+      timeout: 10 * 1000,
       ...this.options,
       eventHandler: this.eventHandler.bind(this)
     })
@@ -843,6 +844,7 @@ export namespace Battlefield {
     host: string
     port: number
     password: string
+    timeout?: number
     autoconnect?: boolean
   }
 

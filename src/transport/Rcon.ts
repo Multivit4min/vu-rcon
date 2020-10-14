@@ -33,6 +33,7 @@ export class Rcon extends EventEmitter {
       this.socket = net.connect({
         host: this.options.host,
         port: this.options.port,
+        timeout: this.options.timeout
       })
       const handler = async (err?: Error) => {
         this.socket.removeListener("error", handler)
@@ -179,6 +180,7 @@ export namespace Rcon {
   export interface ConnectionOptions {
     host: string
     port: number
+    timeout: number
     eventHandler: eventHandler
   }
 
