@@ -9,6 +9,8 @@ export interface Battlefield {
   on(event: "close", handler: (err: Error|undefined) => void): this
   on(event: "ready", handler: () => void): this
   on(event: "error", handler: (error: Error) => void): this
+  on(event: "receiveData", handler: (data: Event.ReceiveData) => void): this
+  on(event: "sendData", handler: (data: Event.SendData) => void): this
   on(event: "chat", handler: (data: Event.PlayerOnChat) => void): this
   on(event: "spawn", handler: (data: Event.PlayerOnSpawn) => void): this
   on(event: "kill", handler: (data: Event.PlayerOnKill) => void): this
@@ -56,6 +58,8 @@ export class Battlefield extends EventEmitter {
       this.emit("error", err)
     })
     this.rcon.on("close", () => this.emit("close", this.rconError))
+    this.rcon.on("receiveData", this.emit.bind(this, "receiveData"))
+    this.rcon.on("sendData", this.emit.bind(this, "sendData"))
   }
 
   /**
@@ -260,7 +264,7 @@ export class Battlefield extends EventEmitter {
     this.emit("chat", event)
   }
 
-  private createCommand<T>(cmd: string, ...args: Rcon.Argument[]) {
+  createCommand<T>(cmd: string, ...args: Rcon.Argument[]) {
     const request = this.rcon.createCommand<T>(cmd, ...args)
     this.emit("request", { request })
     return request
@@ -416,7 +420,7 @@ export class Battlefield extends EventEmitter {
    * @param forceKill kill the player to move?
    */
   playerMove(name: string, teamId: number, squadId: number, forceKill: boolean) {
-    return this.createCommand("admin.kickPlayer", name, teamId, squadId, forceKill).send()
+    return this.createCommand("admin.movePlayer", name, teamId, squadId, forceKill).send()
   }
 
   /**
@@ -656,7 +660,7 @@ export class Battlefield extends EventEmitter {
             map: arr[i].toString(),
             mode: arr[i+1].toString(),
             rounds: arr[i+2].toNumber(),
-            index: (offset||0) + i / 3 + 1
+            index: (offset||0) + i / 3
           }]
         }, [] as Battlefield.MapList)
       })
@@ -689,10 +693,57 @@ export class Battlefield extends EventEmitter {
     return this.createCommand("mapList.restartRound").send()
   }
 
-  /** lists all currently loaded mods */
+  /**
+   * Lists the mods to load on the next server restart.
+   * This basically lists all mods present in the ModList.txt file
+   * and may not be the same as the list of mods that are currently running.
+   */
   getMods() {
-    return this.createCommand("modList.List").send()
+    return this.createCommand<string[]>("modList.List").send()
   }
+
+  /** lists the mods that are available to be added to the mod list */
+  getAvailableMods() {
+    return this.createCommand<string[]>("modList.Available").send()
+  }
+
+  /**
+   * Removes a mod from the list of mods to load on the next server restart
+   * and saves the changes to the ModList.txt file.
+   * This will not unload any currently running mods.
+   * @param name name of the mod to remove
+   */
+  delMod(name: string) {
+    return this.createCommand("modList.Remove", name).send()
+  }
+
+  /**
+   * Adds a mod to the list of mods to load on the next server restart
+   * and saves the changes to the ModList.txt file.
+   * This will not load the mod immediately.
+   * @param name name of the mod to add
+   */
+  addMod(name: string) {
+    return this.createCommand("modList.Add", name).send()
+  }
+
+
+  /**
+   * Clears the list of mods to loads on the next server restart
+   * and saves the changes to the ModList.txt file.
+   * This will not unload any currently running mods.
+   */
+  clearMods() {
+    return this.createCommand("modList.Clear").send()
+  }
+
+  /**
+   * Lists all currently loaded / running mods.
+   */
+  getRunningMods() {
+    return this.createCommand<string[]>("modList.ListRunning").send()
+  }
+
 
   /** 
    * reloads all currently loaded mods.
@@ -854,7 +905,7 @@ export namespace Battlefield {
   export type Subset = "all"|"team"|"squad"|"player"
   export type PlayerSubset = [Subset, (string|number)?]
 
-  export type Timeout = ["perm"|"rounds"|"seconds", number]
+  export type Timeout = ["perm"|"rounds"|"seconds", number?]
   export type IdType = ["name"|"ip"|"guid", string]
   export type PlayerList = Player[]
   export interface Player {
