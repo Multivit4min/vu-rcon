@@ -40,6 +40,7 @@ export class Rcon extends EventEmitter {
         if (err instanceof Error) return reject(err)
         await fulfill()
         this.continueWithQueue()
+        this.socket.on("error", this.onError.bind(this))
         this.socket.on("close", this.onClose.bind(this))
         this.socket.on("data", this.onData.bind(this))
       }
@@ -62,6 +63,10 @@ export class Rcon extends EventEmitter {
     const { buffers, remainder } = Packet.getPacketBuffers(Buffer.concat([this.buffer, buffer]))
     this.buffer = remainder
     buffers.forEach(buffer => this.handlePacket(buffer))
+  }
+
+  private onError(err: Error) {
+    this.emit("error", err)
   }
 
   private handlePacket(buffer: Buffer) {

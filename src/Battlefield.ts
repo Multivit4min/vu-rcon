@@ -8,6 +8,7 @@ import { Variable } from "./Variable"
 export interface Battlefield {
   on(event: "close", handler: (err: Error|undefined) => void): this
   on(event: "ready", handler: () => void): this
+  on(event: "error", handler: (error: Error) => void): this
   on(event: "chat", handler: (data: Event.PlayerOnChat) => void): this
   on(event: "spawn", handler: (data: Event.PlayerOnSpawn) => void): this
   on(event: "kill", handler: (data: Event.PlayerOnKill) => void): this
@@ -50,7 +51,10 @@ export class Battlefield extends EventEmitter {
     this.var = new Variable(this.rcon, "vars")
     this.vu = new Variable(this.rcon, "vu")
     if (this.options.autoconnect !== false) this.rcon.connect()
-    this.rcon.on("error", err => this.rconError = err)
+    this.rcon.on("error", err => {
+      this.rconError = err
+      this.emit("error", err)
+    })
     this.rcon.on("close", () => this.emit("close", this.rconError))
   }
 
