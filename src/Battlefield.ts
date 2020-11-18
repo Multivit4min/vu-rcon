@@ -27,6 +27,7 @@ export interface Battlefield {
   on(event: "roundOverTeamScores", handler: (data: Event.OnRoundOverTeamScores) => void): this
   on(event: "event", handler: (data: Event.OnUnhandled) => void): this
   on(event: "request", handler: (data: Event.OnRequestCreate) => void): this
+  on(event: "reconnect", handler: (data: Event.ReconnectEvent) => void): this
 }
 
 export class Battlefield extends EventEmitter {
@@ -127,9 +128,10 @@ export class Battlefield extends EventEmitter {
       await Battlefield.sleep(timeout)
       try {
         await this.connect()
+        this.emit("reconnect", { attempt: attempts, success: true } as Event.ReconnectEvent)
         return this
       } catch(e) {
-        console.log(`reconnect attempt #${attempts} failed`, e)
+        this.emit("reconnect", { attempt: attempts, success: false } as Event.ReconnectEvent)
       }
     }
     throw new Error(`could not reconnect after ${maxAttempts} tries`)

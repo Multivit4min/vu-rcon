@@ -85,6 +85,11 @@ export interface PlayerOnSpawn {
   team: number
 }
 
+export interface ReconnectEvent {
+  success: boolean
+  attempt: number
+}
+
 export type PlayerOnChat = PlayerOnChatTeam|PlayerOnChatSquad|PlayerOnChatPlayer|PlayerOnChatAll
 export interface PlayerOnChatBase {
   player: string
