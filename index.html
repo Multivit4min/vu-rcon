@@ -1,0 +1,158 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>vu-rcon</title>
+	<meta name="description" content="Documentation for vu-rcon">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">vu-rcon</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1>vu-rcon</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#battlefield-3-rcon-interface" id="battlefield-3-rcon-interface" style="color: inherit; text-decoration: none;">
+					<h2>Battlefield 3 RCON Interface</h2>
+				</a>
+				<p>Example</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { Battlefield } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./src/Battlefield&quot;</span>
+
+Battlefield.connect({ 
+  <span class="hljs-attr">host</span>: <span class="hljs-string">&quot;127.0.0.1&quot;</span>,
+  <span class="hljs-attr">port</span>: <span class="hljs-number">47200</span>,
+  <span class="hljs-attr">password</span>: <span class="hljs-string">&quot;RCON_PASSWORD&quot;</span>
+}).then(<span class="hljs-keyword">async</span> bf3 =&gt; {
+
+  <span class="hljs-comment">//listen to different events</span>
+  bf3.on(<span class="hljs-string">&quot;playerJoin&quot;</span>, <span class="hljs-function">(<span class="hljs-params">{ name }</span>) =&gt;</span> bf3.say(<span class="hljs-string">`<span class="hljs-subst">${name}</span> is joining the game...`</span>))
+  bf3.on(<span class="hljs-string">&quot;playerLeave&quot;</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-built_in">console</span>.log({ event }))
+  bf3.on(<span class="hljs-string">&quot;kill&quot;</span>, <span class="hljs-function">(<span class="hljs-params">{ killed, weapon }</span>) =&gt;</span> killed.say(<span class="hljs-string">`You just got killed with <span class="hljs-subst">${weapon.name}</span>`</span>))
+
+  <span class="hljs-comment">//get a list of players and yell the name to them</span>
+  <span class="hljs-keyword">const</span> players = <span class="hljs-keyword">await</span> bf3.getPlayers()
+  players.forEach(<span class="hljs-function"><span class="hljs-params">player</span> =&gt;</span> player.yell(<span class="hljs-string">`Hello <span class="hljs-subst">${player.name}</span>`</span>))
+
+  <span class="hljs-comment">//ban someone</span>
+  <span class="hljs-keyword">const</span> player = bf3.getPlayerByName(<span class="hljs-string">&quot;foobar&quot;</span>)
+  <span class="hljs-keyword">await</span> player.banGuid().reason(<span class="hljs-string">&quot;foo&quot;</span>).permanent().send()
+
+})</code></pre>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_battlefield_.html">&quot;<wbr>Battlefield&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_variable_.html">&quot;<wbr>Variable&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_index_.html">&quot;index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_transport_rcon_.html">&quot;transport/<wbr>Rcon&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_transport_request_.html">&quot;transport/<wbr>Request&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_transport_protocol_packet_.html">&quot;transport/protocol/<wbr>Packet&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_transport_protocol_sequence_.html">&quot;transport/protocol/<wbr>Sequence&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_transport_protocol_word_.html">&quot;transport/protocol/<wbr>Word&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_types_event_.html">&quot;types/<wbr>Event&quot;</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
