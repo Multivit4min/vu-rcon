@@ -112,7 +112,7 @@ export class Battlefield extends EventEmitter {
    * @param time 
    */
   static sleep(time: number) {
-    return new Promise(fulfill => {
+    return new Promise<void>(fulfill => {
       setTimeout(fulfill, time)
     })
   }

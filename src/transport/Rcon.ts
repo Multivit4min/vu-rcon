@@ -26,7 +26,7 @@ export class Rcon extends EventEmitter {
    * @param port port to connect to
    */
   connect() {
-    return new Promise((fulfill, reject) => {
+    return new Promise<void>((fulfill, reject) => {
       if (this.socket && !this.socket.destroyed)
         return reject(new Error("already connected to rcon"))
       if (this.socket) this.socket.removeAllListeners()
@@ -128,7 +128,7 @@ export class Rcon extends EventEmitter {
   }
 
   write(buffer: Buffer) {
-    return new Promise((fulfill, reject) => {
+    return new Promise<void>((fulfill, reject) => {
       this.socket.write(buffer, err => {
         if (err) return reject(err)
         fulfill()

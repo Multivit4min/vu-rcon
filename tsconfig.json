@@ -62,9 +62,9 @@
   },
   "include": ["./src"],
   "typedocOptions": {
-      "mode": "file",
+      "mode": "module",
       "out": "docs",
-      "name": "TS3-NodeJS-Library",
+      "name": "vu-rcon",
       "exclude": "**/*+.spec.ts",
       "excludeExternals": true
   }

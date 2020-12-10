@@ -3,9 +3,9 @@
 Example
 
 ```typescript
-import { Battlefield3 } from "./src/Battlefield"
+import { Battlefield } from "./src/Battlefield"
 
-Battlefield3.connect({ 
+Battlefield.connect({ 
   host: "127.0.0.1",
   port: 47200,
   password: "RCON_PASSWORD"
