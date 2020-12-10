@@ -62,7 +62,7 @@
   },
   "include": ["./src"],
   "typedocOptions": {
-      "mode": "module",
+      "mode": "file",
       "out": "docs",
       "name": "vu-rcon",
       "exclude": "**/*+.spec.ts",
