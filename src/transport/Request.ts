@@ -72,6 +72,8 @@ export class Request<T = string[]> {
       return 
     }
     const error = new Error(`${this.getResponse()}: ${this.packet.words.join(" ")}`)
+    //@ts-ignore
+    error.isVuRconError = true
     if (this.stack && error.stack) {
       const [_, ...stack] = this.stack.split("\n")
       error.stack = `${error.stack.split("\n")[0]}\n${stack.join("\n")}`
