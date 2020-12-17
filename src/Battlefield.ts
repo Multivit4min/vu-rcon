@@ -198,23 +198,29 @@ export class Battlefield extends EventEmitter {
   private onSquadChange(words: Word[]) {
     const name = words[0].toString()
     const player = this.getPlayerByName(name)
-    if (!player) throw new Error(`could not find player ${name} in event player.onSquadChange`)
-    this.emit("squadChange", {
-      player,
-      team: words[1].toNumber(),
-      squad: words[2].toNumber(),
-    })
+    if (player) {
+      this.emit("squadChange", {
+        player,
+        team: words[1].toNumber(),
+        squad: words[2].toNumber(),
+      })
+    } else {
+      this.emit("error", new Error(`could not find player ${name} in event player.onSquadChange`))
+    }
   }
 
   private onTeamChange(words: Word[]) {
     const name = words[0].toString()
     const player = this.getPlayerByName(name)
-    if (!player) throw new Error(`could not find player ${name} in event player.onSquadChange`)
-    this.emit("teamChange", {
-      player,
-      team: words[1].toNumber(),
-      squad: words[2].toNumber(),
-    })
+    if (player) {
+      this.emit("teamChange", {
+        player,
+        team: words[1].toNumber(),
+        squad: words[2].toNumber(),
+      })
+    } else {
+      this.emit("error", new Error(`could not find player ${name} in event player.onTeamChange`))
+    }
   }
 
   private async onAuthenticated(words: Word[]) {
@@ -247,9 +253,13 @@ export class Battlefield extends EventEmitter {
   }
 
   private async playerOnSpawn(words: Word[]) {
-    const player = await this.getPlayerByName(words[0].toString())
-    if (!player) throw new Error(`could not find player with name ${name} in event player.onSpawn`)
-    this.emit("spawn", { player, team: words[1].toString() })
+    const name = words[0].toString()
+    const player = await this.getPlayerByName(name)
+    if (player) {
+      this.emit("spawn", { player, team: words[1].toString() })
+    } else {
+      this.emit("error", new Error(`could not find player with name ${name} in event player.onSpawn`))
+    }
   }
 
   private async playerOnChat(words: Word[]) {
