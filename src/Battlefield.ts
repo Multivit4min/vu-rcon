@@ -793,6 +793,16 @@ export class Battlefield extends EventEmitter {
       .send()
   }
 
+  /**
+   * 
+   * sets the tickets a team has to a certain amount
+   * @param team team to set the ticket amount
+   * @param count amount of tickets they should have
+   */
+  setTeamticketCount(team: number, count: number) {
+    return this.createCommand("vu.SetTeamTicketCount", team, count).send()
+  }
+
   private getScores(words: Word[]) {
     return {
       scores: (() => {
@@ -952,7 +962,6 @@ export namespace Battlefield {
     DesertingAllowed: boolean
     VehicleDisablingEnabled: boolean
     HighPerformanceReplication: boolean
-    SetTeamTicketCount: [number, number]
     FrequencyMode: string
     SpectatorCount: number
     FadeOutAll: void
