@@ -38,7 +38,10 @@ export class Rcon extends EventEmitter {
       const handler = async (err?: Error) => {
         this.socket.removeListener("error", handler)
         this.socket.removeListener("connect", handler)
-        if (err instanceof Error) return reject(err)
+        if (err instanceof Error) {
+          this.socket.destroy()
+          return reject(err)
+        }
         await fulfill()
         this.continueWithQueue()
         this.socket.on("error", this.onError.bind(this))
