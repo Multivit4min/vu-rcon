@@ -35,7 +35,12 @@ export class Rcon extends EventEmitter {
         port: this.options.port,
         timeout: this.options.timeout
       })
+      const timeout = setTimeout(
+        () => handler(new Error("timed out while connecting")),
+        this.options.timeout
+      )
       const handler = async (err?: Error) => {
+        clearTimeout(timeout)
         this.socket.removeListener("error", handler)
         this.socket.removeListener("connect", handler)
         if (err instanceof Error) {
