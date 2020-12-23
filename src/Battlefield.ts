@@ -103,8 +103,11 @@ export class Battlefield extends EventEmitter {
 
   /** initializes the connection */
   private async initialize() {
-    await this.fetchVersion()
-    await this.login(this.options.password)
+    const resolveable = Promise.all([
+      this.fetchVersion(),
+      this.login(this.options.password)
+    ])
+    await resolveable
     await this.enableEvents(true)
     this.emit("ready")
     return this
@@ -133,7 +136,9 @@ export class Battlefield extends EventEmitter {
       try {
         await this.connect()
         this.isReconnecting = false
+        this.abortReconnectAction = false
         this.emit("reconnect", { attempt: attempts, success: true } as Event.ReconnectEvent)
+        return
       } catch(e) {
         this.emit("reconnect", { attempt: attempts, success: false } as Event.ReconnectEvent)
       }
@@ -214,6 +219,7 @@ export class Battlefield extends EventEmitter {
       player = await this.getPlayerByName(name)
     } catch (e) {
       this.emit("error", e)
+      return
     }
     if (!player) return //player left drop silently....
     this.emit("squadChange", {
@@ -230,6 +236,7 @@ export class Battlefield extends EventEmitter {
       player = await this.getPlayerByName(name)
     } catch (e) {
       this.emit("error", e)
+      return
     }
     if (player) {
       this.emit("teamChange", {
@@ -238,7 +245,7 @@ export class Battlefield extends EventEmitter {
         squad: words[2].toNumber(),
       })
     } else {
-      this.emit("error", new EventError(`could not find player ${name} in event player.onTeamChange`, "onTeamChange"))
+      this.emit("error", new EventError(`could not find player ${name}`, "onTeamChange"))
     }
   }
 
@@ -278,11 +285,12 @@ export class Battlefield extends EventEmitter {
       player = await this.getPlayerByName(name)
     } catch (e) {
       this.emit("error", e)
+      return
     }
     if (player) {
       this.emit("spawn", { player, team: words[1].toString() })
     } else {
-      this.emit("error", new EventError(`could not find player ${name} in event player.onTeamChange`, "playerOnSpawn"))
+      this.emit("error", new EventError(`could not find player ${name}`, "playerOnSpawn"))
     }
   }
 
@@ -323,6 +331,7 @@ export class Battlefield extends EventEmitter {
   /** Game server type and build ID uniquely identify the server, and the protocol it is running. */
   private fetchVersion() {
     return this.createCommand<{ game: string, version: number}>("version")
+      .priorize()
       .format(w => ({ game: w[0].toString(), version: w[1].toNumber() })).send()
       .then(({ version, game }) => {
         this.version = (() => {

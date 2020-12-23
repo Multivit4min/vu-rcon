@@ -37,7 +37,7 @@ export class Rcon extends EventEmitter {
         timeout: this.options.timeout
       })
       const timeout = setTimeout(
-        () => handler(new Error("timed out while connecting")),
+        () => handler(new Error("received timeout while connecting")),
         this.options.timeout
       )
       const handler = async (err?: Error) => {
@@ -48,8 +48,7 @@ export class Rcon extends EventEmitter {
           this.socket.destroy()
           return reject(err)
         }
-        await fulfill()
-        this.continueWithQueue()
+        fulfill()
         this.socket.on("error", this.onError.bind(this))
         this.socket.on("close", this.onClose.bind(this))
         this.socket.on("data", this.onData.bind(this))
@@ -125,7 +124,7 @@ export class Rcon extends EventEmitter {
    * continues with queued items
    * handles priorized items one after one
    */
-  private continueWithQueue() {
+  continueWithQueue() {
     const queued = [...this.queued]
     this.queued = []
     const prio = queued.filter(r => r.priorized)
