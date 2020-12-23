@@ -37,6 +37,8 @@ export class Battlefield extends EventEmitter {
   private rcon: Rcon
   private rconError?: Error
   private pbAddressCache: Record<string, string> = {}
+  private abortReconnectAction: boolean = false
+  private isReconnecting: boolean = false
   version: { game: Battlefield.Version, version: number } = {
     game: Battlefield.Version.UNKNOWN,
     version: 0
@@ -124,18 +126,27 @@ export class Battlefield extends EventEmitter {
    * @param timeout timeout in ms between connection attempts
    */
   async reconnect(maxAttempts: number = -1, timeout: number = 1000) {
+    this.isReconnecting = true
     let attempts = 0
-    while (attempts++ < maxAttempts || maxAttempts <= 0) {
+    while ((attempts++ < maxAttempts || maxAttempts <= 0) && !this.abortReconnectAction) {
       await Battlefield.sleep(timeout)
       try {
         await this.connect()
+        this.isReconnecting = false
         this.emit("reconnect", { attempt: attempts, success: true } as Event.ReconnectEvent)
-        return this
       } catch(e) {
         this.emit("reconnect", { attempt: attempts, success: false } as Event.ReconnectEvent)
       }
     }
+    this.isReconnecting = false
+    this.abortReconnectAction = false
     throw new Error(`could not reconnect after ${maxAttempts} tries`)
+  }
+
+  abortReconnect() {
+    if (!this.isReconnecting) return
+    this.abortReconnectAction = true
+    this.rcon["socket"].destroy(new Error("requested reconnect abort"))
   }
 
   private eventHandler(event: string, words: Word[]): any {
@@ -204,15 +215,12 @@ export class Battlefield extends EventEmitter {
     } catch (e) {
       this.emit("error", e)
     }
-    if (player) {
-      this.emit("squadChange", {
-        player,
-        team: words[1].toNumber(),
-        squad: words[2].toNumber(),
-      })
-    } else {
-      this.emit("error", new EventError(`could not find player ${name} in event player.onSquadChange`, "onSquadChange"))
-    }
+    if (!player) return //player left drop silently....
+    this.emit("squadChange", {
+      player,
+      team: words[1].toNumber(),
+      squad: words[2].toNumber(),
+    })
   }
 
   private async onTeamChange(words: Word[]) {
