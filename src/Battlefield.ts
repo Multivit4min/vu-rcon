@@ -195,9 +195,9 @@ export class Battlefield extends EventEmitter {
     })
   }
 
-  private onSquadChange(words: Word[]) {
+  private async onSquadChange(words: Word[]) {
     const name = words[0].toString()
-    const player = this.getPlayerByName(name)
+    const player = await this.getPlayerByName(name)
     if (player) {
       this.emit("squadChange", {
         player,
@@ -209,9 +209,9 @@ export class Battlefield extends EventEmitter {
     }
   }
 
-  private onTeamChange(words: Word[]) {
+  private async onTeamChange(words: Word[]) {
     const name = words[0].toString()
-    const player = this.getPlayerByName(name)
+    const player = await this.getPlayerByName(name)
     if (player) {
       this.emit("teamChange", {
         player,
