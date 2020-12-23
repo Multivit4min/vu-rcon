@@ -22,13 +22,14 @@ export class Rcon extends EventEmitter {
 
   /**
    * connects to the socket
-   * @param host hostname to connect to
-   * @param port port to connect to
+   * @param forceReconnect if its connected the current connection will be destroyed
    */
-  connect() {
+  connect(forceReconnect: boolean = true) {
     return new Promise<void>((fulfill, reject) => {
-      if (this.socket && !this.socket.destroyed)
-        return reject(new Error("already connected to rcon"))
+      if (this.socket && !this.socket.destroyed) {
+        if (!forceReconnect) return reject(new Error("already connected to rcon"))
+        this.socket.destroy()
+      }
       if (this.socket) this.socket.removeAllListeners()
       this.socket = net.connect({
         host: this.options.host,
@@ -65,6 +66,8 @@ export class Rcon extends EventEmitter {
   private onClose() {
     this.pending.forEach(req => this.queued.unshift(req))
     this.pending = []
+    //destroy it just to be save
+    this.socket.destroy()
     this.emit("close")
   }
 

@@ -91,8 +91,8 @@ export class Battlefield extends EventEmitter {
   }
 
   /** connects and initializes the query */
-  async connect() {
-    await this.rcon.connect()
+  async connect(forceReconnect: boolean = true) {
+    await this.rcon.connect(forceReconnect)
     try {
       return this.initialize()
     } catch (e) {
