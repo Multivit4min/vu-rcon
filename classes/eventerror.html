@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Origin | vu-rcon</title>
+	<title>EventError | vu-rcon</title>
 	<meta name="description" content="Documentation for vu-rcon">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,52 +54,133 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../classes/sequence.html">Sequence</a>
-				</li>
-				<li>
-					<a href="sequence.origin.html">Origin</a>
+					<a href="eventerror.html">EventError</a>
 				</li>
 			</ul>
-			<h1>Enumeration Origin</h1>
+			<h1>Class EventError</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<a href="eventerror.html#error" class="tsd-signature-type">Error</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">EventError</span>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Enumeration members</h3>
+							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="sequence.origin.html#client" class="tsd-kind-icon">CLIENT</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="sequence.origin.html#server" class="tsd-kind-icon">SERVER</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="eventerror.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="eventerror.html#event" class="tsd-kind-icon">event</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="eventerror.html#message" class="tsd-kind-icon">message</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="eventerror.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="eventerror.html#stack" class="tsd-kind-icon">stack</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="eventerror.html#error" class="tsd-kind-icon">Error</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Enumeration members</h2>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="client" class="tsd-anchor"></a>
-					<h3>CLIENT</h3>
-					<div class="tsd-signature tsd-kind-icon">CLIENT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 0</span></div>
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Event<wbr>Error<span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="eventerror.html" class="tsd-signature-type">EventError</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/f955eb1/src/exceptions/EventError.ts#L3">src/exceptions/EventError.ts:3</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>message: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>event: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="eventerror.html" class="tsd-signature-type">EventError</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="event" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> event</h3>
+					<div class="tsd-signature tsd-kind-icon">event<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/f955eb1/src/transport/protocol/Sequence.ts#L93">src/transport/protocol/Sequence.ts:93</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/f955eb1/src/exceptions/EventError.ts#L3">src/exceptions/EventError.ts:3</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="server" class="tsd-anchor"></a>
-					<h3>SERVER</h3>
-					<div class="tsd-signature tsd-kind-icon">SERVER<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 1</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="message" class="tsd-anchor"></a>
+					<h3>message</h3>
+					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="eventerror.html">EventError</a>.<a href="eventerror.html#message">message</a></p>
+						<ul>
+							<li>Defined in node_modules/typescript/lib/lib.es5.d.ts:974</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="name" class="tsd-anchor"></a>
+					<h3>name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="eventerror.html">EventError</a>.<a href="eventerror.html#name">name</a></p>
+						<ul>
+							<li>Defined in node_modules/typescript/lib/lib.es5.d.ts:973</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="stack" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> stack</h3>
+					<div class="tsd-signature tsd-kind-icon">stack<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="eventerror.html">EventError</a>.<a href="eventerror.html#stack">stack</a></p>
+						<ul>
+							<li>Defined in node_modules/typescript/lib/lib.es5.d.ts:975</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="error" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Error</h3>
+					<div class="tsd-signature tsd-kind-icon">Error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ErrorConstructor</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/f955eb1/src/transport/protocol/Sequence.ts#L92">src/transport/protocol/Sequence.ts:92</a></li>
+							<li>Defined in node_modules/typescript/lib/lib.es5.d.ts:984</li>
 						</ul>
 					</aside>
 				</section>
@@ -116,96 +197,52 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class">
-						<a href="../classes/battlefield.html" class="tsd-kind-icon">Battlefield</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/eventerror.html" class="tsd-kind-icon">Event<wbr>Error</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/packet.html" class="tsd-kind-icon">Packet</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/rcon.html" class="tsd-kind-icon">Rcon</a>
-					</li>
-					<li class=" tsd-kind-class tsd-has-type-parameter">
-						<a href="../classes/request.html" class="tsd-kind-icon">Request</a>
+						<a href="battlefield.html" class="tsd-kind-icon">Battlefield</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
-						<a href="../classes/sequence.html" class="tsd-kind-icon">Sequence</a>
+						<a href="eventerror.html" class="tsd-kind-icon">Event<wbr>Error</a>
 						<ul>
-							<li class=" tsd-kind-enum tsd-parent-kind-class tsd-is-static">
-								<a href="sequence.mask.html" class="tsd-kind-icon">Mask</a>
-							</li>
-							<li class="current tsd-kind-enum tsd-parent-kind-class tsd-is-static">
-								<a href="sequence.origin.html" class="tsd-kind-icon">Origin</a>
-								<ul>
-									<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-										<a href="sequence.origin.html#client" class="tsd-kind-icon">CLIENT</a>
-									</li>
-									<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-										<a href="sequence.origin.html#server" class="tsd-kind-icon">SERVER</a>
-									</li>
-								</ul>
-							</li>
-							<li class=" tsd-kind-enum tsd-parent-kind-class tsd-is-static">
-								<a href="sequence.type.html" class="tsd-kind-icon">Type</a>
-							</li>
-							<li class=" tsd-kind-interface tsd-parent-kind-class">
-								<a href="../interfaces/sequence.sequenceoptions.html" class="tsd-kind-icon">Sequence<wbr>Options</a>
-							</li>
-							<li class=" tsd-kind-type-alias tsd-parent-kind-class tsd-is-static">
-								<a href="../classes/sequence.html#nextsequenceoptions" class="tsd-kind-icon">Next<wbr>Sequence<wbr>Options</a>
-							</li>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="../classes/sequence.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="eventerror.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="../classes/sequence.html#origin-1" class="tsd-kind-icon">origin</a>
+								<a href="eventerror.html#event" class="tsd-kind-icon">event</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="../classes/sequence.html#sequence-1" class="tsd-kind-icon">sequence</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="eventerror.html#message" class="tsd-kind-icon">message</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="../classes/sequence.html#type-1" class="tsd-kind-icon">type</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="eventerror.html#name" class="tsd-kind-icon">name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="eventerror.html#stack" class="tsd-kind-icon">stack</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
-								<a href="../classes/sequence.html#max_sequence_number" class="tsd-kind-icon">MAX_<wbr>SEQUENCE_<wbr>NUMBER</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="../classes/sequence.html#nextsequence" class="tsd-kind-icon">next<wbr>Sequence</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="../classes/sequence.html#tobuffer" class="tsd-kind-icon">to<wbr>Buffer</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="../classes/sequence.html#from" class="tsd-kind-icon">from</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="../classes/sequence.html#getorigin" class="tsd-kind-icon">get<wbr>Origin</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="../classes/sequence.html#getsequencenumber" class="tsd-kind-icon">get<wbr>Sequence<wbr>Number</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="../classes/sequence.html#gettype" class="tsd-kind-icon">get<wbr>Type</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="../classes/sequence.html#setorigin" class="tsd-kind-icon">set<wbr>Origin</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="../classes/sequence.html#settype" class="tsd-kind-icon">set<wbr>Type</a>
+								<a href="eventerror.html#error" class="tsd-kind-icon">Error</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class tsd-has-type-parameter">
-						<a href="../classes/variable.html" class="tsd-kind-icon">Variable</a>
+					<li class=" tsd-kind-class">
+						<a href="packet.html" class="tsd-kind-icon">Packet</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="../classes/word.html" class="tsd-kind-icon">Word</a>
+						<a href="rcon.html" class="tsd-kind-icon">Rcon</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="request.html" class="tsd-kind-icon">Request</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="sequence.html" class="tsd-kind-icon">Sequence</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="variable.html" class="tsd-kind-icon">Variable</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="word.html" class="tsd-kind-icon">Word</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/maxplayercountchange.html" class="tsd-kind-icon">Max<wbr>Player<wbr>Count<wbr>Change</a>
