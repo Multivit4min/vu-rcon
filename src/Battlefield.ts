@@ -4,6 +4,7 @@ import * as Event from "./types/Event"
 import { createHash } from "crypto"
 import { EventEmitter } from "events"
 import { Variable } from "./Variable"
+import { EventError } from "exceptions/EventError"
 
 export interface Battlefield {
   on(event: "close", handler: (err: Error|undefined) => void): this
@@ -197,7 +198,12 @@ export class Battlefield extends EventEmitter {
 
   private async onSquadChange(words: Word[]) {
     const name = words[0].toString()
-    const player = await this.getPlayerByName(name)
+    let player: Battlefield.Player|undefined
+    try {
+      player = await this.getPlayerByName(name)
+    } catch (e) {
+      this.emit("error", e)
+    }
     if (player) {
       this.emit("squadChange", {
         player,
@@ -205,13 +211,18 @@ export class Battlefield extends EventEmitter {
         squad: words[2].toNumber(),
       })
     } else {
-      this.emit("error", new Error(`could not find player ${name} in event player.onSquadChange`))
+      this.emit("error", new EventError(`could not find player ${name} in event player.onSquadChange`, "onSquadChange"))
     }
   }
 
   private async onTeamChange(words: Word[]) {
     const name = words[0].toString()
-    const player = await this.getPlayerByName(name)
+    let player: Battlefield.Player|undefined
+    try {
+      player = await this.getPlayerByName(name)
+    } catch (e) {
+      this.emit("error", e)
+    }
     if (player) {
       this.emit("teamChange", {
         player,
@@ -219,7 +230,7 @@ export class Battlefield extends EventEmitter {
         squad: words[2].toNumber(),
       })
     } else {
-      this.emit("error", new Error(`could not find player ${name} in event player.onTeamChange`))
+      this.emit("error", new EventError(`could not find player ${name} in event player.onTeamChange`, "onTeamChange"))
     }
   }
 
@@ -254,11 +265,16 @@ export class Battlefield extends EventEmitter {
 
   private async playerOnSpawn(words: Word[]) {
     const name = words[0].toString()
-    const player = await this.getPlayerByName(name)
+    let player: Battlefield.Player|undefined
+    try {
+      player = await this.getPlayerByName(name)
+    } catch (e) {
+      this.emit("error", e)
+    }
     if (player) {
       this.emit("spawn", { player, team: words[1].toString() })
     } else {
-      this.emit("error", new Error(`could not find player with name ${name} in event player.onSpawn`))
+      this.emit("error", new EventError(`could not find player ${name} in event player.onTeamChange`, "playerOnSpawn"))
     }
   }
 
