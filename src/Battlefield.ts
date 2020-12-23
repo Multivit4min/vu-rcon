@@ -4,7 +4,7 @@ import * as Event from "./types/Event"
 import { createHash } from "crypto"
 import { EventEmitter } from "events"
 import { Variable } from "./Variable"
-import { EventError } from "exceptions/EventError"
+import { EventError } from "./exceptions/EventError"
 
 export interface Battlefield {
   on(event: "close", handler: (err: Error|undefined) => void): this
