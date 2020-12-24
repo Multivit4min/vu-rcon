@@ -109,8 +109,8 @@ export class Rcon extends EventEmitter {
    * or pushes it to queue if its currently not writeable
    * @param req
    */
-  private async sendRequest(req: Request, force: boolean = false) {
-    if (!this.socket || !this.socket.writable || (this.waitForPriorized && !force && !req.priorized)) {
+  private async sendRequest(req: Request) {
+    if (!this.socket || !this.socket.writable || (this.waitForPriorized && !req.priorized)) {
       this.queued.push(req)
     } else {
       if (req.priorized) this.waitForPriorized = true
@@ -131,7 +131,7 @@ export class Rcon extends EventEmitter {
     while (prio.length > 0) {
       const request = prio.shift()!
       this.queued = [...prio, ...queued.filter(r => !r.priorized)]
-      this.sendRequest(request, true)
+      this.sendRequest(request)
     }
     if (!this.waitForPriorized) queued.forEach(r => this.sendRequest(r))
   }
