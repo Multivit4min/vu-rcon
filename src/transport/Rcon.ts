@@ -109,14 +109,14 @@ export class Rcon extends EventEmitter {
    * or pushes it to queue if its currently not writeable
    * @param req
    */
-  private sendRequest(req: Request, force: boolean = false) {
-    if (!this.socket || !this.socket.writable || (this.waitForPriorized && !force)) {
+  private async sendRequest(req: Request, force: boolean = false) {
+    if (!this.socket || !this.socket.writable || (this.waitForPriorized && !force && !req.priorized)) {
       this.queued.push(req)
     } else {
       if (req.priorized) this.waitForPriorized = true
       this.pending.push(req)
       this.emit("sendData", { words: req.packet.words })
-      this.write(req.packet.toBuffer())
+      await this.write(req.packet.toBuffer())
     }
   }
 
@@ -128,13 +128,12 @@ export class Rcon extends EventEmitter {
     const queued = [...this.queued]
     this.queued = []
     const prio = queued.filter(r => r.priorized)
-    if (prio.length > 0) {
+    while (prio.length > 0) {
       const request = prio.shift()!
       this.queued = [...prio, ...queued.filter(r => !r.priorized)]
       this.sendRequest(request, true)
-    } else {
-      queued.forEach(r => this.sendRequest(r))
     }
+    if (!this.waitForPriorized) queued.forEach(r => this.sendRequest(r))
   }
 
   write(buffer: Buffer) {
