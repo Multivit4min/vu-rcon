@@ -93,8 +93,8 @@ export class Rcon extends EventEmitter {
     if (!request) return this.handleEvent(packet)
     this.pending.splice(this.pending.indexOf(request), 1)
     if (this.pending.length === 0 && this.waitForPriorized) this.continueWithQueue()
-    this.emit("requestReceive", { request })
     request.setResponse(packet)
+    this.emit("requestReceive", { request })
   }
 
   private handleEvent(packet: Packet) {
