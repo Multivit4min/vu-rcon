@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>PlayerOnChatBase | vu-rcon</title>
+	<title>EventReceive | vu-rcon</title>
 	<meta name="description" content="Documentation for vu-rcon">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="playeronchatbase.html">PlayerOnChatBase</a>
+					<a href="eventreceive.html">EventReceive</a>
 				</li>
 			</ul>
-			<h1>Interface PlayerOnChatBase</h1>
+			<h1>Interface EventReceive</h1>
 		</div>
 	</div>
 </header>
@@ -68,21 +68,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">PlayerOnChatBase</span>
-						<ul class="tsd-hierarchy">
-							<li>
-								<a href="playeronchatteam.html" class="tsd-signature-type">PlayerOnChatTeam</a>
-							</li>
-							<li>
-								<a href="playeronchatsquad.html" class="tsd-signature-type">PlayerOnChatSquad</a>
-							</li>
-							<li>
-								<a href="playeronchatplayer.html" class="tsd-signature-type">PlayerOnChatPlayer</a>
-							</li>
-							<li>
-								<a href="playeronchatall.html" class="tsd-signature-type">PlayerOnChatAll</a>
-							</li>
-						</ul>
+						<span class="target">EventReceive</span>
 					</li>
 				</ul>
 			</section>
@@ -93,9 +79,7 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="playeronchatbase.html#msg" class="tsd-kind-icon">msg</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="playeronchatbase.html#player" class="tsd-kind-icon">player</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="playeronchatbase.html#subset" class="tsd-kind-icon">subset</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="eventreceive.html#packet" class="tsd-kind-icon">packet</a></li>
 							</ul>
 						</section>
 					</div>
@@ -104,32 +88,12 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="msg" class="tsd-anchor"></a>
-					<h3>msg</h3>
-					<div class="tsd-signature tsd-kind-icon">msg<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="packet" class="tsd-anchor"></a>
+					<h3>packet</h3>
+					<div class="tsd-signature tsd-kind-icon">packet<span class="tsd-signature-symbol">:</span> <a href="../classes/packet.html" class="tsd-signature-type">Packet</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/b87c710/src/types/Event.ts#L101">src/types/Event.ts:101</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="player" class="tsd-anchor"></a>
-					<h3>player</h3>
-					<div class="tsd-signature tsd-kind-icon">player<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/b87c710/src/types/Event.ts#L100">src/types/Event.ts:100</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="subset" class="tsd-anchor"></a>
-					<h3>subset</h3>
-					<div class="tsd-signature tsd-kind-icon">subset<span class="tsd-signature-symbol">:</span> <a href="../classes/battlefield.html#subset" class="tsd-signature-type">Subset</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/b87c710/src/types/Event.ts#L102">src/types/Event.ts:102</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/b87c710/src/types/Event.ts#L15">src/types/Event.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -169,9 +133,18 @@
 					<li class=" tsd-kind-class">
 						<a href="../classes/word.html" class="tsd-kind-icon">Word</a>
 					</li>
-					<li class=" tsd-kind-interface">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface">
 						<a href="eventreceive.html" class="tsd-kind-icon">Event<wbr>Receive</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="eventreceive.html#packet" class="tsd-kind-icon">packet</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-interface">
 						<a href="maxplayercountchange.html" class="tsd-kind-icon">Max<wbr>Player<wbr>Count<wbr>Change</a>
 					</li>
@@ -211,24 +184,9 @@
 					<li class=" tsd-kind-interface">
 						<a href="playeronchatall.html" class="tsd-kind-icon">Player<wbr>OnChat<wbr>All</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface">
+					<li class=" tsd-kind-interface">
 						<a href="playeronchatbase.html" class="tsd-kind-icon">Player<wbr>OnChat<wbr>Base</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="playeronchatbase.html#msg" class="tsd-kind-icon">msg</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="playeronchatbase.html#player" class="tsd-kind-icon">player</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="playeronchatbase.html#subset" class="tsd-kind-icon">subset</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-interface">
 						<a href="playeronchatplayer.html" class="tsd-kind-icon">Player<wbr>OnChat<wbr>Player</a>
 					</li>
