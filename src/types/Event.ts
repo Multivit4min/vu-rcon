@@ -1,4 +1,5 @@
 import { Battlefield } from "../Battlefield"
+import { Packet } from "../transport/protocol/Packet"
 import { Word } from "../transport/protocol/Word"
 import { Request } from "../transport/Request"
 
@@ -8,6 +9,10 @@ export interface RequestSend {
 
 export interface RequestReceive {
   request: Request
+}
+
+export interface EventReceive {
+  packet: Packet
 }
 
 export interface OnRoundOver {

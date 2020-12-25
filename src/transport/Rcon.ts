@@ -99,6 +99,7 @@ export class Rcon extends EventEmitter {
 
   private handleEvent(packet: Packet) {
     this.options.eventHandler(packet.words[0].toString(), packet.words.slice(1))
+    this.emit("eventReceive", { packet })
   }
 
   createCommand<T = string[]>(cmd: string, ...args: Rcon.Argument[]) {

@@ -7,7 +7,7 @@ export class Request<T = string[]> {
 
   readonly packet: Packet
   private sendable: Request.Send
-  private response?: Packet
+  response?: Packet
   priorized: boolean = false
   private fulfill: any
   private reject: any

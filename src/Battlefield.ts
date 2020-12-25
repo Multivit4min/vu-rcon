@@ -12,6 +12,7 @@ export interface Battlefield {
   on(event: "error", handler: (error: Error) => void): this
   on(event: "requestSend", handler: (data: Event.RequestSend) => void): this
   on(event: "requestReceive", handler: (data: Event.RequestReceive) => void): this
+  on(event: "eventReceive", handler: (data: Event.EventReceive) => void): this
   on(event: "chat", handler: (data: Event.PlayerOnChat) => void): this
   on(event: "spawn", handler: (data: Event.PlayerOnSpawn) => void): this
   on(event: "kill", handler: (data: Event.PlayerOnKill) => void): this
@@ -65,6 +66,7 @@ export class Battlefield extends EventEmitter {
     this.rcon.on("close", () => this.emit("close", this.rconError))
     this.rcon.on("requestSend", this.emit.bind(this, "requestSend"))
     this.rcon.on("requestReceive", this.emit.bind(this, "requestReceive"))
+    this.rcon.on("eventReceive", this.emit.bind(this, "eventReceive"))
   }
 
   /**
