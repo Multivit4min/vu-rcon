@@ -71,7 +71,7 @@ export class Request<T = string[]> {
       this.callbacks.forEach(cb => cb(res))
       return 
     }
-    const error = new Error(`${this.getResponse()}: ${this.packet.words.join(" ")}`)
+    const error = new Error(`received unexpected response code "${this.getResponse()}" on command ${this.packet.words.join(" ")}`)
     //@ts-ignore
     error.isVuRconError = true
     if (this.stack && error.stack) {

@@ -2,12 +2,12 @@ import { Battlefield } from "../Battlefield"
 import { Word } from "../transport/protocol/Word"
 import { Request } from "../transport/Request"
 
-export interface ReceiveData {
-  words: Word[]
+export interface RequestSend {
+  request: Request
 }
 
-export interface SendData {
-  words: Word[]
+export interface RequestReceive {
+  request: Request
 }
 
 export interface OnRoundOver {

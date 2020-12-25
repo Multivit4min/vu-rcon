@@ -12,12 +12,18 @@ export class Rcon extends EventEmitter {
   private sequence?: Sequence
   private pending: Rcon.Pending = []
   private queued: Rcon.Queued = []
-  private waitForPriorized: boolean = false
+  private waitForPriorized: boolean = true
   private buffer = Buffer.alloc(0)
 
   constructor(options: Rcon.ConnectionOptions) {
     super()
     this.options = options
+  }
+
+  setWaitForPriorized(to: boolean) {
+    this.waitForPriorized = to
+    if (!to) this.continueWithQueue()
+    return this
   }
 
   /**
@@ -48,10 +54,10 @@ export class Rcon extends EventEmitter {
           this.socket.destroy()
           return reject(err)
         }
-        fulfill()
         this.socket.on("error", this.onError.bind(this))
         this.socket.on("close", this.onClose.bind(this))
         this.socket.on("data", this.onData.bind(this))
+        fulfill()
       }
       this.socket.on("error", handler)
       this.socket.on("connect", handler)
@@ -65,6 +71,7 @@ export class Rcon extends EventEmitter {
   private onClose() {
     this.pending.forEach(req => this.queued.unshift(req))
     this.pending = []
+    this.setWaitForPriorized(true)
     //destroy it just to be save
     this.socket.destroy()
     this.emit("close")
@@ -85,11 +92,8 @@ export class Rcon extends EventEmitter {
     const request = this.pending.find(p => p.sequenceNumber === packet.sequence.sequence)
     if (!request) return this.handleEvent(packet)
     this.pending.splice(this.pending.indexOf(request), 1)
-    if (this.pending.length === 0 && this.waitForPriorized) {
-      this.waitForPriorized = false
-      this.continueWithQueue()
-    }
-    this.emit("receiveData", { words: packet.words })
+    if (this.pending.length === 0 && this.waitForPriorized) this.continueWithQueue()
+    this.emit("requestReceive", { request })
     request.setResponse(packet)
   }
 
@@ -109,14 +113,17 @@ export class Rcon extends EventEmitter {
    * or pushes it to queue if its currently not writeable
    * @param req
    */
-  private async sendRequest(req: Request) {
-    if (!this.socket || !this.socket.writable || (this.waitForPriorized && !req.priorized)) {
-      this.queued.push(req)
+  private async sendRequest(request: Request) {
+    if (
+        !this.socket ||
+        !this.socket.writable ||
+        (this.waitForPriorized && !request.priorized)
+      ) {
+      this.queued.push(request)
     } else {
-      if (req.priorized) this.waitForPriorized = true
-      this.pending.push(req)
-      this.emit("sendData", { words: req.packet.words })
-      await this.write(req.packet.toBuffer())
+      this.pending.push(request)
+      await this.write(request.packet.toBuffer())
+      this.emit("requestSend", { request })
     }
   }
 
@@ -127,13 +134,8 @@ export class Rcon extends EventEmitter {
   continueWithQueue() {
     const queued = [...this.queued]
     this.queued = []
-    const prio = queued.filter(r => r.priorized)
-    while (prio.length > 0) {
-      const request = prio.shift()!
-      this.queued = [...prio, ...queued.filter(r => !r.priorized)]
-      this.sendRequest(request)
-    }
-    if (!this.waitForPriorized) queued.forEach(r => this.sendRequest(r))
+    //try to send the request
+    queued.forEach(request => this.sendRequest(request))
   }
 
   write(buffer: Buffer) {

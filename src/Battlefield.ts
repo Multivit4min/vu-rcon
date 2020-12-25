@@ -10,8 +10,8 @@ export interface Battlefield {
   on(event: "close", handler: (err: Error|undefined) => void): this
   on(event: "ready", handler: () => void): this
   on(event: "error", handler: (error: Error) => void): this
-  on(event: "receiveData", handler: (data: Event.ReceiveData) => void): this
-  on(event: "sendData", handler: (data: Event.SendData) => void): this
+  on(event: "requestSend", handler: (data: Event.RequestSend) => void): this
+  on(event: "requestReceive", handler: (data: Event.RequestReceive) => void): this
   on(event: "chat", handler: (data: Event.PlayerOnChat) => void): this
   on(event: "spawn", handler: (data: Event.PlayerOnSpawn) => void): this
   on(event: "kill", handler: (data: Event.PlayerOnKill) => void): this
@@ -63,8 +63,8 @@ export class Battlefield extends EventEmitter {
       this.emit("error", err)
     })
     this.rcon.on("close", () => this.emit("close", this.rconError))
-    this.rcon.on("receiveData", this.emit.bind(this, "receiveData"))
-    this.rcon.on("sendData", this.emit.bind(this, "sendData"))
+    this.rcon.on("requestSend", this.emit.bind(this, "requestSend"))
+    this.rcon.on("requestReceive", this.emit.bind(this, "requestReceive"))
   }
 
   /**
@@ -103,12 +103,10 @@ export class Battlefield extends EventEmitter {
 
   /** initializes the connection */
   private async initialize() {
-    const resolveable = Promise.all([
-      this.fetchVersion(),
-      this.login(this.options.password)
-    ])
-    await resolveable
+    await this.login(this.options.password)
+    await this.fetchVersion()
     await this.enableEvents(true)
+    this.rcon.setWaitForPriorized(false)
     this.emit("ready")
     return this
   }
@@ -129,6 +127,7 @@ export class Battlefield extends EventEmitter {
    * @param timeout timeout in ms between connection attempts
    */
   async reconnect(maxAttempts: number = -1, timeout: number = 1000) {
+    if (this.isReconnecting) return
     this.isReconnecting = true
     let attempts = 0
     while ((attempts++ < maxAttempts || maxAttempts <= 0) && !this.abortReconnectAction) {
@@ -325,7 +324,7 @@ export class Battlefield extends EventEmitter {
    * @param set enable or disable events
    */
   enableEvents(set: boolean) {
-    return this.createCommand("admin.eventsEnabled", set).send()
+    return this.createCommand("admin.eventsEnabled", set).priorize().send()
   }
 
   /** Game server type and build ID uniquely identify the server, and the protocol it is running. */
