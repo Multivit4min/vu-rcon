@@ -70,9 +70,9 @@ export class Sequence {
 
   static getType(uint: number) {
     if ((uint & Sequence.Mask.TYPE) === Sequence.Mask.TYPE) {
-      return Sequence.Type.RESPONSE
-    } else {
       return Sequence.Type.REQUEST
+    } else {
+      return Sequence.Type.RESPONSE
     }
   }
 

@@ -89,8 +89,9 @@ export class Rcon extends EventEmitter {
 
   private handlePacket(buffer: Buffer) {
     const packet = Packet.from(buffer)
+    if (packet.sequence.type === Sequence.Type.RESPONSE) return this.handleEvent(packet)
     const request = this.pending.find(p => p.sequenceNumber === packet.sequence.sequence)
-    if (!request) return this.handleEvent(packet)
+    if (!request) return this.emit("error", "got invalid sequence from server")
     this.pending.splice(this.pending.indexOf(request), 1)
     if (this.pending.length === 0 && this.waitForPriorized) this.continueWithQueue()
     request.setResponse(packet)
