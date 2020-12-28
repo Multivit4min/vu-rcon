@@ -4,6 +4,7 @@ import { Word } from "./protocol/Word"
 export class Request<T = string[]> {
 
   static RESPONSE_OK = "OK"
+  static DEFAULT_TIMEOUT = 10 * 1000
 
   readonly packet: Packet
   private sendable: Request.Send
@@ -15,10 +16,15 @@ export class Request<T = string[]> {
   private formater: Request.ResponseFormater<T> = words => <any>words.map(w => w.toString())
   private stack = (new Error()).stack
   private callbacks: ((data: T) => void)[] = []
+  private timeout: number
+  private nodeSetTimeout: any
+  private timeoutHandler: Request.TimeoutHandler
 
   constructor(options: Request.Options) {
     this.packet = options.packet
     this.sendable = options.send
+    this.timeout = options.timeout || Request.DEFAULT_TIMEOUT
+    this.timeoutHandler = options.handleTimeout
   }
 
   get sequenceNumber() {
@@ -64,6 +70,7 @@ export class Request<T = string[]> {
   }
 
   setResponse(packet: Packet) {
+    clearTimeout(this.nodeSetTimeout)
     this.response = packet
     if (this.isOk()) {
       const res = this.getResponseContent()
@@ -92,6 +99,7 @@ export class Request<T = string[]> {
       this.fulfill = fulfill
       this.reject = reject
       this.sendable(this)
+      this.nodeSetTimeout = setTimeout(() => this.timeoutHandler({ request: this, timeout: this.timeout }), this.timeout)
     })
   }
 }
@@ -100,7 +108,12 @@ export namespace Request {
   export interface Options {
     packet: Packet
     send: Send
+    timeout?: number
+    handleTimeout: TimeoutHandler
   }
+
+  export type TimeoutHandler = (data: TimeoutHandlerProps) => void
+  export type TimeoutHandlerProps = { request: Request<any>, timeout: number }
 
   export type Send = (req: Request<any>) => void
 

@@ -106,8 +106,16 @@ export class Rcon extends EventEmitter {
   createCommand<T = string[]>(cmd: string, ...args: Rcon.Argument[]) {
     let request: Request<T>
     const packet = this.wrapInPacket([cmd, ...Rcon.toStrings(args)])
-    request = new Request<T>({ packet, send: this.sendRequest.bind(this) })
+    request = new Request<T>({ handleTimeout: ev => this.handleTimeout(ev), packet, send: this.sendRequest.bind(this) })
     return request
+  }
+
+  private handleTimeout({ request, timeout }: Request.TimeoutHandlerProps) {
+    const command = request.packet.words.map(w => w.toString()).join(" ")
+    const error = new Error(`request timed out for ${command} after ${timeout}ms`)
+    //@ts-ignore
+    error.request = request
+    this.emit("error", error)
   }
 
   /**
