@@ -69,7 +69,10 @@ export class Rcon extends EventEmitter {
    * after a successfull reconnect all queued packets get resent
    */
   private onClose() {
-    this.pending.forEach(req => this.queued.unshift(req))
+    this.pending.forEach(request => {
+      request.setBack()
+      this.queued.unshift(request)
+    })
     this.pending = []
     this.setWaitForPriorized(true)
     //destroy it just to be save

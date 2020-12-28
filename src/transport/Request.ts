@@ -61,6 +61,11 @@ export class Request<T = string[]> {
     return this.response.words.slice(1, this.response.words.length)
   }
 
+  /** resets the timeout after the request has already been sent */
+  setBack() {
+    clearTimeout(this.nodeSetTimeout)
+  }
+
   isOk() {
     return this.getResponse() === Request.RESPONSE_OK
   }
