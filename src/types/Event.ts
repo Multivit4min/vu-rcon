@@ -90,9 +90,20 @@ export interface PlayerOnSpawn {
   team: number
 }
 
-export interface ReconnectEvent {
-  success: boolean
+export type ReconnectEvent = SuccessFulReconnect | FailedReconnect
+
+export interface SuccessFulReconnect {
+  success: true
   attempt: number
+  maxAttempts: number
+}
+
+export interface FailedReconnect {
+  success: false
+  attempt: number
+  maxAttempts: number
+  nextAttemptIn: number
+  error: Error
 }
 
 export type PlayerOnChat = PlayerOnChatTeam|PlayerOnChatSquad|PlayerOnChatPlayer|PlayerOnChatAll

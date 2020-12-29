@@ -127,21 +127,27 @@ export class Battlefield extends EventEmitter {
    * attempts to reconnects to the battlefield server
    * @param maxAttempts number of tries <= 0 tries to connect forever 
    * @param timeout timeout in ms between connection attempts
+   * @param increase increase timeout after every unsuccessful reconnect try
    */
-  async reconnect(maxAttempts: number = -1, timeout: number = 1000) {
+  async reconnect(maxAttempts: number = -1, timeout: number = 1000, increase: number = 0) {
     if (this.isReconnecting) return
     this.isReconnecting = true
     let attempts = 0
+    let nextAttemptIn = timeout
     while ((attempts++ < maxAttempts || maxAttempts <= 0) && !this.abortReconnectAction) {
       await Battlefield.sleep(timeout)
       try {
         await this.connect()
         this.isReconnecting = false
         this.abortReconnectAction = false
-        this.emit("reconnect", { attempt: attempts, success: true } as Event.ReconnectEvent)
+        this.emit("reconnect", { attempt: attempts, success: true, maxAttempts } as Event.SuccessFulReconnect)
         return
-      } catch(e) {
-        this.emit("reconnect", { attempt: attempts, success: false } as Event.ReconnectEvent)
+      } catch(error) {
+        nextAttemptIn = timeout + attempts * increase
+        const props: Event.FailedReconnect = {
+          attempt: attempts, success: false, error, maxAttempts, nextAttemptIn
+        }
+        this.emit("reconnect", props)
       }
     }
     this.isReconnecting = false
