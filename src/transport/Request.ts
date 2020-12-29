@@ -101,7 +101,7 @@ export class Request<T = string[]> {
   /** handles packet timeouts */
   private handleTimeout() {
     this.reject(new Error(`received timeout for request after ${this.timeout}ms`))
-    this.timeoutHandler({ request: this, timeout: this.timeout }), this.timeout
+    this.timeoutHandler({ request: this, timeout: this.timeout })
   }
 
   send() {
@@ -110,7 +110,7 @@ export class Request<T = string[]> {
       this.fulfill = fulfill
       this.reject = reject
       this.sendable(this)
-      this.nodeSetTimeout = setTimeout(() => this.handleTimeout())
+      this.nodeSetTimeout = setTimeout(() => this.handleTimeout, this.timeout)
     })
   }
 }
