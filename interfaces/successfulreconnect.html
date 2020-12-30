@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ReconnectEvent | vu-rcon</title>
+	<title>SuccessFulReconnect | vu-rcon</title>
 	<meta name="description" content="Documentation for vu-rcon">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="reconnectevent.html">ReconnectEvent</a>
+					<a href="successfulreconnect.html">SuccessFulReconnect</a>
 				</li>
 			</ul>
-			<h1>Interface ReconnectEvent</h1>
+			<h1>Interface SuccessFulReconnect</h1>
 		</div>
 	</div>
 </header>
@@ -68,7 +68,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ReconnectEvent</span>
+						<span class="target">SuccessFulReconnect</span>
 					</li>
 				</ul>
 			</section>
@@ -79,8 +79,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="reconnectevent.html#attempt" class="tsd-kind-icon">attempt</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="reconnectevent.html#success" class="tsd-kind-icon">success</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="successfulreconnect.html#attempt" class="tsd-kind-icon">attempt</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="successfulreconnect.html#maxattempts" class="tsd-kind-icon">max<wbr>Attempts</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="successfulreconnect.html#success" class="tsd-kind-icon">success</a></li>
 							</ul>
 						</section>
 					</div>
@@ -94,17 +95,27 @@
 					<div class="tsd-signature tsd-kind-icon">attempt<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/98b6354/src/types/Event.ts#L95">src/types/Event.ts:95</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/types/Event.ts#L97">src/types/Event.ts:97</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="maxattempts" class="tsd-anchor"></a>
+					<h3>max<wbr>Attempts</h3>
+					<div class="tsd-signature tsd-kind-icon">max<wbr>Attempts<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/types/Event.ts#L98">src/types/Event.ts:98</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="success" class="tsd-anchor"></a>
 					<h3>success</h3>
-					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">true</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/98b6354/src/types/Event.ts#L94">src/types/Event.ts:94</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/types/Event.ts#L96">src/types/Event.ts:96</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -146,6 +157,9 @@
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="eventreceive.html" class="tsd-kind-icon">Event<wbr>Receive</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="failedreconnect.html" class="tsd-kind-icon">Failed<wbr>Reconnect</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="maxplayercountchange.html" class="tsd-kind-icon">Max<wbr>Player<wbr>Count<wbr>Change</a>
@@ -207,29 +221,35 @@
 					<li class=" tsd-kind-interface">
 						<a href="punkbuster.html" class="tsd-kind-icon">Punk<wbr>Buster</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface">
-						<a href="reconnectevent.html" class="tsd-kind-icon">Reconnect<wbr>Event</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="reconnectevent.html#attempt" class="tsd-kind-icon">attempt</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="reconnectevent.html#success" class="tsd-kind-icon">success</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-interface">
 						<a href="requestreceive.html" class="tsd-kind-icon">Request<wbr>Receive</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="requestsend.html" class="tsd-kind-icon">Request<wbr>Send</a>
 					</li>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface">
+						<a href="successfulreconnect.html" class="tsd-kind-icon">Success<wbr>Ful<wbr>Reconnect</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="successfulreconnect.html#attempt" class="tsd-kind-icon">attempt</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="successfulreconnect.html#maxattempts" class="tsd-kind-icon">max<wbr>Attempts</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="successfulreconnect.html#success" class="tsd-kind-icon">success</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-type-alias">
 						<a href="../globals.html#playeronchat" class="tsd-kind-icon">Player<wbr>OnChat</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#reconnectevent" class="tsd-kind-icon">Reconnect<wbr>Event</a>
 					</li>
 				</ul>
 			</nav>
