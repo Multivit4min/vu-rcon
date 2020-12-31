@@ -11,11 +11,13 @@ export class Variable<T extends Variable.List> {
   }
 
   set<Y extends keyof T>(key: Y, value: T[Y]) {
+    console.warn(`this function is deprecated please use 'Battlefield.set('${key}', '${value}')'`)
     let arr = Array.isArray(value) ? value : [value]
     return this.rcon.createCommand(`${this.prefix}.${key}`, ...arr).send()
   }
 
   get<Y extends keyof T>(key: Y)  {
+    console.warn(`this function is deprecated please use 'Battlefield.get('${this.prefix}.${key}')'`)
     return this.rcon.createCommand<string>(`${this.prefix}.${key}`)
       .format(w => w[0].toString())
       .send()
