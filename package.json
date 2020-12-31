@@ -1,6 +1,6 @@
 {
   "name": "vu-rcon",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "rcon api for venice unleashed",
   "main": "lib/index.js",
   "scripts": {
