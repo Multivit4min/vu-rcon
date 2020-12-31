@@ -48,8 +48,7 @@ export class Rcon extends EventEmitter {
       )
       const handler = async (err?: Error) => {
         clearTimeout(timeout)
-        this.socket.removeListener("error", handler)
-        this.socket.removeListener("connect", handler)
+        this.socket.removeAllListeners()
         if (err instanceof Error) {
           this.socket.destroy()
           return reject(err)
@@ -71,11 +70,11 @@ export class Rcon extends EventEmitter {
   private onClose() {
     this.pending.forEach(request => {
       request.setBack()
+      if (request.removeWhenReconnect) return
       this.queued.unshift(request)
     })
     this.pending = []
     this.setWaitForPriorized(true)
-    //destroy it just to be save
     this.socket.destroy()
     this.emit("close")
   }

@@ -19,6 +19,7 @@ export class Request<T = string[]> {
   private timeout: number
   private nodeSetTimeout: any
   private timeoutHandler: Request.TimeoutHandler
+  removeWhenReconnect: boolean = false
 
   constructor(options: Request.Options) {
     this.packet = options.packet
@@ -64,6 +65,12 @@ export class Request<T = string[]> {
   /** resets the timeout after the request has already been sent */
   setBack() {
     clearTimeout(this.nodeSetTimeout)
+  }
+
+  /** remove from queue when server reconnects */
+  removeOnReconnect() {
+    this.removeWhenReconnect = true
+    return this
   }
 
   isOk() {

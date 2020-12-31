@@ -36,10 +36,11 @@ export class Battlefield extends EventEmitter {
 
   readonly options: Battlefield.Options
   private rcon: Rcon
-  private rconError?: Error
   private pbAddressCache: Record<string, string> = {}
   private abortReconnectAction: boolean = false
   private isReconnecting: boolean = false
+  private errorHandler = this.emit.bind(this, "error")
+  private closeHandler = this.onClose.bind(this)
   version: { game: Battlefield.Version, version: number } = {
     game: Battlefield.Version.UNKNOWN,
     version: 0
@@ -58,15 +59,27 @@ export class Battlefield extends EventEmitter {
     })
     this.var = new Variable(this.rcon, "vars")
     this.vu = new Variable(this.rcon, "vu")
-    if (this.options.autoconnect !== false) this.rcon.connect()
-    this.rcon.on("error", err => {
-      this.rconError = err
-      this.emit("error", err)
-    })
-    this.rcon.on("close", () => this.emit("close", this.rconError))
     this.rcon.on("requestSend", this.emit.bind(this, "requestSend"))
     this.rcon.on("requestReceive", this.emit.bind(this, "requestReceive"))
     this.rcon.on("eventReceive", this.emit.bind(this, "eventReceive"))
+    if (this.options.autoconnect !== false) this.connect()
+    this.addEventHandler()
+  }
+
+  private addEventHandler() {
+    this.removeEventHandler()
+    this.rcon.on("error", this.errorHandler)
+    this.rcon.on("close", this.closeHandler)
+  }
+
+  private removeEventHandler() {
+    this.rcon.removeListener("close", this.closeHandler)
+    this.rcon.removeListener("error", this.errorHandler)
+  }
+
+  private onClose() {
+    this.emit("close")
+    this.removeEventHandler()
   }
 
   /**
@@ -96,7 +109,9 @@ export class Battlefield extends EventEmitter {
   async connect(forceReconnect: boolean = true) {
     await this.rcon.connect(forceReconnect)
     try {
-      return this.initialize()
+      await this.initialize()
+      this.addEventHandler()
+      return this
     } catch (e) {
       this.rcon.stop()
       throw e
@@ -349,6 +364,7 @@ export class Battlefield extends EventEmitter {
   private fetchVersion() {
     return this.createCommand<{ game: string, version: number}>("version")
       .priorize()
+      .removeOnReconnect()
       .format(w => ({ game: w[0].toString(), version: w[1].toNumber() })).send()
       .then(({ version, game }) => {
         this.version = (() => {
@@ -368,6 +384,7 @@ export class Battlefield extends EventEmitter {
     return this.createCommand<Buffer>("login.hashed")
       .priorize()
       .format(w => Buffer.from(w[0].toString(), "hex"))
+      .removeOnReconnect()
       .send()
   }
 
@@ -384,9 +401,10 @@ export class Battlefield extends EventEmitter {
    * Securely logs you in with a hashed password
    * @param password password to login with
    */
-  async login(password: string) {
+  private async login(password: string) {
     return this.rcon
       .createCommand("login.hashed", this.getPasswordHash(password, await this.getSalt()))
+      .removeOnReconnect()
       .priorize()
       .send()
   }
