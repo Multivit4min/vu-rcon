@@ -316,6 +316,16 @@ export class Battlefield extends EventEmitter {
     this.emit("chat", event)
   }
 
+  /** sets a variable */
+  set(key: Battlefield.BattlefieldVariables, value: string|number|boolean) {
+    return this.rcon.createCommand(key, value).send()
+  }
+
+  /** gets a variable */
+  get(key: Battlefield.BattlefieldVariables) {
+    return this.rcon.createCommand<string>(key).format(w => w[0].toString()).send()
+  }
+
   createCommand<T>(cmd: string, ...args: Rcon.Argument[]) {
     const request = this.rcon.createCommand<T>(cmd, ...args)
     this.emit("request", { request })
@@ -996,6 +1006,66 @@ export namespace Battlefield {
     reason: string
   }
 
+  export type BattlefieldVariables = 
+    VeniceUnleashedVariables | VanillaVariables
+
+  export type VeniceUnleashedVariables =
+    "vu.ColorCorrectionEnabled" |
+    "vu.DesertingAllowed" |
+    "vu.DestructionEnabled" |
+    "vu.FadeInAll" |
+    "vu.FadeOutAll" |
+    "vu.FrequencyMode" |
+    "vu.HighPerformanceReplication" |
+    "vu.ServerBanner" |
+    "vu.SpectatorCount" |
+    "vu.SquadSize" |
+    "vu.SunFlareEnabled" |
+    "vu.SuppressionMultiplier" |
+    "vu.VehicleDisablingEnabled"
+
+  export type VanillaVariables =
+    "vars.ranked" |
+    "vars.serverName" |
+    "vars.gamePassword" |
+    "vars.autoBalance" |
+    "vars.friendlyFire" |
+    "vars.maxPlayers" |
+    "vars.serverDescription" |
+    "vars.serverMessage" |
+    "vars.killCam" |
+    "vars.miniMap" |
+    "vars.hud" |
+    "vars.crossHair" |
+    "vars.3dSpotting" |
+    "vars.miniMapSpotting" |
+    "vars.nametag" |
+    "vars.3pCam" |
+    "vars.regenerateHealth" |
+    "vars.teamKillCountForKick" |
+    "vars.teamKillValueForKick" |
+    "vars.teamKillValueIncrease" |
+    "vars.teamKillValueDecreasePerSecond" |
+    "vars.teamKillKickForBan" |
+    "vars.idleTimeout" |
+    "vars.idleBanRounds" |
+    "vars.roundStartPlayerCount" |
+    "vars.roundRestartPlayerCount" |
+    "vars.roundLockdownCountdown" |
+    "vars.vehicleSpawnAllowed" |
+    "vars.vehicleSpawnDelay" |
+    "vars.soldierHealth" |
+    "vars.playerRespawnTime" |
+    "vars.playerManDownTime" |
+    "vars.bulletDamage" |
+    "vars.gameModeCounter" |
+    "vars.onlySquadLeaderSpawn" |
+    "vars.unlockMode" |
+    "vars.premiumStatus" |
+    "vars.gunMasterWeaponsPreset"
+
+
+  /** @deprecated*/
   export interface VuVariable extends Variable.List {
     DestructionEnabled: boolean
     SuppressionMultiplier: number
@@ -1008,6 +1078,7 @@ export namespace Battlefield {
     FadeInAll: void
   }
 
+  /** @deprecated*/
   export interface Variables extends Variable.List {
     /* This command can only be used during startup. It can only be used to switch the server from ranked to unranked mode; the server can never switch back to ranked mode again. */
     ranked: boolean

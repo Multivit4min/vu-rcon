@@ -11,7 +11,7 @@ export class Variable<T extends Variable.List> {
   }
 
   set<Y extends keyof T>(key: Y, value: T[Y]) {
-    console.warn(`this function is deprecated please use 'Battlefield.set('${key}', '${value}')'`)
+    console.warn(`this function is deprecated please use 'Battlefield.set('${this.prefix}.${key}', '${value}')'`)
     let arr = Array.isArray(value) ? value : [value]
     return this.rcon.createCommand(`${this.prefix}.${key}`, ...arr).send()
   }
