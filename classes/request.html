@@ -122,6 +122,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="request.html#packet" class="tsd-kind-icon">packet</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="request.html#priorized" class="tsd-kind-icon">priorized</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="request.html#reject" class="tsd-kind-icon">reject</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="request.html#removewhenreconnect" class="tsd-kind-icon">remove<wbr>When<wbr>Reconnect</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="request.html#response" class="tsd-kind-icon">response</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="request.html#responseparams" class="tsd-kind-icon">response<wbr>Params</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="request.html#sendable" class="tsd-kind-icon">sendable</a></li>
@@ -151,6 +152,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="request.html#isok" class="tsd-kind-icon">is<wbr>Ok</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="request.html#onresolved" class="tsd-kind-icon">on<wbr>Resolved</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="request.html#priorize" class="tsd-kind-icon">priorize</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="request.html#removeonreconnect" class="tsd-kind-icon">remove<wbr>OnReconnect</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="request.html#send-1" class="tsd-kind-icon">send</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="request.html#setback" class="tsd-kind-icon">set<wbr>Back</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="request.html#setresponse" class="tsd-kind-icon">set<wbr>Response</a></li>
@@ -167,7 +169,7 @@
 					<div class="tsd-signature tsd-kind-icon">Response<wbr>Formater&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>words<span class="tsd-signature-symbol">: </span><a href="word.html" class="tsd-signature-type">Word</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">T</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L131">src/transport/Request.ts:131</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L138">src/transport/Request.ts:138</a></li>
 						</ul>
 					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -204,7 +206,7 @@
 					<div class="tsd-signature tsd-kind-icon">Response<wbr>Parameter<span class="tsd-signature-symbol">:</span> <a href="../enums/request.parameter.html" class="tsd-signature-type">Parameter</a><span class="tsd-signature-symbol"> | </span><a href="../enums/request.subset.html" class="tsd-signature-type">Subset</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L132">src/transport/Request.ts:132</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L139">src/transport/Request.ts:139</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -214,7 +216,7 @@
 					<div class="tsd-signature tsd-kind-icon">Send<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><a href="request.html" class="tsd-signature-type">Request</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L129">src/transport/Request.ts:129</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L136">src/transport/Request.ts:136</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -245,7 +247,7 @@
 					<div class="tsd-signature tsd-kind-icon">Timeout<wbr>Handler<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><a href="request.html#timeouthandlerprops" class="tsd-signature-type">TimeoutHandlerProps</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L126">src/transport/Request.ts:126</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L133">src/transport/Request.ts:133</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -276,7 +278,7 @@
 					<div class="tsd-signature tsd-kind-icon">Timeout<wbr>Handler<wbr>Props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>request<span class="tsd-signature-symbol">: </span><a href="request.html" class="tsd-signature-type">Request</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span>timeout<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L127">src/transport/Request.ts:127</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L134">src/transport/Request.ts:134</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -304,7 +306,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L21">src/transport/Request.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L22">src/transport/Request.ts:22</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -326,7 +328,7 @@
 					<div class="tsd-signature tsd-kind-icon">callbacks<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L18">src/transport/Request.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L18">src/transport/Request.ts:18</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -336,7 +338,7 @@
 					<div class="tsd-signature tsd-kind-icon">fulfill<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L13">src/transport/Request.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L13">src/transport/Request.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -346,7 +348,7 @@
 					<div class="tsd-signature tsd-kind-icon">node<wbr>Set<wbr>Timeout<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L20">src/transport/Request.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L20">src/transport/Request.ts:20</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -356,7 +358,7 @@
 					<div class="tsd-signature tsd-kind-icon">packet<span class="tsd-signature-symbol">:</span> <a href="packet.html" class="tsd-signature-type">Packet</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L9">src/transport/Request.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L9">src/transport/Request.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -366,7 +368,7 @@
 					<div class="tsd-signature tsd-kind-icon">priorized<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L12">src/transport/Request.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L12">src/transport/Request.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -376,7 +378,17 @@
 					<div class="tsd-signature tsd-kind-icon">reject<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L14">src/transport/Request.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L14">src/transport/Request.ts:14</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="removewhenreconnect" class="tsd-anchor"></a>
+					<h3>remove<wbr>When<wbr>Reconnect</h3>
+					<div class="tsd-signature tsd-kind-icon">remove<wbr>When<wbr>Reconnect<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L22">src/transport/Request.ts:22</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -386,7 +398,7 @@
 					<div class="tsd-signature tsd-kind-icon">response<span class="tsd-signature-symbol">:</span> <a href="packet.html" class="tsd-signature-type">Packet</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L11">src/transport/Request.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L11">src/transport/Request.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -396,7 +408,7 @@
 					<div class="tsd-signature tsd-kind-icon">response<wbr>Params<span class="tsd-signature-symbol">:</span> <a href="request.html#responseparameter" class="tsd-signature-type">ResponseParameter</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L15">src/transport/Request.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L15">src/transport/Request.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -406,7 +418,7 @@
 					<div class="tsd-signature tsd-kind-icon">sendable<span class="tsd-signature-symbol">:</span> <a href="request.html#send" class="tsd-signature-type">Send</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L10">src/transport/Request.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L10">src/transport/Request.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -416,7 +428,7 @@
 					<div class="tsd-signature tsd-kind-icon">stack<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = (new Error()).stack</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L17">src/transport/Request.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L17">src/transport/Request.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -426,7 +438,7 @@
 					<div class="tsd-signature tsd-kind-icon">timeout<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L19">src/transport/Request.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L19">src/transport/Request.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -436,7 +448,7 @@
 					<div class="tsd-signature tsd-kind-icon">timeout<wbr>Handler<span class="tsd-signature-symbol">:</span> <a href="request.html#timeouthandler" class="tsd-signature-type">TimeoutHandler</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L21">src/transport/Request.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L21">src/transport/Request.ts:21</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -446,7 +458,7 @@
 					<div class="tsd-signature tsd-kind-icon">DEFAULT_<wbr>TIMEOUT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 10 * 1000</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L7">src/transport/Request.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L7">src/transport/Request.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -456,7 +468,7 @@
 					<div class="tsd-signature tsd-kind-icon">RESPONSE_<wbr>OK<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;OK&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L6">src/transport/Request.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L6">src/transport/Request.ts:6</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -473,7 +485,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L30">src/transport/Request.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L31">src/transport/Request.ts:31</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -493,7 +505,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L96">src/transport/Request.ts:96</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L103">src/transport/Request.ts:103</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -516,7 +528,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L44">src/transport/Request.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L45">src/transport/Request.ts:45</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -539,7 +551,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L16">src/transport/Request.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L16">src/transport/Request.ts:16</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -562,7 +574,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L59">src/transport/Request.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L60">src/transport/Request.ts:60</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="word.html" class="tsd-signature-type">Word</a><span class="tsd-signature-symbol">[]</span></h4>
@@ -579,7 +591,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L49">src/transport/Request.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L50">src/transport/Request.ts:50</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -596,7 +608,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L73">src/transport/Request.ts:73</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L80">src/transport/Request.ts:80</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span></h4>
@@ -613,7 +625,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L102">src/transport/Request.ts:102</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L109">src/transport/Request.ts:109</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -635,7 +647,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L69">src/transport/Request.ts:69</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L76">src/transport/Request.ts:76</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -652,7 +664,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L54">src/transport/Request.ts:54</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L55">src/transport/Request.ts:55</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -693,7 +705,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L39">src/transport/Request.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L40">src/transport/Request.ts:40</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -701,6 +713,28 @@
 									<p>marks the request as a priority request
 										this will make the query send this packet first
 									and withhold all other queued packets till this has finnished</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="removeonreconnect" class="tsd-anchor"></a>
+					<h3>remove<wbr>OnReconnect</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">remove<wbr>OnReconnect<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L71">src/transport/Request.ts:71</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>remove from queue when server reconnects</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -717,7 +751,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L107">src/transport/Request.ts:107</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L114">src/transport/Request.ts:114</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -734,7 +768,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L65">src/transport/Request.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L66">src/transport/Request.ts:66</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -756,7 +790,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/438d2e8/src/transport/Request.ts#L77">src/transport/Request.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/1f4b633/src/transport/Request.ts#L84">src/transport/Request.ts:84</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -844,6 +878,9 @@
 								<a href="request.html#reject" class="tsd-kind-icon">reject</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="request.html#removewhenreconnect" class="tsd-kind-icon">remove<wbr>When<wbr>Reconnect</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="request.html#response" class="tsd-kind-icon">response</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
@@ -899,6 +936,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="request.html#priorize" class="tsd-kind-icon">priorize</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="request.html#removeonreconnect" class="tsd-kind-icon">remove<wbr>OnReconnect</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="request.html#send-1" class="tsd-kind-icon">send</a>
