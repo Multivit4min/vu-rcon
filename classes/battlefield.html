@@ -105,12 +105,15 @@
 							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-type-alias tsd-parent-kind-class tsd-is-static"><a href="battlefield.html#banlist" class="tsd-kind-icon">Ban<wbr>List</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-class tsd-is-static"><a href="battlefield.html#battlefieldvariables" class="tsd-kind-icon">Battlefield<wbr>Variables</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-class tsd-is-static"><a href="battlefield.html#idtype" class="tsd-kind-icon">Id<wbr>Type</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-class tsd-is-static"><a href="battlefield.html#maplist" class="tsd-kind-icon">Map<wbr>List</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-class tsd-is-static"><a href="battlefield.html#playerlist" class="tsd-kind-icon">Player<wbr>List</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-class tsd-is-static"><a href="battlefield.html#playersubset" class="tsd-kind-icon">Player<wbr>Subset</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-class tsd-is-static"><a href="battlefield.html#subset" class="tsd-kind-icon">Subset</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-class tsd-is-static"><a href="battlefield.html#timeout" class="tsd-kind-icon">Timeout</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-class tsd-is-static"><a href="battlefield.html#vanillavariables" class="tsd-kind-icon">Vanilla<wbr>Variables</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-class tsd-is-static"><a href="battlefield.html#veniceunleashedvariables" class="tsd-kind-icon">Venice<wbr>Unleashed<wbr>Variables</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -162,6 +165,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="battlefield.html#eventhandler" class="tsd-kind-icon">event<wbr>Handler</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="battlefield.html#eventnames" class="tsd-kind-icon">event<wbr>Names</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="battlefield.html#fetchversion" class="tsd-kind-icon">fetch<wbr>Version</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="battlefield.html#get" class="tsd-kind-icon">get</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="battlefield.html#getavailablemods" class="tsd-kind-icon">get<wbr>Available<wbr>Mods</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="battlefield.html#getbans" class="tsd-kind-icon">get<wbr>Bans</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="battlefield.html#getmapindices" class="tsd-kind-icon">get<wbr>Map<wbr>Indices</a></li>
@@ -229,6 +233,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="battlefield.html#savereservedslots" class="tsd-kind-icon">save<wbr>Reserved<wbr>Slots</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="battlefield.html#say" class="tsd-kind-icon">say</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="battlefield.html#serverinfo-1" class="tsd-kind-icon">server<wbr>Info</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="battlefield.html#set" class="tsd-kind-icon">set</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="battlefield.html#setmaxlisteners" class="tsd-kind-icon">set<wbr>Max<wbr>Listeners</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="battlefield.html#setnextmapindex" class="tsd-kind-icon">set<wbr>Next<wbr>Map<wbr>Index</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="battlefield.html#setteamticketcount" class="tsd-kind-icon">set<wbr>Teamticket<wbr>Count</a></li>
@@ -256,7 +261,17 @@
 					<div class="tsd-signature tsd-kind-icon">Ban<wbr>List<span class="tsd-signature-symbol">:</span> <a href="../interfaces/battlefield.banentry.html" class="tsd-signature-type">BanEntry</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L990">src/Battlefield.ts:990</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L1000">src/Battlefield.ts:1000</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-class tsd-is-static">
+					<a name="battlefieldvariables" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Battlefield<wbr>Variables</h3>
+					<div class="tsd-signature tsd-kind-icon">Battlefield<wbr>Variables<span class="tsd-signature-symbol">:</span> <a href="battlefield.html#veniceunleashedvariables" class="tsd-signature-type">VeniceUnleashedVariables</a><span class="tsd-signature-symbol"> | </span><a href="battlefield.html#vanillavariables" class="tsd-signature-type">VanillaVariables</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L1009">src/Battlefield.ts:1009</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -266,7 +281,7 @@
 					<div class="tsd-signature tsd-kind-icon">Id<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">"name"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ip"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"guid"</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L973">src/Battlefield.ts:973</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L983">src/Battlefield.ts:983</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -276,7 +291,7 @@
 					<div class="tsd-signature tsd-kind-icon">Map<wbr>List<span class="tsd-signature-symbol">:</span> <a href="../interfaces/battlefield.mapentry.html" class="tsd-signature-type">MapEntry</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L923">src/Battlefield.ts:923</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L933">src/Battlefield.ts:933</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -286,7 +301,7 @@
 					<div class="tsd-signature tsd-kind-icon">Player<wbr>List<span class="tsd-signature-symbol">:</span> <a href="../interfaces/battlefield.player.html" class="tsd-signature-type">Player</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L974">src/Battlefield.ts:974</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L984">src/Battlefield.ts:984</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -296,7 +311,7 @@
 					<div class="tsd-signature tsd-kind-icon">Player<wbr>Subset<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">[</span><a href="battlefield.html#subset" class="tsd-signature-type">Subset</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L970">src/Battlefield.ts:970</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L980">src/Battlefield.ts:980</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -306,7 +321,7 @@
 					<div class="tsd-signature tsd-kind-icon">Subset<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"all"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"team"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"squad"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"player"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L969">src/Battlefield.ts:969</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L979">src/Battlefield.ts:979</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -316,7 +331,27 @@
 					<div class="tsd-signature tsd-kind-icon">Timeout<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">"perm"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"rounds"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"seconds"</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L972">src/Battlefield.ts:972</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L982">src/Battlefield.ts:982</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-class tsd-is-static">
+					<a name="vanillavariables" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Vanilla<wbr>Variables</h3>
+					<div class="tsd-signature tsd-kind-icon">Vanilla<wbr>Variables<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"vars.ranked"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.serverName"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.gamePassword"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.autoBalance"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.friendlyFire"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.maxPlayers"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.serverDescription"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.serverMessage"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.killCam"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.miniMap"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.hud"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.crossHair"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.3dSpotting"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.miniMapSpotting"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.nametag"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.3pCam"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.regenerateHealth"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.teamKillCountForKick"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.teamKillValueForKick"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.teamKillValueIncrease"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.teamKillValueDecreasePerSecond"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.teamKillKickForBan"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.idleTimeout"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.idleBanRounds"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.roundStartPlayerCount"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.roundRestartPlayerCount"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.roundLockdownCountdown"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.vehicleSpawnAllowed"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.vehicleSpawnDelay"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.soldierHealth"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.playerRespawnTime"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.playerManDownTime"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.bulletDamage"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.gameModeCounter"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.onlySquadLeaderSpawn"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.unlockMode"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.premiumStatus"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vars.gunMasterWeaponsPreset"</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L1027">src/Battlefield.ts:1027</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-class tsd-is-static">
+					<a name="veniceunleashedvariables" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Venice<wbr>Unleashed<wbr>Variables</h3>
+					<div class="tsd-signature tsd-kind-icon">Venice<wbr>Unleashed<wbr>Variables<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"vu.ColorCorrectionEnabled"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vu.DesertingAllowed"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vu.DestructionEnabled"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vu.FadeInAll"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vu.FadeOutAll"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vu.FrequencyMode"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vu.HighPerformanceReplication"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vu.ServerBanner"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vu.SpectatorCount"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vu.SquadSize"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vu.SunFlareEnabled"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vu.SuppressionMultiplier"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vu.VehicleDisablingEnabled"</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L1012">src/Battlefield.ts:1012</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -334,7 +369,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides EventEmitter.__constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L49">src/Battlefield.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L49">src/Battlefield.ts:49</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -356,7 +391,7 @@
 					<div class="tsd-signature tsd-kind-icon">abort<wbr>Reconnect<wbr>Action<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L41">src/Battlefield.ts:41</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L41">src/Battlefield.ts:41</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -366,7 +401,7 @@
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Reconnecting<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L42">src/Battlefield.ts:42</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L42">src/Battlefield.ts:42</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -376,7 +411,7 @@
 					<div class="tsd-signature tsd-kind-icon">options<span class="tsd-signature-symbol">:</span> <a href="../interfaces/battlefield.options.html" class="tsd-signature-type">Options</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L37">src/Battlefield.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L37">src/Battlefield.ts:37</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -386,7 +421,7 @@
 					<div class="tsd-signature tsd-kind-icon">pb<wbr>Address<wbr>Cache<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L40">src/Battlefield.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L40">src/Battlefield.ts:40</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -396,7 +431,7 @@
 					<div class="tsd-signature tsd-kind-icon">rcon<span class="tsd-signature-symbol">:</span> <a href="rcon.html" class="tsd-signature-type">Rcon</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L38">src/Battlefield.ts:38</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L38">src/Battlefield.ts:38</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -406,7 +441,7 @@
 					<div class="tsd-signature tsd-kind-icon">rcon<wbr>Error<span class="tsd-signature-symbol">:</span> <a href="eventerror.html#error" class="tsd-signature-type">Error</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L39">src/Battlefield.ts:39</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L39">src/Battlefield.ts:39</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -416,7 +451,7 @@
 					<div class="tsd-signature tsd-kind-icon">var<span class="tsd-signature-symbol">:</span> <a href="variable.html" class="tsd-signature-type">Variable</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/battlefield.variables.html" class="tsd-signature-type">Variables</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L49">src/Battlefield.ts:49</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L49">src/Battlefield.ts:49</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -426,7 +461,7 @@
 					<div class="tsd-signature tsd-kind-icon">vu<span class="tsd-signature-symbol">:</span> <a href="variable.html" class="tsd-signature-type">Variable</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/battlefield.vuvariable.html" class="tsd-signature-type">VuVariable</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L48">src/Battlefield.ts:48</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L48">src/Battlefield.ts:48</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -475,7 +510,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L158">src/Battlefield.ts:158</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L158">src/Battlefield.ts:158</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -492,7 +527,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L637">src/Battlefield.ts:637</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L647">src/Battlefield.ts:647</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -583,7 +618,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L677">src/Battlefield.ts:677</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L687">src/Battlefield.ts:687</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -627,7 +662,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L779">src/Battlefield.ts:779</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L789">src/Battlefield.ts:789</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -660,7 +695,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L563">src/Battlefield.ts:563</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L573">src/Battlefield.ts:573</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -697,7 +732,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L593">src/Battlefield.ts:593</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L603">src/Battlefield.ts:603</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -728,7 +763,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L653">src/Battlefield.ts:653</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L663">src/Battlefield.ts:663</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -756,7 +791,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L692">src/Battlefield.ts:692</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L702">src/Battlefield.ts:702</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -784,7 +819,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L789">src/Battlefield.ts:789</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L799">src/Battlefield.ts:799</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -808,7 +843,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L579">src/Battlefield.ts:579</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L589">src/Battlefield.ts:589</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -836,7 +871,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L96">src/Battlefield.ts:96</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L96">src/Battlefield.ts:96</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -864,7 +899,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L319">src/Battlefield.ts:319</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L329">src/Battlefield.ts:329</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -896,7 +931,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L816">src/Battlefield.ts:816</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L826">src/Battlefield.ts:826</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -927,7 +962,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L647">src/Battlefield.ts:647</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L657">src/Battlefield.ts:657</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -964,7 +999,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L686">src/Battlefield.ts:686</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L696">src/Battlefield.ts:696</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -997,7 +1032,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L769">src/Battlefield.ts:769</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L779">src/Battlefield.ts:779</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1030,7 +1065,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L573">src/Battlefield.ts:573</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L583">src/Battlefield.ts:583</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1064,7 +1099,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L438">src/Battlefield.ts:438</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L448">src/Battlefield.ts:448</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1113,7 +1148,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L334">src/Battlefield.ts:334</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L344">src/Battlefield.ts:344</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1144,7 +1179,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L823">src/Battlefield.ts:823</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L833">src/Battlefield.ts:833</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1172,7 +1207,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L164">src/Battlefield.ts:164</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L164">src/Battlefield.ts:164</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1216,7 +1251,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L339">src/Battlefield.ts:339</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L349">src/Battlefield.ts:349</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1225,6 +1260,34 @@
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>game<span class="tsd-signature-symbol">: </span><a href="../enums/battlefield.version.html" class="tsd-signature-type">Version</a><span class="tsd-signature-symbol">; </span>version<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="get" class="tsd-anchor"></a>
+					<h3>get</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><a href="battlefield.html#battlefieldvariables" class="tsd-signature-type">BattlefieldVariables</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L325">src/Battlefield.ts:325</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>gets a variable</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>key: <a href="battlefield.html#battlefieldvariables" class="tsd-signature-type">BattlefieldVariables</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -1238,7 +1301,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L759">src/Battlefield.ts:759</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L769">src/Battlefield.ts:769</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1260,7 +1323,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L608">src/Battlefield.ts:608</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L618">src/Battlefield.ts:618</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1282,7 +1345,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L733">src/Battlefield.ts:733</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L743">src/Battlefield.ts:743</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1304,7 +1367,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L707">src/Battlefield.ts:707</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L717">src/Battlefield.ts:717</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1358,7 +1421,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L754">src/Battlefield.ts:754</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L764">src/Battlefield.ts:764</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1382,7 +1445,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L365">src/Battlefield.ts:365</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L375">src/Battlefield.ts:375</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1413,7 +1476,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L523">src/Battlefield.ts:523</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L533">src/Battlefield.ts:533</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1441,7 +1504,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L390">src/Battlefield.ts:390</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L400">src/Battlefield.ts:400</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1469,7 +1532,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L528">src/Battlefield.ts:528</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L538">src/Battlefield.ts:538</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1497,7 +1560,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L585">src/Battlefield.ts:585</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L595">src/Battlefield.ts:595</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1525,7 +1588,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L830">src/Battlefield.ts:830</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L840">src/Battlefield.ts:840</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1547,7 +1610,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L796">src/Battlefield.ts:796</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L806">src/Battlefield.ts:806</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1569,7 +1632,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L357">src/Battlefield.ts:357</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L367">src/Battlefield.ts:367</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1591,7 +1654,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L846">src/Battlefield.ts:846</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L856">src/Battlefield.ts:856</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1622,7 +1685,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L326">src/Battlefield.ts:326</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L336">src/Battlefield.ts:336</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1644,7 +1707,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L446">src/Battlefield.ts:446</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L456">src/Battlefield.ts:456</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1675,7 +1738,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L107">src/Battlefield.ts:107</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L107">src/Battlefield.ts:107</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1745,7 +1808,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L598">src/Battlefield.ts:598</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L608">src/Battlefield.ts:608</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1767,7 +1830,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L659">src/Battlefield.ts:659</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L669">src/Battlefield.ts:669</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1789,7 +1852,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L549">src/Battlefield.ts:549</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L559">src/Battlefield.ts:559</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1811,7 +1874,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L377">src/Battlefield.ts:377</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L387">src/Battlefield.ts:387</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1842,7 +1905,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L385">src/Battlefield.ts:385</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L395">src/Battlefield.ts:395</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1864,7 +1927,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L740">src/Battlefield.ts:740</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L750">src/Battlefield.ts:750</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1954,7 +2017,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="rcon.html">Rcon</a>.<a href="rcon.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L10">src/Battlefield.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L10">src/Battlefield.ts:10</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1990,7 +2053,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="rcon.html">Rcon</a>.<a href="rcon.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L11">src/Battlefield.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L11">src/Battlefield.ts:11</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2020,7 +2083,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="rcon.html">Rcon</a>.<a href="rcon.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L12">src/Battlefield.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L12">src/Battlefield.ts:12</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2056,7 +2119,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="rcon.html">Rcon</a>.<a href="rcon.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L13">src/Battlefield.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L13">src/Battlefield.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2092,7 +2155,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="rcon.html">Rcon</a>.<a href="rcon.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L14">src/Battlefield.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L14">src/Battlefield.ts:14</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2128,7 +2191,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="rcon.html">Rcon</a>.<a href="rcon.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L15">src/Battlefield.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L15">src/Battlefield.ts:15</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2164,7 +2227,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="rcon.html">Rcon</a>.<a href="rcon.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L16">src/Battlefield.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L16">src/Battlefield.ts:16</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2200,7 +2263,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="rcon.html">Rcon</a>.<a href="rcon.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L17">src/Battlefield.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L17">src/Battlefield.ts:17</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2236,7 +2299,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="rcon.html">Rcon</a>.<a href="rcon.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L18">src/Battlefield.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L18">src/Battlefield.ts:18</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2272,7 +2335,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="rcon.html">Rcon</a>.<a href="rcon.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L19">src/Battlefield.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L19">src/Battlefield.ts:19</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2308,7 +2371,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="rcon.html">Rcon</a>.<a href="rcon.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L20">src/Battlefield.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L20">src/Battlefield.ts:20</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2344,7 +2407,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="rcon.html">Rcon</a>.<a href="rcon.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L21">src/Battlefield.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L21">src/Battlefield.ts:21</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2380,7 +2443,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="rcon.html">Rcon</a>.<a href="rcon.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L22">src/Battlefield.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L22">src/Battlefield.ts:22</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2416,7 +2479,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="rcon.html">Rcon</a>.<a href="rcon.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L23">src/Battlefield.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L23">src/Battlefield.ts:23</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2452,7 +2515,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="rcon.html">Rcon</a>.<a href="rcon.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L24">src/Battlefield.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L24">src/Battlefield.ts:24</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2488,7 +2551,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="rcon.html">Rcon</a>.<a href="rcon.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L25">src/Battlefield.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L25">src/Battlefield.ts:25</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2524,7 +2587,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="rcon.html">Rcon</a>.<a href="rcon.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L26">src/Battlefield.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L26">src/Battlefield.ts:26</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2560,7 +2623,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="rcon.html">Rcon</a>.<a href="rcon.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L27">src/Battlefield.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L27">src/Battlefield.ts:27</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2596,7 +2659,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="rcon.html">Rcon</a>.<a href="rcon.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L28">src/Battlefield.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L28">src/Battlefield.ts:28</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2632,7 +2695,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="rcon.html">Rcon</a>.<a href="rcon.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L29">src/Battlefield.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L29">src/Battlefield.ts:29</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2668,7 +2731,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="rcon.html">Rcon</a>.<a href="rcon.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L30">src/Battlefield.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L30">src/Battlefield.ts:30</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2704,7 +2767,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="rcon.html">Rcon</a>.<a href="rcon.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L31">src/Battlefield.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L31">src/Battlefield.ts:31</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2740,7 +2803,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="rcon.html">Rcon</a>.<a href="rcon.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L32">src/Battlefield.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L32">src/Battlefield.ts:32</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2784,7 +2847,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L259">src/Battlefield.ts:259</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L259">src/Battlefield.ts:259</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2807,7 +2870,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L263">src/Battlefield.ts:263</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L263">src/Battlefield.ts:263</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2830,7 +2893,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L197">src/Battlefield.ts:197</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L197">src/Battlefield.ts:197</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2853,7 +2916,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L206">src/Battlefield.ts:206</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L206">src/Battlefield.ts:206</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2876,7 +2939,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L267">src/Battlefield.ts:267</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L267">src/Battlefield.ts:267</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2902,7 +2965,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L193">src/Battlefield.ts:193</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L193">src/Battlefield.ts:193</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2925,7 +2988,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L189">src/Battlefield.ts:189</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L189">src/Battlefield.ts:189</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2948,7 +3011,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L185">src/Battlefield.ts:185</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L185">src/Battlefield.ts:185</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2971,7 +3034,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L222">src/Battlefield.ts:222</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L222">src/Battlefield.ts:222</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2994,7 +3057,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L239">src/Battlefield.ts:239</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L239">src/Battlefield.ts:239</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3062,7 +3125,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L859">src/Battlefield.ts:859</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L869">src/Battlefield.ts:869</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">(</span>words<span class="tsd-signature-symbol">: </span><a href="word.html" class="tsd-signature-type">Word</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span></h4>
@@ -3097,7 +3160,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L879">src/Battlefield.ts:879</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L889">src/Battlefield.ts:889</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -3168,7 +3231,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L454">src/Battlefield.ts:454</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L464">src/Battlefield.ts:464</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3199,7 +3262,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L463">src/Battlefield.ts:463</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L473">src/Battlefield.ts:473</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3236,7 +3299,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L483">src/Battlefield.ts:483</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L493">src/Battlefield.ts:493</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3266,7 +3329,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L475">src/Battlefield.ts:475</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L485">src/Battlefield.ts:485</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3310,7 +3373,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L304">src/Battlefield.ts:304</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L304">src/Battlefield.ts:304</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3333,7 +3396,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L279">src/Battlefield.ts:279</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L279">src/Battlefield.ts:279</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3356,7 +3419,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L210">src/Battlefield.ts:210</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L210">src/Battlefield.ts:210</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3379,7 +3442,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L288">src/Battlefield.ts:288</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L288">src/Battlefield.ts:288</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3402,7 +3465,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L491">src/Battlefield.ts:491</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L501">src/Battlefield.ts:501</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3523,7 +3586,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L501">src/Battlefield.ts:501</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L511">src/Battlefield.ts:511</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3545,7 +3608,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L496">src/Battlefield.ts:496</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L506">src/Battlefield.ts:506</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3567,7 +3630,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L509">src/Battlefield.ts:509</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L519">src/Battlefield.ts:519</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3598,7 +3661,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L404">src/Battlefield.ts:404</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L414">src/Battlefield.ts:414</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3644,7 +3707,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L132">src/Battlefield.ts:132</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L132">src/Battlefield.ts:132</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3687,7 +3750,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L806">src/Battlefield.ts:806</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L816">src/Battlefield.ts:816</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3780,7 +3843,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L745">src/Battlefield.ts:745</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L755">src/Battlefield.ts:755</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3802,7 +3865,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L603">src/Battlefield.ts:603</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L613">src/Battlefield.ts:613</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3824,7 +3887,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L664">src/Battlefield.ts:664</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L674">src/Battlefield.ts:674</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3846,7 +3909,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L554">src/Battlefield.ts:554</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L564">src/Battlefield.ts:564</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3868,7 +3931,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L518">src/Battlefield.ts:518</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L528">src/Battlefield.ts:528</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3905,7 +3968,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L409">src/Battlefield.ts:409</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L419">src/Battlefield.ts:419</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3914,6 +3977,37 @@
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/battlefield.serverinfo.html" class="tsd-signature-type">ServerInfo</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="set" class="tsd-anchor"></a>
+					<h3>set</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><a href="battlefield.html#battlefieldvariables" class="tsd-signature-type">BattlefieldVariables</a>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L320">src/Battlefield.ts:320</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>sets a variable</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>key: <a href="battlefield.html#battlefieldvariables" class="tsd-signature-type">BattlefieldVariables</a></h5>
+								</li>
+								<li>
+									<h5>value: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -3951,7 +4045,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L728">src/Battlefield.ts:728</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L738">src/Battlefield.ts:738</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3982,7 +4076,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L842">src/Battlefield.ts:842</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L852">src/Battlefield.ts:852</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4019,7 +4113,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L544">src/Battlefield.ts:544</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L554">src/Battlefield.ts:554</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4065,7 +4159,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L90">src/Battlefield.ts:90</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L90">src/Battlefield.ts:90</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4129,7 +4223,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L120">src/Battlefield.ts:120</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L120">src/Battlefield.ts:120</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4159,7 +4253,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L75">src/Battlefield.ts:75</a></li>
+									<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L75">src/Battlefield.ts:75</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4186,7 +4280,7 @@
 					<div class="tsd-signature tsd-kind-icon">version<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L43">src/Battlefield.ts:43</a></li>
+							<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L43">src/Battlefield.ts:43</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -4195,7 +4289,7 @@
 						<div class="tsd-signature tsd-kind-icon">game<span class="tsd-signature-symbol">:</span> <a href="../enums/battlefield.version.html#unknown" class="tsd-signature-type">UNKNOWN</a><span class="tsd-signature-symbol"> = Battlefield.Version.UNKNOWN</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L44">src/Battlefield.ts:44</a></li>
+								<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L44">src/Battlefield.ts:44</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -4205,7 +4299,7 @@
 						<div class="tsd-signature tsd-kind-icon">version<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/4e506e2/src/Battlefield.ts#L45">src/Battlefield.ts:45</a></li>
+								<li>Defined in <a href="https://github.com/Multivit4min/vu-rcon/blob/dd4cf36/src/Battlefield.ts#L45">src/Battlefield.ts:45</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -4261,6 +4355,9 @@
 								<a href="battlefield.html#banlist" class="tsd-kind-icon">Ban<wbr>List</a>
 							</li>
 							<li class=" tsd-kind-type-alias tsd-parent-kind-class tsd-is-static">
+								<a href="battlefield.html#battlefieldvariables" class="tsd-kind-icon">Battlefield<wbr>Variables</a>
+							</li>
+							<li class=" tsd-kind-type-alias tsd-parent-kind-class tsd-is-static">
 								<a href="battlefield.html#idtype" class="tsd-kind-icon">Id<wbr>Type</a>
 							</li>
 							<li class=" tsd-kind-type-alias tsd-parent-kind-class tsd-is-static">
@@ -4277,6 +4374,12 @@
 							</li>
 							<li class=" tsd-kind-type-alias tsd-parent-kind-class tsd-is-static">
 								<a href="battlefield.html#timeout" class="tsd-kind-icon">Timeout</a>
+							</li>
+							<li class=" tsd-kind-type-alias tsd-parent-kind-class tsd-is-static">
+								<a href="battlefield.html#vanillavariables" class="tsd-kind-icon">Vanilla<wbr>Variables</a>
+							</li>
+							<li class=" tsd-kind-type-alias tsd-parent-kind-class tsd-is-static">
+								<a href="battlefield.html#veniceunleashedvariables" class="tsd-kind-icon">Venice<wbr>Unleashed<wbr>Variables</a>
 							</li>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 								<a href="battlefield.html#constructor" class="tsd-kind-icon">constructor</a>
@@ -4385,6 +4488,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
 								<a href="battlefield.html#fetchversion" class="tsd-kind-icon">fetch<wbr>Version</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="battlefield.html#get" class="tsd-kind-icon">get</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="battlefield.html#getavailablemods" class="tsd-kind-icon">get<wbr>Available<wbr>Mods</a>
@@ -4586,6 +4692,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="battlefield.html#serverinfo-1" class="tsd-kind-icon">server<wbr>Info</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="battlefield.html#set" class="tsd-kind-icon">set</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="battlefield.html#setmaxlisteners" class="tsd-kind-icon">set<wbr>Max<wbr>Listeners</a>
