@@ -1,5 +1,7 @@
 ## Battlefield 3 RCON Interface
 
+[![npm](https://img.shields.io/npm/v/vu-rcon.svg)](https://www.npmjs.com/package/vu-rcon)
+
 Example
 
 ```typescript
