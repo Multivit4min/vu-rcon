@@ -117,7 +117,7 @@ export class Request<T = string[]> {
       this.fulfill = fulfill
       this.reject = reject
       this.sendable(this)
-      this.nodeSetTimeout = setTimeout(() => this.handleTimeout, this.timeout)
+      this.nodeSetTimeout = setTimeout(() => this.handleTimeout(), this.timeout)
     })
   }
 }
