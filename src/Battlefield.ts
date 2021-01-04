@@ -1040,7 +1040,9 @@ export namespace Battlefield {
     "vu.SquadSize" |
     "vu.SunFlareEnabled" |
     "vu.SuppressionMultiplier" |
-    "vu.VehicleDisablingEnabled"
+    "vu.VehicleDisablingEnabled" |
+    "vu.TimeScale"
+
 
   export type VanillaVariables =
     "vars.ranked" |
