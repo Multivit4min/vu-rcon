@@ -33,15 +33,17 @@ export class Rcon extends EventEmitter {
   connect(forceReconnect: boolean = true) {
     return new Promise<void>((fulfill, reject) => {
       if (this.socket && !this.socket.destroyed) {
-        if (!forceReconnect) return reject(new Error("already connected to rcon"))
-        this.socket.destroy()
+        if (!forceReconnect)
+          return reject(new Error("already connected to rcon"))
+        if (this.socket.connecting) this.socket.emit("error", new Error("request reconnect"))
       }
       if (this.socket) this.socket.removeAllListeners()
-      this.socket = net.connect({
+      const socket = net.connect({
         host: this.options.host,
         port: this.options.port,
         timeout: this.options.timeout
       })
+      this.socket = socket
       this.buffer = Buffer.alloc(0)
       const timeout = setTimeout(
         () => handler(new Error("received timeout while connecting")),
@@ -49,18 +51,18 @@ export class Rcon extends EventEmitter {
       )
       const handler = async (err?: Error) => {
         clearTimeout(timeout)
-        this.socket.removeAllListeners()
+        socket.removeAllListeners()
         if (err instanceof Error) {
-          this.socket.destroy()
+          socket.destroy()
           return reject(err)
         }
-        this.socket.on("error", this.onError.bind(this))
-        this.socket.on("close", this.onClose.bind(this))
-        this.socket.on("data", this.onData.bind(this))
+        socket.on("error", this.onError.bind(this))
+        socket.on("close", this.onClose.bind(this))
+        socket.on("data", this.onData.bind(this))
         fulfill()
       }
-      this.socket.on("error", handler)
-      this.socket.on("connect", handler)
+      socket.on("error", handler)
+      socket.on("connect", handler)
     })
   }
 
@@ -70,7 +72,7 @@ export class Rcon extends EventEmitter {
    */
   private onClose() {
     this.pending.forEach(request => {
-      request.setBack()
+      request.clearPendingTimeout()
       if (request.removeWhenReconnect) return
       this.queued.unshift(request)
     })
@@ -81,6 +83,7 @@ export class Rcon extends EventEmitter {
   }
 
   private onData(buffer: Buffer) {
+    this.emit("rawReceive", buffer)
     const { buffers, remainder } = Packet.getPacketBuffers(Buffer.concat([this.buffer, buffer]))
     this.buffer = remainder
     buffers.forEach(buffer => this.handlePacket(buffer))
@@ -153,6 +156,7 @@ export class Rcon extends EventEmitter {
 
   write(buffer: Buffer) {
     return new Promise<void>((fulfill, reject) => {
+      this.emit("rawWrite", buffer)
       this.socket.write(buffer, err => {
         if (err) return reject(err)
         fulfill()

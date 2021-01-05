@@ -62,7 +62,9 @@ export class Battlefield extends EventEmitter {
     this.rcon.on("requestSend", this.emit.bind(this, "requestSend"))
     this.rcon.on("requestReceive", this.emit.bind(this, "requestReceive"))
     this.rcon.on("eventReceive", this.emit.bind(this, "eventReceive"))
-    if (this.options.autoconnect !== false) this.connect()
+    if (this.options.autoconnect !== false) {
+      this.connect().catch(e => this.emit("error", e))
+    }
     this.addEventHandler()
   }
 

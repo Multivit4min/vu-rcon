@@ -63,7 +63,7 @@ export class Request<T = string[]> {
   }
 
   /** resets the timeout after the request has already been sent */
-  setBack() {
+  clearPendingTimeout() {
     clearTimeout(this.nodeSetTimeout)
   }
 
@@ -82,7 +82,7 @@ export class Request<T = string[]> {
   }
 
   setResponse(packet: Packet) {
-    clearTimeout(this.nodeSetTimeout)
+    this.clearPendingTimeout()
     this.response = packet
     if (this.isOk()) {
       const res = this.getResponseContent()
