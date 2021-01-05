@@ -37,11 +37,9 @@ export class Rcon extends EventEmitter {
           return reject(new Error("already connected to rcon"))
         this.socket.destroy(new Error("request forced reconnect"))
       }
-      if (this.socket) this.socket.removeAllListeners()
       const socket = net.connect({
         host: this.options.host,
-        port: this.options.port,
-        timeout: this.options.timeout
+        port: this.options.port
       })
       this.socket = socket
       this.buffer = Buffer.alloc(0)
