@@ -53,6 +53,7 @@ export class Rcon extends EventEmitter {
           this.socket.destroy()
           return reject(err)
         }
+        this.buffer = Buffer.alloc(0)
         this.socket.on("error", this.onError.bind(this))
         this.socket.on("close", this.onClose.bind(this))
         this.socket.on("data", this.onData.bind(this))
@@ -68,7 +69,6 @@ export class Rcon extends EventEmitter {
    * after a successfull reconnect all queued packets get resent
    */
   private onClose() {
-    this.buffer = Buffer.alloc(0)
     this.pending.forEach(request => {
       request.setBack()
       if (request.removeWhenReconnect) return
