@@ -150,7 +150,7 @@ export class Battlefield extends EventEmitter {
     let attempts = 0
     let nextAttemptIn = timeout
     while ((attempts++ < maxAttempts || maxAttempts <= 0) && !this.abortReconnectAction) {
-      await Battlefield.sleep(timeout)
+      await Battlefield.sleep(nextAttemptIn)
       try {
         await this.connect()
         this.isReconnecting = false
