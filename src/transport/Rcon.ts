@@ -42,6 +42,7 @@ export class Rcon extends EventEmitter {
         port: this.options.port,
         timeout: this.options.timeout
       })
+      this.buffer = Buffer.alloc(0)
       const timeout = setTimeout(
         () => handler(new Error("received timeout while connecting")),
         this.options.timeout
@@ -53,7 +54,6 @@ export class Rcon extends EventEmitter {
           this.socket.destroy()
           return reject(err)
         }
-        this.buffer = Buffer.alloc(0)
         this.socket.on("error", this.onError.bind(this))
         this.socket.on("close", this.onClose.bind(this))
         this.socket.on("data", this.onData.bind(this))
